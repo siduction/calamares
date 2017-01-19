@@ -26,8 +26,9 @@ def run():
 
     :return:
     """
-    return_code = target_env_call(["update-initramfs", "-k", platform.version(), "-c"])
+    return_code = target_env_call(["update-initramfs", "-k", platform.release(), "-c"])
     return_code = target_env_call(["update-initramfs", "-k", "all", "-u"])
+    return_code = target_env_call(["update-grub"])
 
     if return_code != 0:
         return "Failed to run update-initramfs on the target", "The exit code was {}".format(return_code)
