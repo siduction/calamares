@@ -1,0 +1,15 @@
+calamares (2.5.0~11-g5b13b9f5-2) unstable; urgency=medium
+
+  * initramfs aufgebohrt
+
+ -- Alf Gaida <agaida@siduction.org>  Wed, 18 Jan 2017 20:00:47 -0500
+
+calamares (2.5.0~11-g5b13b9f5-1) unstable; urgency=low
+
+  [ Jonathan Carter ]
+  * Initial release (Closes: #842671)
+
+  [ Alf Gaida ]
+  * New snapshot: v2.5-alpha1-11-g5b13b9f5
+
+ -- Alf Gaida <agaida@siduction.org>  Tue, 17 Jan 2017 14:14:37 -0500
