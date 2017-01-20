@@ -1,5 +1,0 @@
----
-type:       "job"
-name:       "fllumount"
-interface:  "python"
-script:     "main.py"

@@ -19,16 +19,14 @@
 #   along with Calamares. If not, see <http://www.gnu.org/licenses/>.
 
 from libcalamares.utils import target_env_call
-import platform
+
 
 def run():
     """ Generate an initramfs image.
 
     :return:
     """
-    return_code = target_env_call(["update-initramfs", "-k", platform.release(), "-c"])
     return_code = target_env_call(["update-initramfs", "-k", "all", "-u"])
-    return_code = target_env_call(["update-grub"])
 
     if return_code != 0:
         return "Failed to run update-initramfs on the target", "The exit code was {}".format(return_code)
