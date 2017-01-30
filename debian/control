@@ -26,8 +26,8 @@ Build-Depends: cmake,
                libyaml-cpp-dev,
                os-prober,
                pkg-config,
-               pkg-kde-tools,
                policykit-1,
+               pyqt5-dev,
                python3-dev,
                qml-module-qtquick-layouts,
                qml-module-qtquick-privatewidgets,
@@ -36,7 +36,8 @@ Build-Depends: cmake,
                qtbase5-dev,
                qtdeclarative5-dev,
                qttools5-dev,
-               qttools5-dev-tools
+               qttools5-dev-tools,
+               quilt
 Standards-Version: 3.9.8
 Homepage: https://github.com/calamares/calamares
 Vcs-Git: https://gitlab.com/highvoltage/calamares-packaging.git
@@ -46,7 +47,8 @@ Package: calamares
 Architecture: any
 Depends: libkpmcore4,
          os-prober,
-         policykit-1, 
+         policykit-1,
+         sudo, 
          ${misc:Depends},
          ${shlibs:Depends}
 Recommends: squashfs-tools

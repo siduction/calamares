@@ -1,3 +1,22 @@
+calamares (3.0.2~4-g0acf96fb-1) unstable; urgency=medium
+
+  * use sudo in desktop file 
+  * New snapshot: v3.0.1-4-g0acf96fb
+
+ -- Alf Gaida <agaida@siduction.org>  Mon, 30 Jan 2017 02:11:32 +0100
+
+calamares (3.0.1-1-gf6592e1a-1) unstable; urgency=medium
+
+  * New snapshot: v3.0.1-1-gf6592e1a
+
+ -- Alf Gaida <agaida@siduction.org>  Sat, 28 Jan 2017 14:23:44 +0100
+
+calamares (3.0.1~13-g4555daaf-1) unstable; urgency=medium
+
+  * New snapshot: v3.0-13-g4555daaf
+
+ -- Alf Gaida <agaida@siduction.org>  Wed, 25 Jan 2017 22:59:01 +0100
+
 calamares (3.0.0~1-1) unstable; urgency=medium
 
   * New snapshot: v3.0
