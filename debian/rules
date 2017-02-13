@@ -7,15 +7,18 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
 %:
 	dh ${@} --buildsystem cmake \
+                --fail-missing \
                 --with quilt
 
 override_dh_auto_configure:
 	dh_auto_configure -- \
-		-DCMAKE_BUILD_TYPE=RelWithDebInfo \
-		-DWEBVIEW_FORCE_WEBKIT=ON
+		-DCMAKE_BUILD_TYPE=RelWithDebInfo
+
+#		-DWEBVIEW_FORCE_WEBKIT=ON
 
 override_dh_fixperms:
 	dh_fixperms
-	chmod 755 debian/calamares/*/*/*/*/*/encrypt_hook
-	chmod 755 debian/calamares/*/*/*/*/*/encrypt_hook_nokey
+	chmod 755 debian/*/*/*/*/*/*/encrypt_hook
+	chmod 755 debian/*/*/*/*/*/*/encrypt_hook_nokey
+
 

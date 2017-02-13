@@ -22,21 +22,17 @@ Build-Depends: cmake,
                libparted-dev,
                libpolkit-qt5-1-dev,
                libqt5svg5-dev,
-               libqt5webkit5-dev,
                libyaml-cpp-dev,
                os-prober,
                pkg-config,
                policykit-1,
                pyqt5-dev,
                python3-dev,
-               qml-module-qtquick-layouts,
-               qml-module-qtquick-privatewidgets,
-               qml-module-qtquick-window2,
-               qml-module-qtquick2,
                qtbase5-dev,
                qtdeclarative5-dev,
                qttools5-dev,
                qttools5-dev-tools,
+               qtwebengine5-dev,
                quilt
 Standards-Version: 3.9.8
 Homepage: https://github.com/calamares/calamares
@@ -45,13 +41,18 @@ Vcs-Browser: https://gitlab.com/highvoltage/calamares-packaging/tree/master
 
 Package: calamares
 Architecture: any
-Depends: libkpmcore4,
+Depends: calamares-branding,
+         libkpmcore4,
          os-prober,
          policykit-1,
+         qml-module-qtquick-layouts,
+         qml-module-qtquick-privatewidgets,
+         qml-module-qtquick-window2,
+         qml-module-qtquick2,
          sudo, 
+         squashfs-tools,
          ${misc:Depends},
          ${shlibs:Depends}
-Recommends: squashfs-tools
 Description: distribution-independent installer framework
  Calamares is a distribution-independent installer framework.
  .
@@ -63,3 +64,19 @@ Description: distribution-independent installer framework
  You will likely want to provide your own config files to match
  your distribution, reading the Calamares documentation will guide
  you through that process.
+
+Package: calamares-dev
+Section: devel
+Architecture: any
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         calamares (= ${binary:Version})
+Description: distribution-independent installer framework
+ Calamares is a distribution-independent installer framework.
+
+Package: libcalamares3.1
+Architecture: any
+Depends: ${misc:Depends},
+         ${shlibs:Depends}
+Description: distribution-independent installer framework
+ Calamares is a distribution-independent installer framework.
