@@ -64,19 +64,3 @@ Description: distribution-independent installer framework
  You will likely want to provide your own config files to match
  your distribution, reading the Calamares documentation will guide
  you through that process.
-
-Package: calamares-dev
-Section: devel
-Architecture: any
-Depends: ${misc:Depends},
-         ${shlibs:Depends},
-         calamares (= ${binary:Version})
-Description: distribution-independent installer framework
- Calamares is a distribution-independent installer framework.
-
-Package: libcalamares3.1
-Architecture: any
-Depends: ${misc:Depends},
-         ${shlibs:Depends}
-Description: distribution-independent installer framework
- Calamares is a distribution-independent installer framework.

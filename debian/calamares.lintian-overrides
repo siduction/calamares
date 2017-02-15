@@ -1,4 +1,0 @@
-calamares: desktop-command-not-in-package usr/share/applications/calamares.desktop sudo
-calamares: extra-license-file usr/share/calamares/modules/license.conf
-
-

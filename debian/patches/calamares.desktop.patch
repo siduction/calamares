@@ -5,7 +5,7 @@
  Keywords=calamares;system;installer
  TryExec=calamares
 -Exec=pkexec /usr/bin/calamares
-+Exec=sudo calamares
++Exec=sh -c "sudo calamares"
  Comment=Calamares — System Installer
  Icon=calamares
  Terminal=false

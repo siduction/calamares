@@ -1,0 +1,8 @@
+# not a bug - this is the license module configuration
+calamares: extra-license-file usr/share/calamares/modules/license.conf
+
+# yes - it's intentional
+calamares: package-name-doesnt-match-sonames
+calamares: non-dev-pkg-with-shlib-symlink 
+
+

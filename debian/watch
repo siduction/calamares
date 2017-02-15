@@ -1,3 +1,0 @@
-version=3
-https://github.com/calamares/calamares/tags (?:.*/)?v?(\d[\d.].*)\.tar\.gz
-
