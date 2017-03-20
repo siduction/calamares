@@ -377,8 +377,8 @@ Pemasang tidak dapat dilanjutkan. &lt;a href=&quot;</translation>
     <message>
         <location filename="../src/modules/welcome/checker/CheckerWidget.cpp" line="113"/>
         <source>This computer does not satisfy some of the recommended requirements for installing %1.&lt;br/&gt;Installation can continue, but some features might be disabled.</source>
-        <translation>Komputer ini tidak memenuhi beberapa syarat yang direkomendasikan untuk memasang %1.
-Pemasangan dapat dilanjutkan, namun beberapa fitur akan ditiadakan.</translation>
+        <translation>Komputer ini tidak memenuhi beberapa syarat yang dianjurkan untuk memasang %1.
+Pemasangan dapat dilanjutkan, namun beberapa fitur akan dinonfungsikan.</translation>
     </message>
     <message>
         <location filename="../src/modules/welcome/checker/CheckerWidget.cpp" line="142"/>
@@ -409,17 +409,17 @@ Pemasangan dapat dilanjutkan, namun beberapa fitur akan ditiadakan.</translation
         <translation>Setelah:</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="240"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="234"/>
         <source>&lt;strong&gt;Manual partitioning&lt;/strong&gt;&lt;br/&gt;You can create or resize partitions yourself.</source>
         <translation>&lt;strong&gt;Pemartisian manual&lt;/strong&gt;&lt;br/&gt;Anda bisa membuat atau mengubah ukuran partisi.</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="981"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="975"/>
         <source>Boot loader location:</source>
         <translation>Lokasi Boot loader:</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="923"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="917"/>
         <source>%1 will be shrunk to %2MB and a new %3MB partition will be created for %4.</source>
         <translation>%1 akan disusutkan menjadi %2MB dan partisi baru %3MB akan dibuat untuk %4.</translation>
     </message>
@@ -430,83 +430,83 @@ Pemasangan dapat dilanjutkan, namun beberapa fitur akan ditiadakan.</translation
     </message>
     <message>
         <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="126"/>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="905"/>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="952"/>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1032"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="899"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="946"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1026"/>
         <source>Current:</source>
         <translation>Saat ini:</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="782"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="776"/>
         <source>Reuse %1 as home partition for %2.</source>
         <translation>Gunakan kembali %1 sebagai partisi home untuk %2.</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="906"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="900"/>
         <source>&lt;strong&gt;Select a partition to shrink, then drag the bottom bar to resize&lt;/strong&gt;</source>
         <translation>&lt;strong&gt;Pilih sebuah partisi untuk diiris, kemudian seret bilah di bawah untuk mengubah ukuran&lt;/strong&gt;</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1023"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1017"/>
         <source>&lt;strong&gt;Select a partition to install on&lt;/strong&gt;</source>
         <translation>&lt;strong&gt;Pilih sebuah partisi untuk memasang&lt;/strong&gt;</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1079"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1073"/>
         <source>An EFI system partition cannot be found anywhere on this system. Please go back and use manual partitioning to set up %1.</source>
         <translation>Sebuah partisi sistem EFI tidak ditemukan pada sistem ini. Silakan kembali dan gunakan pemartisian manual untuk mengeset %1.</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1089"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1083"/>
         <source>The EFI system partition at %1 will be used for starting %2.</source>
         <translation>Partisi sistem EFI di %1 akan digunakan untuk memulai %2.</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1098"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1092"/>
         <source>EFI system partition:</source>
         <translation>Partisi sistem EFI:</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1183"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1177"/>
         <source>This storage device does not seem to have an operating system on it. What would you like to do?&lt;br/&gt;You will be able to review and confirm your choices before any change is made to the storage device.</source>
         <translation>Tampaknya media penyimpanan ini tidak mengandung sistem operasi. Apa yang hendak Anda lakukan?&lt;br/&gt;Anda dapat menelaah dan mengkonfirmasi pilihan Anda sebelum dilakukan perubahan pada media penyimpanan.</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1188"/>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1228"/>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1252"/>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1290"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1182"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1222"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1246"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1284"/>
         <source>&lt;strong&gt;Erase disk&lt;/strong&gt;&lt;br/&gt;This will &lt;font color=&quot;red&quot;&gt;delete&lt;/font&gt; all data currently present on the selected storage device.</source>
         <translation>&lt;strong&gt;Hapus disk&lt;/strong&gt;&lt;br/&gt;Aksi ini akan &lt;font color=&quot;red&quot;&gt;menghapus&lt;/font&gt; semua berkas yang ada pada media penyimpanan terpilih.</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1217"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1211"/>
         <source>This storage device has %1 on it. What would you like to do?&lt;br/&gt;You will be able to review and confirm your choices before any change is made to the storage device.</source>
         <translation>Media penyimpanan ini mengandung %1. Apa yang hendak Anda lakukan?&lt;br/&gt;Anda dapat menelaah dan mengkonfirmasi pilihan Anda sebelum dilakukan perubahan pada media penyimpanan.</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1192"/>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1223"/>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1247"/>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1285"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1186"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1217"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1241"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1279"/>
         <source>&lt;strong&gt;Install alongside&lt;/strong&gt;&lt;br/&gt;The installer will shrink a partition to make room for %1.</source>
         <translation>&lt;strong&gt;Pasang berdampingan dengan&lt;/strong&gt;&lt;br/&gt;Pemasang akan mengiris sebuah partisi untuk memberi ruang bagi %1.</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1197"/>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1233"/>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1256"/>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1294"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1191"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1227"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1250"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1288"/>
         <source>&lt;strong&gt;Replace a partition&lt;/strong&gt;&lt;br/&gt;Replaces a partition with %1.</source>
         <translation>&lt;strong&gt;Ganti sebuah partisi&lt;/strong&gt;&lt;br/&gt; Ganti partisi dengan %1.</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1242"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1236"/>
         <source>This storage device already has an operating system on it. What would you like to do?&lt;br/&gt;You will be able to review and confirm your choices before any change is made to the storage device.</source>
         <translation>Media penyimpanan ini telah mengandung sistem operasi. Apa yang hendak Anda lakukan?&lt;br/&gt;Anda dapat menelaah dan mengkonfirmasi pilihan Anda sebelum dilakukan perubahan pada media penyimpanan.</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1280"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1274"/>
         <source>This storage device has multiple operating systems on it. What would you like to do?&lt;br/&gt;You will be able to review and confirm your choices before any change is made to the storage device.</source>
         <translation>Media penyimpanan ini telah mengandung beberapa sistem operasi. Apa yang hendak Anda lakukan?&lt;br/&gt;Anda dapat menelaah dan mengkonfirmasi pilihan Anda sebelum dilakukan perubahan pada media penyimpanan.</translation>
     </message>
@@ -894,7 +894,7 @@ Pemasangan dapat dilanjutkan, namun beberapa fitur akan ditiadakan.</translation
     <message>
         <location filename="../src/modules/dummycpp/DummyCppJob.cpp" line="46"/>
         <source>Dummy C++ Job</source>
-        <translation type="unfinished"/>
+        <translation>Tugas C++ Kosong</translation>
     </message>
 </context>
 <context>
@@ -1346,7 +1346,7 @@ Pemasangan dapat dilanjutkan, namun beberapa fitur akan ditiadakan.</translation
     <message>
         <location filename="../src/modules/netinstall/NetInstallPage.cpp" line="81"/>
         <source>Network Installation. (Disabled: Unable to fetch package lists, check your network connection)</source>
-        <translation>Pemasangan Jaringan. (Dinonaktifkan: Tak mampu menarik daftar paket, periksa sambungan jaringanmu)</translation>
+        <translation>Pemasangan Jaringan. (Dinonfungsikan: Tak mampu menarik daftar paket, periksa sambungan jaringanmu)</translation>
     </message>
 </context>
 <context>
@@ -1647,7 +1647,7 @@ Pemasangan dapat dilanjutkan, namun beberapa fitur akan ditiadakan.</translation
     <message>
         <location filename="../src/modules/partition/gui/PartitionViewStep.cpp" line="406"/>
         <source>An EFI system partition is necessary to start %1.&lt;br/&gt;&lt;br/&gt;To configure an EFI system partition, go back and select or create a FAT32 filesystem with the &lt;strong&gt;esp&lt;/strong&gt; flag enabled and mount point &lt;strong&gt;%2&lt;/strong&gt;.&lt;br/&gt;&lt;br/&gt;You can continue without setting up an EFI system partition but your system may fail to start.</source>
-        <translation>Sebuah partisi sistem EFI perlu memulai %1.&lt;br/&gt;&lt;br/&gt;Untuk mengkonfigurasi sebuah partisi sistem EFI, pergi mundur dan pilih atau ciptakan sebuah filesystem FAT32 dengan bendera &lt;strong&gt;esp&lt;/strong&gt; teraktifkan dan titik kait &lt;strong&gt;%2&lt;/strong&gt;.&lt;br/&gt;&lt;br/&gt;Kamu bisa melanjutkan tanpa menyetel sebuah partisi sistem EFI tapi sistemmu mungkin gagal memulai.</translation>
+        <translation>Sebuah partisi sistem EFI perlu memulai %1.&lt;br/&gt;&lt;br/&gt;Untuk mengkonfigurasi sebuah partisi sistem EFI, pergi mundur dan pilih atau ciptakan sebuah filesystem FAT32 dengan bendera &lt;strong&gt;esp&lt;/strong&gt; yang difungsikan dan titik kait &lt;strong&gt;%2&lt;/strong&gt;.&lt;br/&gt;&lt;br/&gt;Kamu bisa melanjutkan tanpa menyetel sebuah partisi sistem EFI tapi sistemmu mungkin gagal memulai.</translation>
     </message>
     <message>
         <location filename="../src/modules/partition/gui/PartitionViewStep.cpp" line="420"/>
@@ -2032,7 +2032,7 @@ Pemasangan dapat dilanjutkan, namun beberapa fitur akan ditiadakan.</translation
     <message>
         <location filename="../src/modules/partition/jobs/SetPartitionFlagsJob.cpp" line="126"/>
         <source>Setting flags &lt;strong&gt;%1&lt;/strong&gt; on new partition.</source>
-        <translation type="unfinished"/>
+        <translation>Menyetel bendera &lt;strong&gt;%1&lt;/strong&gt; pada partisi baru.</translation>
     </message>
     <message>
         <location filename="../src/modules/partition/jobs/SetPartitionFlagsJob.cpp" line="140"/>
@@ -2093,7 +2093,7 @@ Pemasangan dapat dilanjutkan, namun beberapa fitur akan ditiadakan.</translation
     <message>
         <location filename="../src/modules/users/SetPasswordJob.cpp" line="70"/>
         <source>Cannot disable root account.</source>
-        <translation type="unfinished"/>
+        <translation>Tak bisa menonfungsikan akun root.</translation>
     </message>
     <message>
         <location filename="../src/modules/users/SetPasswordJob.cpp" line="71"/>

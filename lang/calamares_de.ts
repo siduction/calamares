@@ -115,7 +115,7 @@ Bitte gehen Sie zurück und nutzen Sie die manuelle Partitionierung, um %1 aufzu
     <message>
         <location filename="../src/libcalamaresui/utils/DebugWindow.ui" line="71"/>
         <source>Interface:</source>
-        <translation>Interface:</translation>
+        <translation>Schnittstelle:</translation>
     </message>
     <message>
         <location filename="../src/libcalamaresui/utils/DebugWindow.ui" line="93"/>
@@ -408,17 +408,17 @@ Dies wird das Installationsprogramm beenden und alle Änderungen gehen verloren.
         <translation>Nachher:</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="240"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="234"/>
         <source>&lt;strong&gt;Manual partitioning&lt;/strong&gt;&lt;br/&gt;You can create or resize partitions yourself.</source>
         <translation>&lt;strong&gt;Manuelle Partitionierung&lt;/strong&gt;&lt;br/&gt;Sie können Partitionen eigenhändig erstellen oder in der Grösse verändern.</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="981"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="975"/>
         <source>Boot loader location:</source>
         <translation>Installationsziel des Bootloaders:</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="923"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="917"/>
         <source>%1 will be shrunk to %2MB and a new %3MB partition will be created for %4.</source>
         <translation>%1 wird auf %2MB verkleinert und eine neue Partition mit einer Größe von %3MB wird für %4 erstellt werden.</translation>
     </message>
@@ -429,83 +429,83 @@ Dies wird das Installationsprogramm beenden und alle Änderungen gehen verloren.
     </message>
     <message>
         <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="126"/>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="905"/>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="952"/>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1032"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="899"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="946"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1026"/>
         <source>Current:</source>
         <translation>Aktuell:</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="782"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="776"/>
         <source>Reuse %1 as home partition for %2.</source>
         <translation>%1 als Home-Partition für %2 wiederverwenden.</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="906"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="900"/>
         <source>&lt;strong&gt;Select a partition to shrink, then drag the bottom bar to resize&lt;/strong&gt;</source>
         <translation>&lt;strong&gt;Wählen Sie die zu verkleinernde Partition, dann ziehen Sie den Regler, um die Größe zu ändern&lt;/strong&gt;</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1023"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1017"/>
         <source>&lt;strong&gt;Select a partition to install on&lt;/strong&gt;</source>
-        <translation>&lt;strong&gt;Wählen Sie eine Patrition für die Installation&lt;/strong&gt;</translation>
+        <translation>&lt;strong&gt;Wählen Sie eine Partition für die Installation&lt;/strong&gt;</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1079"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1073"/>
         <source>An EFI system partition cannot be found anywhere on this system. Please go back and use manual partitioning to set up %1.</source>
-        <translation>Es wurde keine EFI-Systempartition auf diesem System gefunden. Bitte gehen Sie zurück und nutzen Sie die manuelle Partitionierung, um %1 aufzusetzen.</translation>
+        <translation>Es wurde keine EFI-Systempartition auf diesem System gefunden. Bitte gehen Sie zurück und nutzen Sie die manuelle Partitionierung für das Einrichten von %1.</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1089"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1083"/>
         <source>The EFI system partition at %1 will be used for starting %2.</source>
-        <translation>Die EFI Systempartition %1 wird benutzt um %2 zu starten.</translation>
+        <translation>Die EFI-Systempartition %1 wird benutzt, um %2 zu starten.</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1098"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1092"/>
         <source>EFI system partition:</source>
-        <translation>EFI Systempartition</translation>
+        <translation>EFI-Systempartition:</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1183"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1177"/>
         <source>This storage device does not seem to have an operating system on it. What would you like to do?&lt;br/&gt;You will be able to review and confirm your choices before any change is made to the storage device.</source>
         <translation>Auf diesem Speichermedium scheint kein Betriebssystem installiert zu sein. Was möchten Sie tun?&lt;br/&gt;Sie können Ihre Auswahl überprüfen und bestätigen, bevor Änderungen auf diesem Speichermedium vorgenommen werden.</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1188"/>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1228"/>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1252"/>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1290"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1182"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1222"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1246"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1284"/>
         <source>&lt;strong&gt;Erase disk&lt;/strong&gt;&lt;br/&gt;This will &lt;font color=&quot;red&quot;&gt;delete&lt;/font&gt; all data currently present on the selected storage device.</source>
         <translation>&lt;strong&gt;Festplatte löschen&lt;/strong&gt;&lt;br/&gt;Dies wird alle vorhandenen Daten auf dem gewählten Speichermedium &lt;font color=&quot;red&quot;&gt;löschen&lt;/font&gt;. </translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1217"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1211"/>
         <source>This storage device has %1 on it. What would you like to do?&lt;br/&gt;You will be able to review and confirm your choices before any change is made to the storage device.</source>
         <translation>Auf diesem Speichermedium ist %1 installiert. Was möchten Sie tun?&lt;br/&gt;Sie können Ihre Auswahl überprüfen und bestätigen, bevor Änderungen an dem Speichermedium vorgenommen werden.</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1192"/>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1223"/>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1247"/>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1285"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1186"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1217"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1241"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1279"/>
         <source>&lt;strong&gt;Install alongside&lt;/strong&gt;&lt;br/&gt;The installer will shrink a partition to make room for %1.</source>
         <translation>&lt;strong&gt;Parallel dazu installieren&lt;/strong&gt;&lt;br/&gt;Das Installationsprogramm wird eine Partition verkleinern, um Platz für %1 zu schaffen.</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1197"/>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1233"/>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1256"/>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1294"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1191"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1227"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1250"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1288"/>
         <source>&lt;strong&gt;Replace a partition&lt;/strong&gt;&lt;br/&gt;Replaces a partition with %1.</source>
         <translation>&lt;strong&gt;Ersetze eine Partition&lt;/strong&gt;&lt;br/&gt;Ersetzt eine Partition durch %1.</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1242"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1236"/>
         <source>This storage device already has an operating system on it. What would you like to do?&lt;br/&gt;You will be able to review and confirm your choices before any change is made to the storage device.</source>
         <translation>Dieses Speichermedium enthält bereits ein Betriebssystem. Was möchten Sie tun?&lt;br/&gt;Sie können Ihre Auswahl überprüfen und bestätigen, bevor Änderungen an dem Speichermedium vorgenommen wird.</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1280"/>
+        <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1274"/>
         <source>This storage device has multiple operating systems on it. What would you like to do?&lt;br/&gt;You will be able to review and confirm your choices before any change is made to the storage device.</source>
         <translation>Auf diesem Speichermedium sind mehrere Betriebssysteme installiert. Was möchten Sie tun?&lt;br/&gt;Sie können Ihre Auswahl überprüfen und bestätigen, bevor Änderungen an dem Speichermedium vorgenommen werden.</translation>
     </message>
@@ -621,7 +621,7 @@ Dies wird das Installationsprogramm beenden und alle Änderungen gehen verloren.
     <message>
         <location filename="../src/modules/partition/gui/CreatePartitionDialog.cpp" line="268"/>
         <source>Mountpoint already in use. Please select another one.</source>
-        <translation>Der Mountpoint wird schon benuztzt. Bitte wählen Sie einen anderen.</translation>
+        <translation>Dieser Einhängepunkt wird schon benuztzt. Bitte wählen Sie einen anderen.</translation>
     </message>
 </context>
 <context>
@@ -778,7 +778,7 @@ Dies wird das Installationsprogramm beenden und alle Änderungen gehen verloren.
     <message>
         <location filename="../src/modules/users/CreateUserJob.cpp" line="174"/>
         <source>usermod terminated with error code %1.</source>
-        <translation>usermod beendet mit Fehlercode %1.</translation>
+        <translation>Usermod beendet mit Fehlercode %1.</translation>
     </message>
     <message>
         <location filename="../src/modules/users/CreateUserJob.cpp" line="184"/>
@@ -946,7 +946,7 @@ Dies wird das Installationsprogramm beenden und alle Änderungen gehen verloren.
     <message>
         <location filename="../src/modules/partition/gui/EditExistingPartitionDialog.cpp" line="306"/>
         <source>Mountpoint already in use. Please select another one.</source>
-        <translation>Der Mountpoint wird schon benuztzt. Bitte wählen Sie einen anderen.</translation>
+        <translation>Der Einhängepunkt wird schon benutzt. Bitte wählen Sie einen anderen.</translation>
     </message>
 </context>
 <context>
@@ -1335,12 +1335,12 @@ Dies wird das Installationsprogramm beenden und alle Änderungen gehen verloren.
     <message>
         <location filename="../src/modules/netinstall/NetInstallPage.cpp" line="71"/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="../src/modules/netinstall/NetInstallPage.cpp" line="72"/>
         <source>Description</source>
-        <translation type="unfinished"/>
+        <translation>Beschreibung</translation>
     </message>
     <message>
         <location filename="../src/modules/netinstall/NetInstallPage.cpp" line="81"/>
@@ -1641,7 +1641,7 @@ Dies wird das Installationsprogramm beenden und alle Änderungen gehen verloren.
     <message>
         <location filename="../src/modules/partition/gui/PartitionViewStep.cpp" line="405"/>
         <source>No EFI system partition configured</source>
-        <translation>Keine EFI Systempartition konfiguriert</translation>
+        <translation>Keine EFI-Systempartition konfiguriert</translation>
     </message>
     <message>
         <location filename="../src/modules/partition/gui/PartitionViewStep.cpp" line="406"/>
@@ -1651,7 +1651,7 @@ Dies wird das Installationsprogramm beenden und alle Änderungen gehen verloren.
     <message>
         <location filename="../src/modules/partition/gui/PartitionViewStep.cpp" line="420"/>
         <source>EFI system partition flag not set</source>
-        <translation>EFI Systempartitionsmarkierung nicht gesetzt</translation>
+        <translation>Die Markierung als EFI-Systempartition wurde nicht gesetzt</translation>
     </message>
     <message>
         <location filename="../src/modules/partition/gui/PartitionViewStep.cpp" line="421"/>
@@ -1661,7 +1661,7 @@ Dies wird das Installationsprogramm beenden und alle Änderungen gehen verloren.
     <message>
         <location filename="../src/modules/partition/gui/PartitionViewStep.cpp" line="456"/>
         <source>Boot partition not encrypted</source>
-        <translation>Bootpartition unverschlüsselt</translation>
+        <translation>Bootpartition nicht verschlüsselt</translation>
     </message>
     <message>
         <location filename="../src/modules/partition/gui/PartitionViewStep.cpp" line="457"/>
@@ -2006,7 +2006,7 @@ Dies wird das Installationsprogramm beenden und alle Änderungen gehen verloren.
     <message>
         <location filename="../src/modules/partition/jobs/SetPartitionFlagsJob.cpp" line="102"/>
         <source>Clearing flags on partition &lt;strong&gt;%1&lt;/strong&gt;.</source>
-        <translation>Entferne Flags auf Partition &lt;strong&gt;%1&lt;/strong&gt;.</translation>
+        <translation>Lösche Markierungen für Partition &lt;strong&gt;%1&lt;/strong&gt;.</translation>
     </message>
     <message>
         <location filename="../src/modules/partition/jobs/SetPartitionFlagsJob.cpp" line="106"/>
@@ -2021,7 +2021,7 @@ Dies wird das Installationsprogramm beenden und alle Änderungen gehen verloren.
     <message>
         <location filename="../src/modules/partition/jobs/SetPartitionFlagsJob.cpp" line="114"/>
         <source>Setting flags &lt;strong&gt;%2&lt;/strong&gt; on partition &lt;strong&gt;%1&lt;/strong&gt;.</source>
-        <translation>Setze Flags &lt;strong&gt;%2&lt;/strong&gt; auf Partition &lt;strong&gt;%1&lt;/strong&gt;.</translation>
+        <translation>Setze Markierungen &lt;strong&gt;%2&lt;/strong&gt; für Partition &lt;strong&gt;%1&lt;/strong&gt;.</translation>
     </message>
     <message>
         <location filename="../src/modules/partition/jobs/SetPartitionFlagsJob.cpp" line="120"/>
@@ -2036,22 +2036,22 @@ Dies wird das Installationsprogramm beenden und alle Änderungen gehen verloren.
     <message>
         <location filename="../src/modules/partition/jobs/SetPartitionFlagsJob.cpp" line="140"/>
         <source>The installer failed to set flags on partition %1.</source>
-        <translation>Setzen von Flags auf Partition %1 durch die Installationsroutine schlug fehl.</translation>
+        <translation>Das Installationsprogramm konnte keine Markierungen für Partition %1 setzen.</translation>
     </message>
     <message>
         <location filename="../src/modules/partition/jobs/SetPartitionFlagsJob.cpp" line="148"/>
         <source>Could not open device &apos;%1&apos;.</source>
-        <translation>Konnte Gerät nicht öffnen &apos;%1&apos;.</translation>
+        <translation>Gerät &apos;%1&apos; konnte nicht geöffnet werden.</translation>
     </message>
     <message>
         <location filename="../src/modules/partition/jobs/SetPartitionFlagsJob.cpp" line="157"/>
         <source>Could not open partition table on device &apos;%1&apos;.</source>
-        <translation>Konnte Partitionstabelle auf Gerät &apos;%1&apos; nicht öffnen.</translation>
+        <translation>Partitionstabelle auf Gerät &apos;%1&apos; konnte nicht geöffnet werden.</translation>
     </message>
     <message>
         <location filename="../src/modules/partition/jobs/SetPartitionFlagsJob.cpp" line="169"/>
         <source>Could not find partition &apos;%1&apos;.</source>
-        <translation>Konnte Partition &apos;%1&apos; nicht finden.</translation>
+        <translation>Partition &apos;%1&apos; konnte nicht gefunden werden.</translation>
     </message>
 </context>
 <context>
@@ -2097,7 +2097,7 @@ Dies wird das Installationsprogramm beenden und alle Änderungen gehen verloren.
     <message>
         <location filename="../src/modules/users/SetPasswordJob.cpp" line="71"/>
         <source>passwd terminated with error code %1.</source>
-        <translation>passwd beendet mit Fehlercode %1.</translation>
+        <translation>Passwd beendet mit Fehlercode %1.</translation>
     </message>
     <message>
         <location filename="../src/modules/users/SetPasswordJob.cpp" line="87"/>
@@ -2251,7 +2251,7 @@ Dies wird das Installationsprogramm beenden und alle Änderungen gehen verloren.
     <message>
         <location filename="../src/modules/welcome/WelcomePage.cpp" line="72"/>
         <source>&lt;h1&gt;%1&lt;/h1&gt;&lt;br/&gt;&lt;strong&gt;%2&lt;br/&gt;for %3&lt;/strong&gt;&lt;br/&gt;&lt;br/&gt;Copyright 2014-2017 Teo Mrnjavac &amp;lt;teo@kde.org&amp;gt;&lt;br/&gt;Thanks to: Anke Boersma, Aurélien Gâteau, Kevin Kofler, Lisa Vitolo, Philip Müller, Pier Luigi Fiorini, Rohan Garg and the &lt;a href=&quot;https://www.transifex.com/calamares/calamares/&quot;&gt;Calamares translators team&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;&lt;a href=&quot;http://calamares.io/&quot;&gt;Calamares&lt;/a&gt; development is sponsored by &lt;br/&gt;&lt;a href=&quot;http://www.blue-systems.com/&quot;&gt;Blue Systems&lt;/a&gt; - Liberating Software.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h1&gt;%1&lt;/h1&gt;&lt;br/&gt;&lt;strong&gt;%2&lt;br/&gt;for %3&lt;/strong&gt;&lt;br/&gt;&lt;br/&gt;Copyright 2014-2017 Teo Mrnjavac &amp;lt;teo@kde.org&amp;gt;&lt;br/&gt;Dank an: Anke Boersma, Aurélien Gâteau, Kevin Kofler, Lisa Vitolo, Philip Müller, Pier Luigi Fiorini, Rohan Garg and the &lt;a href=&quot;https://www.transifex.com/calamares/calamares/&quot;&gt;Calamares translators team&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;&lt;a href=&quot;http://calamares.io/&quot;&gt;Calamares&lt;/a&gt; wird unterstützt von &lt;br/&gt;&lt;a href=&quot;http://www.blue-systems.com/&quot;&gt;Blue Systems&lt;/a&gt; - Liberating Software.</translation>
     </message>
     <message>
         <location filename="../src/modules/welcome/WelcomePage.cpp" line="196"/>

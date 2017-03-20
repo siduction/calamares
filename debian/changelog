@@ -1,3 +1,35 @@
+calamares (3.1.1~56-g1e260784-1) unstable; urgency=medium
+
+  * New snapshot: v3.1-56-g1e260784
+  * Added patch 696
+
+ -- Alf Gaida <agaida@siduction.org>  Mon, 20 Mar 2017 14:52:05 +0100
+
+calamares (3.1.1~32-g6c1c82be-3) unstable; urgency=medium
+
+  * refine bootloader stuff
+
+ -- Alf Gaida <agaida@siduction.org>  Fri, 17 Mar 2017 17:18:54 +0100
+
+calamares (3.1.1~32-g6c1c82be-2) unstable; urgency=medium
+
+  * fix uefi installation path 
+
+ -- Alf Gaida <agaida@siduction.org>  Wed, 15 Mar 2017 22:18:48 +0100
+
+calamares (3.1.1~32-g6c1c82be-1) unstable; urgency=medium
+
+  * New snapshot: v3.1-32-g6c1c82be
+  * hopefully fixed the EFI bug, if Windows is preinstalled
+
+ -- Alf Gaida <agaida@siduction.org>  Tue, 14 Mar 2017 23:42:30 +0100
+
+calamares (3.1.0-1) unstable; urgency=medium
+
+  * New snapshot: v3.1
+
+ -- Alf Gaida <agaida@siduction.org>  Sat, 25 Feb 2017 21:55:11 +0100
+
 calamares (3.0.96~7-g5f3fa59c-1) unstable; urgency=medium
 
   * New snapshot: v3.1-beta1-7-g5f3fa59c
