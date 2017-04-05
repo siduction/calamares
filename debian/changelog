@@ -1,3 +1,47 @@
+calamares (3.1.1~110-g1746cd20-1) unstable; urgency=medium
+
+  * New snapshot: v3.1-110-g1746cd20
+
+ -- Alf Gaida <agaida@siduction.org>  Thu, 06 Apr 2017 01:02:24 +0200
+
+calamares (3.1.1~69-ge0138641-1) unstable; urgency=medium
+
+  * New snapshot: v3.1-69-ge0138641
+  * Added fix-bootloader.patch
+
+ -- Alf Gaida <agaida@siduction.org>  Fri, 24 Mar 2017 16:46:32 +0100
+
+calamares (3.1.1~56-g1e260784-7) unstable; urgency=medium
+
+  * added pep8-fstab patch 
+
+ -- Alf Gaida <agaida@siduction.org>  Tue, 21 Mar 2017 01:05:35 +0100
+
+calamares (3.1.1~56-g1e260784-6) unstable; urgency=medium
+
+  * added pep8-plymouthcfg patch 
+  * fixed patch
+
+ -- Alf Gaida <agaida@siduction.org>  Tue, 21 Mar 2017 00:37:47 +0100
+
+calamares (3.1.1~56-g1e260784-4) unstable; urgency=medium
+
+  * added pep8-machineid patch
+
+ -- Alf Gaida <agaida@siduction.org>  Mon, 20 Mar 2017 23:39:05 +0100
+
+calamares (3.1.1~56-g1e260784-3) unstable; urgency=medium
+
+  * added pep8-removeuser
+
+ -- Alf Gaida <agaida@siduction.org>  Mon, 20 Mar 2017 20:53:40 +0100
+
+calamares (3.1.1~56-g1e260784-2) unstable; urgency=medium
+
+  * fix patching
+
+ -- Alf Gaida <agaida@siduction.org>  Mon, 20 Mar 2017 15:15:24 +0100
+
 calamares (3.1.1~56-g1e260784-1) unstable; urgency=medium
 
   * New snapshot: v3.1-56-g1e260784
