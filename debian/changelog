@@ -1,8 +1,21 @@
+calamares (3.1.1~135-ga1ef6767-1) unstable; urgency=medium
+
+  * New snapshot: v3.1-135-ga1ef6767
+
+ -- Alf Gaida <agaida@siduction.org>  Mon, 17 Apr 2017 17:22:57 +0200
+
+calamares (3.1.1~127-g5c685e6b-1) unstable; urgency=medium
+
+  * New snapshot: v3.1-127-g5c685e6b
+  * Added pep8-packages.patch
+
+ -- Alf Gaida <agaida@siduction.org>  Thu, 13 Apr 2017 20:05:04 +0200
+
 calamares (3.1.1~121-g91c29def-1) unstable; urgency=medium
 
   * New snapshot: v3.1-121-g91c29def
-  * Removed pep8-testodule.patch
-  * Added pep9-fstab.patch 
+  * Removed pep8-testmodule.patch
+  * Added pep8-fstab.patch 
   
  -- Alf Gaida <agaida@siduction.org>  Mon, 10 Apr 2017 17:56:19 +0200
 
