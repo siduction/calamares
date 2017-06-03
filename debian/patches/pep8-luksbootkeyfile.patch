@@ -1,0 +1,47 @@
+From 6a68eb527d97ea89922043507af4ed2065fd8502 Mon Sep 17 00:00:00 2001
+From: Alf Gaida <agaida@siduction.org>
+Date: Wed, 29 Mar 2017 21:14:29 +0200
+Subject: [PATCH] Fixed pep8-whining in module luksbootkeyfile
+
+Added myself to copyright
+---
+ src/modules/luksbootkeyfile/main.py | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
+
+diff --git a/src/modules/luksbootkeyfile/main.py b/src/modules/luksbootkeyfile/main.py
+index a598f3cf3..3eb514722 100644
+--- a/src/modules/luksbootkeyfile/main.py
++++ b/src/modules/luksbootkeyfile/main.py
+@@ -4,6 +4,7 @@
+ # === This file is part of Calamares - <http://github.com/calamares> ===
+ #
+ #   Copyright 2016, Teo Mrnjavac <teo@kde.org>
++#   Copyright 2017, Alf Gaida <agaida@siduction.org>
+ #
+ #   Calamares is free software: you can redistribute it and/or modify
+ #   it under the terms of the GNU General Public License as published by
+@@ -25,10 +26,10 @@
+ 
+ def run():
+     """
+-    This module sets up a file crypto_keyfile.bin on the rootfs, assuming the rootfs
+-    is LUKS encrypted and a passphrase is provided. This file is then included in the
+-    initramfs and used for unlocking the rootfs from a previously unlocked GRUB2
+-    session.
++    This module sets up a file crypto_keyfile.bin on the rootfs, assuming the
++    rootfs is LUKS encrypted and a passphrase is provided. This file is then
++    included in the initramfs and used for unlocking the rootfs from a
++    previously unlocked GRUB2 session.
+     :return:
+     """
+ 
+@@ -53,7 +54,8 @@ def run():
+ 
+     if not luks_root_passphrase:
+         return ("Encrypted rootfs setup error",
+-                "Rootfs partition {!s} is LUKS but no passphrase found.".format(luks_root_device))
++                "Rootfs partition {!s}".format(luks_root_device),
++                "is LUKS but no passphrase found.")
+ 
+     # Generate random keyfile
+     check_target_env_call(["dd",

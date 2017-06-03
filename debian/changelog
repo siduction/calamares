@@ -1,3 +1,14 @@
+calamares (3.1.1~244-g3f4d42756-3) unstable; urgency=medium
+
+  * Added some patches:
+    - pep8-hwclock.patch
+    - pep8-initramfs.patch
+    - pep8-luksswapopen.patch
+    - pep8-initcpiocfg.patch
+    - pep8-luksbootkeyfile.patch 
+
+ -- Alf Gaida <agaida@siduction.org>  Sat, 03 Jun 2017 23:53:50 +0200
+
 calamares (3.1.1~244-g3f4d42756-2) unstable; urgency=medium
 
   * new patch for private libs
