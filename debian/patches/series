@@ -1,4 +1,5 @@
 calamares.desktop.patch
+private-lib.patch
 pep8-mount.patch
 pep8-fstab.patch
-pep8-packages.patch
+
