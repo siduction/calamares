@@ -1,10 +1,15 @@
-calamares (3.1.1~259-g1dfc12e27-2) unstable; urgency=medium
+calamares (3.1.1~263-g231a83cf6-1) unstable; urgency=medium
 
+  * New snapshot: v3.1-263-g231a83cf6
+  * Removed pep8-fstab.patch -- applied upstream
+  * Removed pep8-luksbootkeyfile.patch -- applied upstream
+  * new iteration of pep8-unpackfs 
   * new iteration of pep8-networkcfg 
   * new iteration of pep8-grubcfg 
   * new iteration of pep8-services
+  * new iteration of pep8-initramfscfg
 
- -- Alf Gaida <agaida@siduction.org>  Sun, 04 Jun 2017 14:43:07 +0200
+ -- Alf Gaida <agaida@siduction.org>  Sun, 04 Jun 2017 16:20:54 +0200
 
 calamares (3.1.1~259-g1dfc12e27-1) unstable; urgency=medium
 

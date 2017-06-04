@@ -1,8 +1,5 @@
 calamares.desktop.patch
 private-lib.patch
-pep8-fstab.patch
-
-pep8-luksbootkeyfile.patch
 
 pep8-networkcfg.patch
 pep8-unpackfs.patch

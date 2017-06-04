@@ -1,4 +1,4 @@
-From ecb229eb8e98aa1e68079419621e165444678dfd Mon Sep 17 00:00:00 2001
+From 9e9e1e655008fc83f18bfd6ee8ed024d24e0adfb Mon Sep 17 00:00:00 2001
 From: Alf Gaida <agaida@siduction.org>
 Date: Fri, 2 Jun 2017 23:34:14 +0200
 Subject: [PATCH] Fixed pep8 whining in module initramfscfg
@@ -9,7 +9,7 @@ added myself to copyright
  1 file changed, 22 insertions(+), 6 deletions(-)
 
 diff --git a/src/modules/initramfscfg/main.py b/src/modules/initramfscfg/main.py
-index f889b7b16..d41a9de9e 100644
+index f889b7b16..21dcaee9d 100644
 --- a/src/modules/initramfscfg/main.py
 +++ b/src/modules/initramfscfg/main.py
 @@ -7,6 +7,7 @@
@@ -37,8 +37,8 @@ index f889b7b16..d41a9de9e 100644
              encrypt_hook = True
  
 -        if partition["mountPoint"] == "/boot" and "luksMapperName" not in partition:
-+        if partition[
-+                "mountPoint"] == "/boot" and "luksMapperName" not in partition:
++        if (partition["mountPoint"] == "/boot"
++                and "luksMapperName" not in partition):
              unencrypted_separate_boot = True
  
      if encrypt_hook:
