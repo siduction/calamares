@@ -1,10 +1,12 @@
 calamares.desktop.patch
 private-lib.patch
-pep8-mount.patch
 pep8-fstab.patch
 
-pep8-hwclock.patch
-pep8-initramfs.patch
-pep8-luksswapopen.patch
-pep8-initcpiocfg.patch
 pep8-luksbootkeyfile.patch
+
+pep8-networkcfg.patch
+pep8-unpackfs.patch
+pep8-grubcfg.patch
+pep8-services.patch
+pep8-initramfscfg.patch
+# pep8-displaymanager.patch

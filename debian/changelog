@@ -1,3 +1,47 @@
+calamares (3.1.1~259-g1dfc12e27-2) unstable; urgency=medium
+
+  * new iteration of pep8-networkcfg 
+  * new iteration of pep8-grubcfg 
+  * new iteration of pep8-services
+
+ -- Alf Gaida <agaida@siduction.org>  Sun, 04 Jun 2017 14:43:07 +0200
+
+calamares (3.1.1~259-g1dfc12e27-1) unstable; urgency=medium
+
+  * New snapshot: v3.1-259-g1dfc12e27
+  * Some patches removed, applied upstream
+    - pep8-hwclock.patch
+    - pep8-initcpiocfg.patch
+    - pep8-initramfs.patch
+    - pep8-luksswapopen.patch
+    - pep8-mount.patch
+
+ -- Alf Gaida <agaida@siduction.org>  Sun, 04 Jun 2017 12:54:26 +0200
+
+calamares (3.1.1~244-g3f4d42756-6) unstable; urgency=medium
+
+  * commented out pep8-displaymanager.patch
+
+ -- Alf Gaida <agaida@siduction.org>  Sun, 04 Jun 2017 02:37:19 +0200
+
+calamares (3.1.1~244-g3f4d42756-5) unstable; urgency=medium
+
+  * fixes the polluted series file
+
+ -- Alf Gaida <agaida@siduction.org>  Sun, 04 Jun 2017 01:21:22 +0200
+
+calamares (3.1.1~244-g3f4d42756-4) unstable; urgency=medium
+
+  * Added some patches:
+    - pep8-networkcfg.patch
+    - pep8-unpackfs.patch
+    - pep8-grubcfg.patch
+    - pep8-services.patch
+    - pep8-initramfscfg.patch
+    - pep8-displaymanager.patch
+
+ -- Alf Gaida <agaida@siduction.org>  Sun, 04 Jun 2017 01:06:12 +0200
+
 calamares (3.1.1~244-g3f4d42756-3) unstable; urgency=medium
 
   * Added some patches:
