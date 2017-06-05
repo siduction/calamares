@@ -1,15 +1,15 @@
-From 2ba96096616523656ac7388209ebf012b0c6bf86 Mon Sep 17 00:00:00 2001
+From 30b5be0b128ddef050b6deb0e5546b762d86d523 Mon Sep 17 00:00:00 2001
 From: Alf Gaida <agaida@siduction.org>
 Date: Thu, 30 Mar 2017 00:03:54 +0200
 Subject: [PATCH] Fixed pep8 whining in module displaymanager
 
 Added myself to copyright
 ---
- src/modules/displaymanager/main.py | 380 +++++++++++++++++++++++++++----------
- 1 file changed, 279 insertions(+), 101 deletions(-)
+ src/modules/displaymanager/main.py | 383 +++++++++++++++++++++++++++----------
+ 1 file changed, 283 insertions(+), 100 deletions(-)
 
 diff --git a/src/modules/displaymanager/main.py b/src/modules/displaymanager/main.py
-index 0418f4a89..e539c0d8d 100644
+index 0418f4a89..3e3d067de 100644
 --- a/src/modules/displaymanager/main.py
 +++ b/src/modules/displaymanager/main.py
 @@ -6,6 +6,7 @@
@@ -31,7 +31,7 @@ index 0418f4a89..e539c0d8d 100644
  
  desktop_environments = [
      DesktopEnvironment('/usr/bin/startkde', 'plasma'),  # KDE Plasma 5
-@@ -51,35 +54,48 @@
+@@ -51,35 +54,46 @@
  
  
  def find_desktop_environment(root_mount_point):
@@ -48,14 +48,13 @@ index 0418f4a89..e539c0d8d 100644
 -            and os.path.exists("{!s}/usr/share/xsessions/{!s}.desktop".format(root_mount_point,
 -                                                                              desktop_environment.desktop_file)):
 +        if (os.path.exists("{!s}{!s}".format(
-+                root_mount_point,
-+                desktop_environment.executable
-+                )) and os.path.exists(
++                    root_mount_point, desktop_environment.executable
++                    )
++                ) and os.path.exists(
 +                    "{!s}/usr/share/xsessions/{!s}.desktop".format(
-+                        root_mount_point,
-+                        desktop_environment.desktop_file
-+                        )
-+                    )):
++                        root_mount_point, desktop_environment.desktop_file
++                    )
++                )):
              return desktop_environment
 -
      return None
@@ -70,21 +69,17 @@ index 0418f4a89..e539c0d8d 100644
      :param root_mount_point:
      :return:
      """
--    return os.path.exists(
+     return os.path.exists(
 -        "{!s}/usr/bin/{!s}".format(root_mount_point, dm_name)) or os.path.exists(
 -        "{!s}/usr/sbin/{!s}".format(root_mount_point, dm_name))
--
--
++        "{!s}/usr/bin/{!s}".format(root_mount_point, dm_name)
++        ) or os.path.exists(
++            "{!s}/usr/sbin/{!s}".format(root_mount_point, dm_name)
++            )
+ 
+ 
 -def set_autologin(username, displaymanagers, default_desktop_environment, root_mount_point):
 -    """ Enables automatic login for the installed desktop managers.
-+    return (
-+         os.path.exists("{!s}/usr/bin/{!s}".format(root_mount_point, dm_name))
-+         or os.path.exists("{!s}/usr/sbin/{!s}".format(
-+            root_mount_point, dm_name
-+            ))
-+        )
-+
-+
 +def set_autologin(username,
 +                  displaymanagers,
 +                  default_desktop_environment,
@@ -94,7 +89,7 @@ index 0418f4a89..e539c0d8d 100644
  
      :param username:
      :param displaymanagers:
-@@ -103,14 +119,22 @@ def set_autologin(username, displaymanagers, default_desktop_environment, root_m
+@@ -103,14 +117,23 @@ def set_autologin(username, displaymanagers, default_desktop_environment, root_m
                  for line in text:
                      if '[daemon]' in line:
                          if do_autologin:
@@ -108,7 +103,8 @@ index 0418f4a89..e539c0d8d 100644
 -                            line = "[daemon]\nAutomaticLoginEnable=False\n"
 +                            line = (
 +                                "[daemon]\n",
-+                                "AutomaticLoginEnable=False\n")
++                                "AutomaticLoginEnable=False\n"
++                                )
  
                      mdm_conf.write(line)
          else:
@@ -120,7 +116,7 @@ index 0418f4a89..e539c0d8d 100644
                  mdm_conf.write('[daemon]\n')
  
                  if do_autologin:
-@@ -131,14 +155,20 @@ def set_autologin(username, displaymanagers, default_desktop_environment, root_m
+@@ -131,14 +154,20 @@ def set_autologin(username, displaymanagers, default_desktop_environment, root_m
                  for line in text:
                      if '[daemon]' in line:
                          if do_autologin:
@@ -143,17 +139,20 @@ index 0418f4a89..e539c0d8d 100644
                  gdm_conf.write('[daemon]\n')
  
                  if do_autologin:
-@@ -147,19 +177,37 @@ def set_autologin(username, displaymanagers, default_desktop_environment, root_m
+@@ -147,19 +176,40 @@ def set_autologin(username, displaymanagers, default_desktop_environment, root_m
                  else:
                      gdm_conf.write('AutomaticLoginEnable=False\n')
  
 -        if do_autologin and os.path.exists("{!s}/var/lib/AccountsService/users".format(root_mount_point)):
 -            os.system("echo \"[User]\" > {!s}/var/lib/AccountsService/users/{!s}".format(root_mount_point, username))
-+        if do_autologin and os.path.exists(
-+                "{!s}/var/lib/AccountsService/users".format(root_mount_point)):
++        if (do_autologin
++                and os.path.exists("{!s}/var/lib/AccountsService/users".format(
++                    root_mount_point
++                    )
++                )):
 +            os.system(
-+                "echo \"[User]\" >",
-+                "{!s}/var/lib/AccountsService/users/{!s}".format(
++                "echo \"[User]\" > "
++                + "{!s}/var/lib/AccountsService/users/{!s}".format(
 +                    root_mount_point,
 +                    username
 +                    )
@@ -166,16 +165,16 @@ index 0418f4a89..e539c0d8d 100644
 -            os.system("echo \"Icon=\" >> {!s}/var/lib/AccountsService/users/{!s}".format(
 -                      root_mount_point, username))
 +                os.system(
-+                    "echo \"XSession={!s}\" >>",
-+                    "{!s}/var/lib/AccountsService/users/{!s}".format(
++                    "echo \"XSession={!s}\" >> "
++                    + "{!s}/var/lib/AccountsService/users/{!s}".format(
 +                        default_desktop_environment.desktop_file,
 +                        root_mount_point, username
 +                        )
 +                    )
 +
 +            os.system(
-+                "echo \"Icon=\" >>",
-+                "{!s}/var/lib/AccountsService/users/{!s}".format(
++                "echo \"Icon=\" >> "
++                + "{!s}/var/lib/AccountsService/users/{!s}".format(
 +                    root_mount_point, username
 +                    )
 +                )
@@ -189,7 +188,7 @@ index 0418f4a89..e539c0d8d 100644
          text = []
  
          if os.path.exists(kdm_conf_path):
-@@ -179,7 +227,10 @@ def set_autologin(username, displaymanagers, default_desktop_environment, root_m
+@@ -179,7 +229,10 @@ def set_autologin(username, displaymanagers, default_desktop_environment, root_m
  
                      kdm_conf.write(line)
          else:
@@ -201,7 +200,7 @@ index 0418f4a89..e539c0d8d 100644
  
      if "lxdm" in displaymanagers:
          # Systems with LXDM as Desktop Manager
-@@ -200,14 +251,19 @@ def set_autologin(username, displaymanagers, default_desktop_environment, root_m
+@@ -200,14 +253,19 @@ def set_autologin(username, displaymanagers, default_desktop_environment, root_m
  
                      lxdm_conf.write(line)
          else:
@@ -223,7 +222,7 @@ index 0418f4a89..e539c0d8d 100644
          text = []
  
          if os.path.exists(lightdm_conf_path):
-@@ -224,7 +280,12 @@ def set_autologin(username, displaymanagers, default_desktop_environment, root_m
+@@ -224,7 +282,12 @@ def set_autologin(username, displaymanagers, default_desktop_environment, root_m
  
                      lightdm_conf.write(line)
          else:
@@ -237,7 +236,7 @@ index 0418f4a89..e539c0d8d 100644
  
      if "slim" in displaymanagers:
          # Systems with Slim as Desktop Manager
-@@ -248,7 +309,10 @@ def set_autologin(username, displaymanagers, default_desktop_environment, root_m
+@@ -248,7 +311,10 @@ def set_autologin(username, displaymanagers, default_desktop_environment, root_m
  
                      slim_conf.write(line)
          else:
@@ -249,7 +248,7 @@ index 0418f4a89..e539c0d8d 100644
  
      if "sddm" in displaymanagers:
          # Systems with Sddm as Desktop Manager
-@@ -270,7 +334,11 @@ def set_autologin(username, displaymanagers, default_desktop_environment, root_m
+@@ -270,7 +336,11 @@ def set_autologin(username, displaymanagers, default_desktop_environment, root_m
              sddm_config.remove_option('Autologin', 'User')
  
          if default_desktop_environment is not None:
@@ -262,7 +261,7 @@ index 0418f4a89..e539c0d8d 100644
  
          with open(sddm_conf_path, 'w') as sddm_config_file:
              sddm_config.write(sddm_config_file, space_around_delimiters=False)
-@@ -279,12 +347,15 @@ def set_autologin(username, displaymanagers, default_desktop_environment, root_m
+@@ -279,12 +349,15 @@ def set_autologin(username, displaymanagers, default_desktop_environment, root_m
  
  
  def run():
@@ -284,7 +283,7 @@ index 0418f4a89..e539c0d8d 100644
      """
      if "displaymanagers" in libcalamares.job.configuration:
          displaymanagers = libcalamares.job.configuration["displaymanagers"]
-@@ -293,8 +364,11 @@ def run():
+@@ -293,18 +366,24 @@ def run():
          displaymanagers = libcalamares.globalstorage.value("displayManagers")
  
      if displaymanagers is None:
@@ -298,9 +297,14 @@ index 0418f4a89..e539c0d8d 100644
  
      username = libcalamares.globalstorage.value("autologinUser")
      root_mount_point = libcalamares.globalstorage.value("rootMountPoint")
-@@ -304,7 +378,9 @@ def run():
-         default_desktop_environment = DesktopEnvironment(entry["executable"],
-                                                          entry["desktopFile"])
+ 
+     if "default_desktop_environment" in libcalamares.job.configuration:
+         entry = libcalamares.job.configuration["defaultDesktopEnvironment"]
+-        default_desktop_environment = DesktopEnvironment(entry["executable"],
+-                                                         entry["desktopFile"])
++        default_desktop_environment = DesktopEnvironment(
++            entry["executable"], entry["desktopFile"]
++            )
      else:
 -        default_desktop_environment = find_desktop_environment(root_mount_point)
 +        default_desktop_environment = find_desktop_environment(
@@ -309,7 +313,7 @@ index 0418f4a89..e539c0d8d 100644
  
      if "basicSetup" in libcalamares.job.configuration:
          enable_basic_setup = libcalamares.job.configuration["basicSetup"]
-@@ -327,27 +403,53 @@ def run():
+@@ -327,27 +406,55 @@ def run():
      if "lightdm" in displaymanagers:
          if have_dm("lightdm", root_mount_point):
              if enable_basic_setup:
@@ -362,8 +366,8 @@ index 0418f4a89..e539c0d8d 100644
 -                os.system("sed -i -e \"s/^.*user-session=.*/user-session={!s}/\" {!s}/etc/lightdm/lightdm.conf".format(
 -                          default_desktop_environment.desktop_file, root_mount_point))
 +                os.system(
-+                    "sed -i -e \"s/^.*user-session=.*/user-session={!s}/\"",
-+                    "{!s}/etc/lightdm/lightdm.conf".format(
++                    "sed -i -e \"s/^.*user-session=.*/user-session={!s}/\" "
++                    + "{!s}/etc/lightdm/lightdm.conf".format(
 +                        default_desktop_environment.desktop_file,
 +                        root_mount_point
 +                        )
@@ -373,14 +377,16 @@ index 0418f4a89..e539c0d8d 100644
 -                os.system("sed -i -e \"s/^.greeter-session=.*/greeter-session=lightdm-deepin-greeter/\" {!s}/etc/lightdm/lightdm.conf".format(
 -                          root_mount_point))
 +                os.system(
-+                    "sed -i -e \"s/^.greeter-session=.*",
-+                    "/greeter-session=lightdm-deepin-greeter/\"",
-+                    "{!s}/etc/lightdm/lightdm.conf".format(root_mount_point)
++                    "sed -i -e \"s/^.greeter-session=.* "
++                    + "/greeter-session=lightdm-deepin-greeter/\" "
++                    + "{!s}/etc/lightdm/lightdm.conf".format(
++                        root_mount_point
++                        )
 +                    )
  
          else:
              libcalamares.utils.debug("lightdm selected but not installed")
-@@ -357,16 +459,32 @@ def run():
+@@ -357,16 +464,32 @@ def run():
      if "gdm" in displaymanagers:
          if have_dm("gdm", root_mount_point):
              if enable_basic_setup:
@@ -423,7 +429,7 @@ index 0418f4a89..e539c0d8d 100644
          else:
              libcalamares.utils.debug("gdm selected but not installed")
              displaymanagers.remove("gdm")
-@@ -375,21 +493,44 @@ def run():
+@@ -375,21 +498,44 @@ def run():
      if "mdm" in displaymanagers:
          if have_dm("mdm", root_mount_point):
              if enable_basic_setup:
@@ -472,8 +478,8 @@ index 0418f4a89..e539c0d8d 100644
 -                os.system("sed -i \"s|default.desktop|{!s}.desktop|g\" {!s}/etc/mdm/custom.conf".format(
 -                          default_desktop_environment.desktop_file, root_mount_point))
 +                os.system(
-+                    "sed -i \"s|default.desktop|{!s}.desktop|g\"",
-+                    "{!s}/etc/mdm/custom.conf".format(
++                    "sed -i \"s|default.desktop|{!s}.desktop|g\""
++                    + "{!s}/etc/mdm/custom.conf".format(
 +                        default_desktop_environment.desktop_file,
 +                        root_mount_point
 +                        )
@@ -481,7 +487,7 @@ index 0418f4a89..e539c0d8d 100644
          else:
              libcalamares.utils.debug("mdm selected but not installed")
              displaymanagers.remove("mdm")
-@@ -398,16 +539,31 @@ def run():
+@@ -398,16 +544,31 @@ def run():
      if "lxdm" in displaymanagers:
          if have_dm("lxdm", root_mount_point):
              if enable_basic_setup:
@@ -512,8 +518,8 @@ index 0418f4a89..e539c0d8d 100644
 -                os.system("sed -i -e \"s|^.*session=.*|session={!s}|\" {!s}/etc/lxdm/lxdm.conf".format(
 -                          default_desktop_environment.executable, root_mount_point))
 +                os.system(
-+                    "sed -i -e \"s|^.*session=.*|session={!s}|\"",
-+                    "{!s}/etc/lxdm/lxdm.conf".format(
++                    "sed -i -e \"s|^.*session=.*|session={!s}|\""
++                    + "{!s}/etc/lxdm/lxdm.conf".format(
 +                        default_desktop_environment.executable,
 +                        root_mount_point
 +                        )
@@ -521,7 +527,7 @@ index 0418f4a89..e539c0d8d 100644
          else:
              libcalamares.utils.debug("lxdm selected but not installed")
              displaymanagers.remove("lxdm")
-@@ -416,23 +572,45 @@ def run():
+@@ -416,23 +577,45 @@ def run():
      if "kdm" in displaymanagers:
          if have_dm("kdm", root_mount_point):
              if enable_basic_setup:
