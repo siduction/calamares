@@ -1,3 +1,15 @@
+calamares (3.1.1~285-gad1c96cdd-1) unstable; urgency=medium
+
+  * New snapshot: v3.1-285-gad1c96cdd
+  * Removed pep8-networkcfg.patch, applied upstream
+  * Removed pep8-grubcfg.patch, applied upstream
+  * Removed pep8-initramfscfg.patch, applied upstream
+  * New iteration of pep8-services.patch 
+  * New iteration of pep8-unpackfs.patch
+  * New iteration of pep8-displaymanager.patch
+
+ -- Alf Gaida <agaida@siduction.org>  Tue, 06 Jun 2017 21:17:14 +0200
+
 calamares (3.1.1~267-g7ba158046-1) unstable; urgency=medium
 
   * New snapshot: v3.1-267-g7ba158046

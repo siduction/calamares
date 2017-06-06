@@ -1,9 +1,6 @@
 calamares.desktop.patch
 private-lib.patch
 
-pep8-networkcfg.patch
 pep8-unpackfs.patch
-pep8-grubcfg.patch
 pep8-services.patch
-pep8-initramfscfg.patch
-# pep8-displaymanager.patch
+pep8-displaymanager.patch

@@ -1,15 +1,15 @@
-From 30b5be0b128ddef050b6deb0e5546b762d86d523 Mon Sep 17 00:00:00 2001
+From f9695cabac242fbbbaad790b7e1a9bfcf590ab7b Mon Sep 17 00:00:00 2001
 From: Alf Gaida <agaida@siduction.org>
 Date: Thu, 30 Mar 2017 00:03:54 +0200
 Subject: [PATCH] Fixed pep8 whining in module displaymanager
 
 Added myself to copyright
 ---
- src/modules/displaymanager/main.py | 383 +++++++++++++++++++++++++++----------
- 1 file changed, 283 insertions(+), 100 deletions(-)
+ src/modules/displaymanager/main.py | 389 +++++++++++++++++++++++++++----------
+ 1 file changed, 288 insertions(+), 101 deletions(-)
 
 diff --git a/src/modules/displaymanager/main.py b/src/modules/displaymanager/main.py
-index 0418f4a89..3e3d067de 100644
+index 0418f4a89..3f7ffe0f6 100644
 --- a/src/modules/displaymanager/main.py
 +++ b/src/modules/displaymanager/main.py
 @@ -6,6 +6,7 @@
@@ -69,12 +69,13 @@ index 0418f4a89..3e3d067de 100644
      :param root_mount_point:
      :return:
      """
-     return os.path.exists(
+-    return os.path.exists(
 -        "{!s}/usr/bin/{!s}".format(root_mount_point, dm_name)) or os.path.exists(
 -        "{!s}/usr/sbin/{!s}".format(root_mount_point, dm_name))
-+        "{!s}/usr/bin/{!s}".format(root_mount_point, dm_name)
-+        ) or os.path.exists(
-+            "{!s}/usr/sbin/{!s}".format(root_mount_point, dm_name)
++    bin_path = "{!s}/usr/bin/{!s}".format(root_mount_point, dm_name)
++    sbin_path = "{!s}/usr/sbin/{!s}".format(root_mount_point, dm_name)
++    return (os.path.exists(bin_path)
++            or os.path.exists(sbin_path)
 +            )
  
  
@@ -95,14 +96,14 @@ index 0418f4a89..3e3d067de 100644
                          if do_autologin:
 -                            line = "[daemon]\nAutomaticLogin={!s}\nAutomaticLoginEnable=True\n".format(username)
 +                            line = (
-+                                "[daemon]\n",
-+                                "AutomaticLogin={!s}\n",
++                                "[daemon]\n"
++                                "AutomaticLogin={!s}\n"
 +                                "AutomaticLoginEnable=True\n".format(username)
 +                                )
                          else:
 -                            line = "[daemon]\nAutomaticLoginEnable=False\n"
 +                            line = (
-+                                "[daemon]\n",
++                                "[daemon]\n"
 +                                "AutomaticLoginEnable=False\n"
 +                                )
  
@@ -122,8 +123,8 @@ index 0418f4a89..3e3d067de 100644
                          if do_autologin:
 -                            line = "[daemon]\nAutomaticLogin={!s}\nAutomaticLoginEnable=True\n".format(username)
 +                            line = (
-+                                "[daemon]\n",
-+                                "AutomaticLogin={!s}\n",
++                                "[daemon]\n"
++                                "AutomaticLogin={!s}\n"
 +                                "AutomaticLoginEnable=True\n".format(username)
 +                                )
                          else:
@@ -152,7 +153,7 @@ index 0418f4a89..3e3d067de 100644
 +                )):
 +            os.system(
 +                "echo \"[User]\" > "
-+                + "{!s}/var/lib/AccountsService/users/{!s}".format(
++                "{!s}/var/lib/AccountsService/users/{!s}".format(
 +                    root_mount_point,
 +                    username
 +                    )
@@ -166,7 +167,7 @@ index 0418f4a89..3e3d067de 100644
 -                      root_mount_point, username))
 +                os.system(
 +                    "echo \"XSession={!s}\" >> "
-+                    + "{!s}/var/lib/AccountsService/users/{!s}".format(
++                    "{!s}/var/lib/AccountsService/users/{!s}".format(
 +                        default_desktop_environment.desktop_file,
 +                        root_mount_point, username
 +                        )
@@ -174,7 +175,7 @@ index 0418f4a89..3e3d067de 100644
 +
 +            os.system(
 +                "echo \"Icon=\" >> "
-+                + "{!s}/var/lib/AccountsService/users/{!s}".format(
++                "{!s}/var/lib/AccountsService/users/{!s}".format(
 +                    root_mount_point, username
 +                    )
 +                )
@@ -291,7 +292,7 @@ index 0418f4a89..3e3d067de 100644
 -               "The displaymanagers list is empty or undefined in both globalstorage and displaymanager.conf."
 +        return (
 +            "No display managers selected for the displaymanager module.",
-+            "The displaymanagers list is empty or undefined in both",
++            "The displaymanagers list is empty or undefined in both"
 +            "globalstorage and displaymanager.conf."
 +            )
  
@@ -313,7 +314,7 @@ index 0418f4a89..3e3d067de 100644
  
      if "basicSetup" in libcalamares.job.configuration:
          enable_basic_setup = libcalamares.job.configuration["basicSetup"]
-@@ -327,27 +406,55 @@ def run():
+@@ -327,27 +406,56 @@ def run():
      if "lightdm" in displaymanagers:
          if have_dm("lightdm", root_mount_point):
              if enable_basic_setup:
@@ -331,35 +332,36 @@ index 0418f4a89..3e3d067de 100644
 -                libcalamares.utils.target_env_call(['chown', '-R', 'lightdm:lightdm', '/run/lightdm'])
 -                libcalamares.utils.target_env_call(['chmod', '+r' '/etc/lightdm/lightdm.conf'])
 +                libcalamares.utils.target_env_call(
-+                    'mkdir', '-p', '/run/lightdm'
++                    ['mkdir', '-p', '/run/lightdm']
 +                    )
 +
 +                if libcalamares.utils.target_env_call(
-+                        'getent', 'group', 'lightdm'
++                        ['getent', 'group', 'lightdm']
 +                        ) != 0:
 +                    libcalamares.utils.target_env_call(
-+                        'groupadd', '-g', '620', 'lightdm'
++                        ['groupadd', '-g', '620', 'lightdm']
 +                        )
 +
 +                if libcalamares.utils.target_env_call(
-+                        'getent', 'passwd', 'lightdm'
++                        ['getent', 'passwd', 'lightdm']
 +                        ) != 0:
 +                    libcalamares.utils.target_env_call(
-+                        'useradd', '-c',
-+                        '"LightDM Display Manager"',
-+                        '-u', '620',
-+                        '-g', 'lightdm',
-+                        '-d', '/var/run/lightdm',
-+                        '-s', '/usr/bin/nologin',
-+                        'lightdm'
++                        ['useradd', '-c',
++                            '"LightDM Display Manager"',
++                            '-u', '620',
++                            '-g', 'lightdm',
++                            '-d', '/var/run/lightdm',
++                            '-s', '/usr/bin/nologin',
++                            'lightdm'
++                         ]
 +                        )
 +
 +                libcalamares.utils.target_env_call('passwd', '-l', 'lightdm')
 +                libcalamares.utils.target_env_call(
-+                    'chown', '-R', 'lightdm:lightdm', '/run/lightdm'
++                    ['chown', '-R', 'lightdm:lightdm', '/run/lightdm']
 +                    )
 +                libcalamares.utils.target_env_call(
-+                    'chmod', '+r' '/etc/lightdm/lightdm.conf'
++                    ['chmod', '+r' '/etc/lightdm/lightdm.conf']
 +                    )
  
              if default_desktop_environment is not None:
@@ -367,7 +369,7 @@ index 0418f4a89..3e3d067de 100644
 -                          default_desktop_environment.desktop_file, root_mount_point))
 +                os.system(
 +                    "sed -i -e \"s/^.*user-session=.*/user-session={!s}/\" "
-+                    + "{!s}/etc/lightdm/lightdm.conf".format(
++                    "{!s}/etc/lightdm/lightdm.conf".format(
 +                        default_desktop_environment.desktop_file,
 +                        root_mount_point
 +                        )
@@ -378,15 +380,15 @@ index 0418f4a89..3e3d067de 100644
 -                          root_mount_point))
 +                os.system(
 +                    "sed -i -e \"s/^.greeter-session=.* "
-+                    + "/greeter-session=lightdm-deepin-greeter/\" "
-+                    + "{!s}/etc/lightdm/lightdm.conf".format(
++                    "/greeter-session=lightdm-deepin-greeter/\" "
++                    "{!s}/etc/lightdm/lightdm.conf".format(
 +                        root_mount_point
 +                        )
 +                    )
  
          else:
              libcalamares.utils.debug("lightdm selected but not installed")
-@@ -357,16 +464,32 @@ def run():
+@@ -357,16 +465,33 @@ def run():
      if "gdm" in displaymanagers:
          if have_dm("gdm", root_mount_point):
              if enable_basic_setup:
@@ -401,35 +403,36 @@ index 0418f4a89..3e3d067de 100644
 -                libcalamares.utils.target_env_call(['passwd', '-l', 'gdm'])
 -                libcalamares.utils.target_env_call(['chown', '-R', 'gdm:gdm', '/var/lib/gdm'])
 +                if libcalamares.utils.target_env_call(
-+                        'getent', 'group', 'gdm'
++                        ['getent', 'group', 'gdm']
 +                        ) != 0:
 +                    libcalamares.utils.target_env_call(
-+                        'groupadd', '-g', '120', 'gdm'
++                        ['groupadd', '-g', '120', 'gdm']
 +                        )
 +
 +                if libcalamares.utils.target_env_call(
-+                        'getent', 'passwd', 'gdm'
++                        ['getent', 'passwd', 'gdm']
 +                        ) != 0:
 +                    libcalamares.utils.target_env_call(
-+                        'useradd',
-+                        '-c', '"Gnome Display Manager"',
-+                        '-u', '120',
-+                        '-g', 'gdm',
-+                        '-d', '/var/lib/gdm',
-+                        '-s', '/usr/bin/nologin',
-+                        'gdm'
++                        ['useradd',
++                            '-c', '"Gnome Display Manager"',
++                            '-u', '120',
++                            '-g', 'gdm',
++                            '-d', '/var/lib/gdm',
++                            '-s', '/usr/bin/nologin',
++                            'gdm'
++                         ]
 +                        )
 +
 +                libcalamares.utils.target_env_call(
-+                    'passwd', '-l', 'gdm'
++                    ['passwd', '-l', 'gdm']
 +                    )
 +                libcalamares.utils.target_env_call(
-+                    'chown', '-R', 'gdm:gdm', '/var/lib/gdm'
++                    ['chown', '-R', 'gdm:gdm', '/var/lib/gdm']
 +                    )
          else:
              libcalamares.utils.debug("gdm selected but not installed")
              displaymanagers.remove("gdm")
-@@ -375,21 +498,44 @@ def run():
+@@ -375,21 +500,45 @@ def run():
      if "mdm" in displaymanagers:
          if have_dm("mdm", root_mount_point):
              if enable_basic_setup:
@@ -445,41 +448,42 @@ index 0418f4a89..3e3d067de 100644
 -                libcalamares.utils.target_env_call(['chown', 'root:mdm', '/var/lib/mdm'])
 -                libcalamares.utils.target_env_call(['chmod', '1770', '/var/lib/mdm'])
 +                if libcalamares.utils.target_env_call(
-+                         'getent', 'group', 'mdm'
++                         ['getent', 'group', 'mdm']
 +                         ) != 0:
 +                    libcalamares.utils.target_env_call(
-+                        'groupadd', '-g', '128', 'mdm'
++                        ['groupadd', '-g', '128', 'mdm']
 +                        )
 +
 +                if libcalamares.utils.target_env_call(
-+                        'getent', 'passwd', 'mdm'
++                        ['getent', 'passwd', 'mdm']
 +                        ) != 0:
 +                    libcalamares.utils.target_env_call(
-+                        'useradd',
-+                        '-c', '"Linux Mint Display Manager"',
-+                        '-u', '128',
-+                        '-g', 'mdm',
-+                        '-d', '/var/lib/mdm',
-+                        '-s', '/usr/bin/nologin',
-+                        'mdm'
++                        ['useradd',
++                            '-c', '"Linux Mint Display Manager"',
++                            '-u', '128',
++                            '-g', 'mdm',
++                            '-d', '/var/lib/mdm',
++                            '-s', '/usr/bin/nologin',
++                            'mdm'
++                         ]
 +                        )
 +
 +                libcalamares.utils.target_env_call(
-+                    'passwd', '-l', 'mdm'
++                    ['passwd', '-l', 'mdm']
 +                    )
 +                libcalamares.utils.target_env_call(
-+                    'chown', 'root:mdm', '/var/lib/mdm'
++                    ['chown', 'root:mdm', '/var/lib/mdm']
 +                    )
 +                libcalamares.utils.target_env_call(
-+                    'chmod', '1770', '/var/lib/mdm'
++                    ['chmod', '1770', '/var/lib/mdm']
 +                    )
  
              if default_desktop_environment is not None:
 -                os.system("sed -i \"s|default.desktop|{!s}.desktop|g\" {!s}/etc/mdm/custom.conf".format(
 -                          default_desktop_environment.desktop_file, root_mount_point))
 +                os.system(
-+                    "sed -i \"s|default.desktop|{!s}.desktop|g\""
-+                    + "{!s}/etc/mdm/custom.conf".format(
++                    "sed -i \"s|default.desktop|{!s}.desktop|g\" "
++                    "{!s}/etc/mdm/custom.conf".format(
 +                        default_desktop_environment.desktop_file,
 +                        root_mount_point
 +                        )
@@ -487,7 +491,7 @@ index 0418f4a89..3e3d067de 100644
          else:
              libcalamares.utils.debug("mdm selected but not installed")
              displaymanagers.remove("mdm")
-@@ -398,16 +544,31 @@ def run():
+@@ -398,16 +547,31 @@ def run():
      if "lxdm" in displaymanagers:
          if have_dm("lxdm", root_mount_point):
              if enable_basic_setup:
@@ -498,28 +502,28 @@ index 0418f4a89..3e3d067de 100644
 -                libcalamares.utils.target_env_call(['chgrp', 'lxdm', '/etc/lxdm/lxdm.conf'])
 -                libcalamares.utils.target_env_call(['chmod', '+r', '/etc/lxdm/lxdm.conf'])
 +                if libcalamares.utils.target_env_call(
-+                        'getent', 'group', 'lxdm'
++                        ['getent', 'group', 'lxdm']
 +                        ) != 0:
 +                    libcalamares.utils.target_env_call(
-+                        'groupadd', '--system', 'lxdm'
++                        ['groupadd', '--system', 'lxdm']
 +                        )
 +
 +                libcalamares.utils.target_env_call(
-+                    'chgrp', '-R', 'lxdm', '/var/lib/lxdm'
++                    ['chgrp', '-R', 'lxdm', '/var/lib/lxdm']
 +                    )
 +                libcalamares.utils.target_env_call(
-+                    'chgrp', 'lxdm', '/etc/lxdm/lxdm.conf'
++                    ['chgrp', 'lxdm', '/etc/lxdm/lxdm.conf']
 +                    )
 +                libcalamares.utils.target_env_call(
-+                    'chmod', '+r', '/etc/lxdm/lxdm.conf'
++                    ['chmod', '+r', '/etc/lxdm/lxdm.conf']
 +                    )
  
              if default_desktop_environment is not None:
 -                os.system("sed -i -e \"s|^.*session=.*|session={!s}|\" {!s}/etc/lxdm/lxdm.conf".format(
 -                          default_desktop_environment.executable, root_mount_point))
 +                os.system(
-+                    "sed -i -e \"s|^.*session=.*|session={!s}|\""
-+                    + "{!s}/etc/lxdm/lxdm.conf".format(
++                    "sed -i -e \"s|^.*session=.*|session={!s}|\" "
++                    "{!s}/etc/lxdm/lxdm.conf".format(
 +                        default_desktop_environment.executable,
 +                        root_mount_point
 +                        )
@@ -527,7 +531,7 @@ index 0418f4a89..3e3d067de 100644
          else:
              libcalamares.utils.debug("lxdm selected but not installed")
              displaymanagers.remove("lxdm")
-@@ -416,23 +577,45 @@ def run():
+@@ -416,23 +580,46 @@ def run():
      if "kdm" in displaymanagers:
          if have_dm("kdm", root_mount_point):
              if enable_basic_setup:
@@ -540,28 +544,29 @@ index 0418f4a89..3e3d067de 100644
 -
 -                libcalamares.utils.target_env_call(['chown', '-R', '135:135', 'var/lib/kdm'])
 +                if libcalamares.utils.target_env_call(
-+                        'getent', 'group', 'kdm'
++                        ['getent', 'group', 'kdm']
 +                        ) != 0:
 +                    libcalamares.utils.target_env_call(
-+                        'groupadd', '-g', '135', 'kdm'
++                        ['groupadd', '-g', '135', 'kdm']
 +                        )
 +
 +                if libcalamares.utils.target_env_call(
-+                        'getent', 'passwd', 'kdm'
++                        ['getent', 'passwd', 'kdm']
 +                        ) != 0:
 +                    libcalamares.utils.target_env_call(
-+                        'useradd',
-+                        '-u', '135',
-+                        '-g', 'kdm',
-+                        '-d', '/var/lib/kdm',
-+                        '-s', '/bin/false',
-+                        '-r',
-+                        '-M',
-+                        'kdm'
++                        ['useradd',
++                            '-u', '135',
++                            '-g', 'kdm',
++                            '-d', '/var/lib/kdm',
++                            '-s', '/bin/false',
++                            '-r',
++                            '-M',
++                            'kdm'
++                         ]
 +                        )
 +
 +                libcalamares.utils.target_env_call(
-+                    'chown', '-R', '135:135', 'var/lib/kdm'
++                    ['chown', '-R', '135:135', 'var/lib/kdm']
 +                    )
          else:
              libcalamares.utils.debug("kdm selected but not installed")

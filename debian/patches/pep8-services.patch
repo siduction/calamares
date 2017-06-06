@@ -1,4 +1,4 @@
-From 615296c438f88ae933444074a4930641299328f3 Mon Sep 17 00:00:00 2001
+From 48b3699a0fe86759eb267263a8e7773c97c02abb Mon Sep 17 00:00:00 2001
 From: Alf Gaida <agaida@siduction.org>
 Date: Wed, 29 Mar 2017 21:47:15 +0200
 Subject: [PATCH] Fixed pep8 whining in module services
@@ -9,7 +9,7 @@ Added myself to copyright
  1 file changed, 46 insertions(+), 16 deletions(-)
 
 diff --git a/src/modules/services/main.py b/src/modules/services/main.py
-index e195faff4..5a6c02e96 100644
+index e195faff4..03d82554a 100644
 --- a/src/modules/services/main.py
 +++ b/src/modules/services/main.py
 @@ -5,6 +5,7 @@
@@ -45,7 +45,7 @@ index e195faff4..5a6c02e96 100644
 -                return "Cannot enable systemd service {}".format(svc['name']), \
 -                       "systemctl enable call in chroot returned error code {}".format(ec)
 +                return ("Cannot enable systemd service {}".format(svc['name']),
-+                        "systemctl enable call in chroot returned error code",
++                        "systemctl enable call in chroot returned error code "
 +                        "{}".format(ec)
 +                        )
              else:
@@ -56,7 +56,7 @@ index e195faff4..5a6c02e96 100644
 +                    )
 +                libcalamares.utils.debug(
 +                    "systemctl enable call in chroot returned error code "
-+                    + "{}".format(ec)
++                    "{}".format(ec)
 +                    )
  
      # enable targets
@@ -71,7 +71,7 @@ index e195faff4..5a6c02e96 100644
 -                return "Cannot enable systemd target {}".format(tgt['name']), \
 -                       "systemctl enable call in chroot returned error code {}".format(ec)
 +                return ("Cannot enable systemd target {}".format(tgt['name']),
-+                        "systemctl enable call in chroot returned error code",
++                        "systemctl enable call in chroot returned error code"
 +                        "{}".format(ec)
 +                        )
              else:
@@ -82,7 +82,7 @@ index e195faff4..5a6c02e96 100644
 +                    )
 +                libcalamares.utils.debug(
 +                    "systemctl enable call in chroot returned error code "
-+                    + "{}".format(ec)
++                    "{}".format(ec)
 +                    )
  
      for dbl in disable:
@@ -95,9 +95,9 @@ index e195faff4..5a6c02e96 100644
              if dbl['mandatory']:
 -                return "Cannot disable systemd service {}".format(dbl['name']), \
 -                       "systemctl disable call in chroot returned error code {}".format(ec)
-+                return ("Cannot disable systemd service",
++                return ("Cannot disable systemd service"
 +                        "{}".format(dbl['name']),
-+                        "systemctl disable call in chroot returned error code",
++                        "systemctl disable call in chroot returned error code"
 +                        "{}".format(ec))
              else:
 -                libcalamares.utils.debug("Cannot disable systemd service {}".format(dbl['name']))
@@ -107,7 +107,7 @@ index e195faff4..5a6c02e96 100644
 +                    )
 +                libcalamares.utils.debug(
 +                    "systemctl disable call in chroot returned error code "
-+                    + "{}".format(ec)
++                    "{}".format(ec)
 +                    )
  
      return None

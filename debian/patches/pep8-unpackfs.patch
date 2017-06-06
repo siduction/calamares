@@ -1,15 +1,15 @@
-From 7687e30c838df476ec9eecfebc28c420d2f56c16 Mon Sep 17 00:00:00 2001
+From 5f7b1dda26d882e149a5d8cfe18f11e6d26794b1 Mon Sep 17 00:00:00 2001
 From: Alf Gaida <agaida@siduction.org>
 Date: Wed, 29 Mar 2017 20:59:35 +0200
 Subject: [PATCH] Fixed pep8 whining in module unpackfs
 
 Added myself to copyright
 ---
- src/modules/unpackfs/main.py | 96 ++++++++++++++++++++++++++++----------------
- 1 file changed, 62 insertions(+), 34 deletions(-)
+ src/modules/unpackfs/main.py | 88 +++++++++++++++++++++++++++++---------------
+ 1 file changed, 58 insertions(+), 30 deletions(-)
 
 diff --git a/src/modules/unpackfs/main.py b/src/modules/unpackfs/main.py
-index 34d9829d9..774f3db4a 100644
+index 34d9829d9..c0970ddfe 100644
 --- a/src/modules/unpackfs/main.py
 +++ b/src/modules/unpackfs/main.py
 @@ -6,6 +6,7 @@
@@ -204,25 +204,6 @@ index 34d9829d9..774f3db4a 100644
      configuration:
          unpack:
              - source: "/path/to/filesystem.img"
-@@ -258,14 +285,14 @@ def run():
-     root_mount_point = globalstorage.value("rootMountPoint")
- 
-     if not root_mount_point:
--        return ("No mount point for root partition in globalstorage",
-+        return ("No mount point for root partition in globalstorage, "
-                 "globalstorage does not contain a \"rootMountPoint\" key, "
-                 "doing nothing")
- 
-     if not os.path.exists(root_mount_point):
--        return ("Bad mount point for root partition in globalstorage",
--                "globalstorage[\"rootMountPoint\"] is \"{}\", which does not "
--                "exist, doing nothing".format(root_mount_point))
-+        return ("Bad mount point for root partition in globalstorage, "
-+                "globalstorage[\"rootMountPoint\"] is \"{}\", which does "
-+                "not exist, doing nothing".format(root_mount_point))
- 
-     unpack = list()
- 
 @@ -280,7 +307,8 @@ def run():
          if os.path.isfile(PATH_PROCFS) and os.access(PATH_PROCFS, os.R_OK):
              with open(PATH_PROCFS, 'r') as procfile:
