@@ -1,6 +1,2 @@
 calamares.desktop.patch
 private-lib.patch
-
-pep8-unpackfs.patch
-pep8-services.patch
-pep8-displaymanager.patch
