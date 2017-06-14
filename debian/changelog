@@ -1,3 +1,9 @@
+calamares (3.1.1~338-g46a2503c8-2) unstable; urgency=medium
+
+  * needs at least kpmcore (>= 3.0.3)
+
+ -- Alf Gaida <agaida@siduction.org>  Wed, 14 Jun 2017 19:56:48 +0200
+
 calamares (3.1.1~338-g46a2503c8-1) unstable; urgency=medium
 
   * New snapshot: v3.1-338-g46a2503c8

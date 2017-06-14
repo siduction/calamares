@@ -18,7 +18,7 @@ Build-Depends: cmake,
                libkf5parts-dev,
                libkf5service-dev,
                libkf5solid-dev,
-               libkpmcore4-dev,
+               libkpmcore-dev (>= 3.0.3~),
                libparted-dev,
                libpolkit-qt5-1-dev,
                libqt5svg5-dev,
@@ -42,7 +42,7 @@ Vcs-Browser: https://gitlab.com/highvoltage/calamares-packaging/tree/master
 Package: calamares
 Architecture: any
 Depends: calamares-branding,
-         libkpmcore4,
+         libkpmcore4 (>= 3.0.3~),
          os-prober,
          policykit-1,
          qml-module-qtquick-layouts,
