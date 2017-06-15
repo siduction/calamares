@@ -1,3 +1,9 @@
+calamares (3.1.1~341-g8209e305d-1) unstable; urgency=medium
+
+  * New snapshot: v3.1-341-g8209e305d
+
+ -- Alf Gaida <agaida@siduction.org>  Thu, 15 Jun 2017 14:15:32 +0200
+
 calamares (3.1.1~338-g46a2503c8-2) unstable; urgency=medium
 
   * needs at least kpmcore (>= 3.0.3)
