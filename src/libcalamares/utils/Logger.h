@@ -2,6 +2,7 @@
  *
  *   Copyright 2010-2011, Christian Muehlhaeuser <muesli@tomahawk-player.org>
  *   Copyright 2014,      Teo Mrnjavac <teo@kde.org>
+ *   Copyright 2017, Adriaan de Groot <groot@kde.org>
  *
  *   Calamares is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -48,6 +49,7 @@ namespace Logger
         CDebug( unsigned int debugLevel = LOGDEBUG ) : CLog( debugLevel )
         {
         }
+        virtual ~CDebug();
     };
 
     DLLEXPORT void CalamaresLogHandler( QtMsgType type, const char* msg );

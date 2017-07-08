@@ -20,7 +20,7 @@ pushd "$snapdir"
     git clone ${branch} ${repository} ${target_dir}
     pushd snapshot
         [  ! -z ${commit} ] &&  git reset --hard "${commit}"
-        description=$(git describe --tags)
+        description=$(git describe --always)
         rm -rf .git*
     popd
     tar cfvJ snapshot.orig.tar.xz snapshot

@@ -1,6 +1,7 @@
 /* === This file is part of Calamares - <http://github.com/calamares> ===
  *
  *   Copyright 2014-2015, Teo Mrnjavac <teo@kde.org>
+ *   Copyright 2017, Adriaan de Groot <groot@kde.org>
  *
  *   Calamares is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -42,13 +43,20 @@ ViewManager::instance()
     return s_instance;
 }
 
-ViewManager::ViewManager( QObject* parent )
-    : QObject( parent )
-    , m_widget( new QWidget() )
-    , m_currentStep( 0 )
+ViewManager*
+ViewManager::instance( QObject* parent )
 {
     Q_ASSERT( !s_instance );
-    s_instance = this;
+    s_instance = new ViewManager( parent );
+    return s_instance;
+}
+
+ViewManager::ViewManager( QObject* parent )
+    : QObject( parent )
+    , m_currentStep( 0 )
+    , m_widget( new QWidget() )
+{
+    Q_ASSERT( !s_instance );
 
     QBoxLayout* mainLayout = new QVBoxLayout;
     m_widget->setLayout( mainLayout );
@@ -65,6 +73,7 @@ ViewManager::ViewManager( QObject* parent )
         m_back->setText( tr( "&Back" ) );
         m_next->setText( tr( "&Next" ) );
         m_quit->setText( tr( "&Cancel" ) );
+        m_quit->setToolTip( tr( "Cancel installation without changing the system." ) );
     )
 
     QBoxLayout* bottomLayout = new QHBoxLayout;
@@ -86,12 +95,16 @@ ViewManager::ViewManager( QObject* parent )
         if ( !( m_currentStep == m_steps.count() -1 &&
                 m_steps.last()->isAtEnd() ) )
         {
-            int response = QMessageBox::question( m_widget,
+            QMessageBox mb( QMessageBox::Question,
                             tr( "Cancel installation?" ),
                             tr( "Do you really want to cancel the current install process?\n"
                                 "The installer will quit and all changes will be lost." ),
                             QMessageBox::Yes | QMessageBox::No,
-                            QMessageBox::No );
+                            m_widget );
+            mb.setDefaultButton( QMessageBox::No );
+            mb.button( QMessageBox::Yes )->setText( tr( "&Yes" ) );
+            mb.button( QMessageBox::No )->setText( tr( "&No" ) );
+            int response = mb.exec();
             if ( response == QMessageBox::Yes )
                 qApp->quit();
         }
@@ -165,22 +178,23 @@ ViewManager::onInstallationFailed( const QString& message, const QString& detail
     cLog() << "- message:" << message;
     cLog() << "- details:" << details;
 
-    QMessageBox msgBox;
-    msgBox.setIcon( QMessageBox::Critical );
-    msgBox.setWindowTitle( tr("Error") );
-    msgBox.setText( "<strong>" + tr( "Installation Failed" ) + "</strong>" );
-    msgBox.setStandardButtons( QMessageBox::Close );
+    QMessageBox* msgBox = new QMessageBox();
+    msgBox->setIcon( QMessageBox::Critical );
+    msgBox->setWindowTitle( tr("Error") );
+    msgBox->setText( "<strong>" + tr( "Installation Failed" ) + "</strong>" );
+    msgBox->setStandardButtons( QMessageBox::Close );
+    msgBox->button( QMessageBox::Close )->setText( tr( "&Close" ) );
 
     QString text = "<p>" + message + "</p>";
     if ( !details.isEmpty() )
     {
         text += "<p>" + details + "</p>";
     }
-    msgBox.setInformativeText( text );
+    msgBox->setInformativeText( text );
 
-    msgBox.exec();
-    cLog() << "Calamares will now quit.";
-    qApp->quit();
+    connect(msgBox, &QMessageBox::buttonClicked, qApp, &QApplication::quit);
+    cLog() << "Calamares will quit when the dialog closes.";
+    msgBox->show();
 }
 
 
@@ -225,10 +239,8 @@ ViewManager::next()
                                        tr( "The %1 installer is about to make changes to your "
                                            "disk in order to install %2.<br/><strong>You will not be able "
                                            "to undo these changes.</strong>" )
-                                       .arg( Calamares::Branding::instance()->string(
-                                                Calamares::Branding::ShortProductName ) )
-                                       .arg( Calamares::Branding::instance()->string(
-                                                Calamares::Branding::ShortVersionedName ) ),
+                                       .arg( *Calamares::Branding::ShortProductName )
+                                       .arg( *Calamares::Branding::ShortVersionedName ),
                                        tr( "&Install now" ),
                                        tr( "Go &back" ),
                                        QString(),
@@ -261,7 +273,8 @@ ViewManager::next()
     if ( m_currentStep == m_steps.count() -1 &&
          m_steps.last()->isAtEnd() )
     {
-        m_quit->setText( tr( "&Quit" ) );
+        m_quit->setText( tr( "&Done" ) );
+        m_quit->setToolTip( tr( "The installation is complete. Close the installer." ) );
     }
 }
 
@@ -292,7 +305,10 @@ ViewManager::back()
 
     if ( !( m_currentStep == m_steps.count() -1 &&
             m_steps.last()->isAtEnd() ) )
+    {
         m_quit->setText( tr( "&Cancel" ) );
+        m_quit->setToolTip( tr( "Cancel installation without changing the system." ) );
+    }
 }
 
 }

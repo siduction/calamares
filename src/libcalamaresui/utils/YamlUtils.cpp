@@ -1,6 +1,7 @@
 /* === This file is part of Calamares - <http://github.com/calamares> ===
  *
  *   Copyright 2014, Teo Mrnjavac <teo@kde.org>
+ *   Copyright 2017, Adriaan de Groot <groot@kde.org>
  *
  *   Calamares is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -24,7 +25,7 @@
 void
 operator>>( const YAML::Node& node, QStringList& v )
 {
-    for ( int i = 0; i < node.size(); ++i )
+    for ( size_t i = 0; i < node.size(); ++i )
     {
         v.append( QString::fromStdString( node[ i ].as< std::string >() ) );
     }
@@ -51,9 +52,11 @@ yamlToVariant( const YAML::Node& node )
         return yamlMapToVariant( node );
 
     case YAML::NodeType::Null:
+    case YAML::NodeType::Undefined:
         return QVariant();
     }
 
+    // NOTREACHED
     return QVariant();
 }
 

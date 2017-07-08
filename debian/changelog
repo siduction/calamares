@@ -1,8 +1,8 @@
-calamares (3.1.1~341-g8209e305d-1) unstable; urgency=medium
+calamares (3.1.2~82-ga56cf82d6-1) unstable; urgency=medium
 
-  * New snapshot: v3.1-341-g8209e305d
+  * New snapshot: v3.1.1-82-ga56cf82d6
 
- -- Alf Gaida <agaida@siduction.org>  Thu, 15 Jun 2017 14:15:32 +0200
+ -- Alf Gaida <agaida@siduction.org>  Sat, 08 Jul 2017 17:37:03 +0200
 
 calamares (3.1.1~338-g46a2503c8-2) unstable; urgency=medium
 
