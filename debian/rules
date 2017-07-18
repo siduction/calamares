@@ -16,6 +16,7 @@ override_dh_auto_configure:
                 -DCMAKE_INSTALL_RPATH="/usr/lib/calamares" \
                 -DLIBRARY_INSTALL_BINDIR="/usr/lib/calamares" \
                 -DLIB_SUFFIX="/calamares" \
+                -DWEBVIEW_FORCE_WEBKIT=ON
 
 override_dh_fixperms:
 	dh_fixperms

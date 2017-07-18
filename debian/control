@@ -22,6 +22,7 @@ Build-Depends: cmake,
                libparted-dev,
                libpolkit-qt5-1-dev,
                libqt5svg5-dev,
+               libqt5webkit5-dev,
                libyaml-cpp-dev,
                os-prober,
                pkg-config,
@@ -32,7 +33,7 @@ Build-Depends: cmake,
                qtdeclarative5-dev,
                qttools5-dev,
                qttools5-dev-tools,
-               qtwebengine5-dev,
+#               qtwebengine5-dev,
                quilt
 Standards-Version: 3.9.8
 Homepage: https://github.com/calamares/calamares

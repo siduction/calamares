@@ -281,12 +281,23 @@ def set_autologin(username,
 
                     lightdm_conf.write(line)
         else:
-            return (
-                "Cannot write LightDM configuration file",
-                "LightDM config file {!s} does not exist".format(
-                    lightdm_conf_path
+            try:
+                # Create a new lightdm.conf file; this is documented to be
+                # read last, after aeverything in lightdm.conf.d/
+                with open(lightdm_conf_path, 'w') as lightdm_conf:
+                    if do_autologin:
+                        lightdm_conf.write(
+                            "autologin-user={!s}\n".format(username))
+                    else:
+                        lightdm_conf.write(
+                            "#autologin-user=\n")
+            except FileNotFoundError:
+                return (
+                    "Cannot write LightDM configuration file",
+                    "LightDM config file {!s} does not exist".format(
+                        lightdm_conf_path
+                        )
                     )
-                )
 
     if "slim" == displaymanager:
         # Systems with Slim as Desktop Manager
@@ -343,6 +354,18 @@ def set_autologin(username,
 
         with open(sddm_conf_path, 'w') as sddm_config_file:
             sddm_config.write(sddm_config_file, space_around_delimiters=False)
+
+    if "sysconfig" == displaymanager:
+        dmauto = "DISPLAYMANAGER_AUTOLOGIN"
+
+        os.system(
+            "sed -i -e 's|^{!s}=.*|{!s}=\"{!s}\"|' "
+            "{!s}/etc/sysconfig/displaymanager".format(
+                            dmauto, dmauto,
+                            username if do_autologin else "",
+                            root_mount_point
+                            )
+            )
 
     return None
 
@@ -651,6 +674,11 @@ def run():
                         )
         if dm_message is not None:
             dm_setup_message.append("{!s}: {!s}".format(*dm_message))
+
+    if ("sysconfigSetup" in libcalamares.job.configuration
+            and libcalamares.job.configuration["sysconfigSetup"]):
+        set_autologin(username, "sysconfig", None, root_mount_point)
+
     if dm_setup_message:
         return ("Display manager configuration was incomplete",
                 "\n".join(dm_setup_message))
