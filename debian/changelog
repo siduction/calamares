@@ -2,8 +2,9 @@ calamares (3.1.5~38-gca60a7fc1-1) unstable; urgency=medium
 
   * New snapshot: v3.1.4-38-gca60a7fc1
   * Removed get-snapshot, added repository.spec
+  * Removed is-mounted.patch, handled upstream
 
- -- Alf Gaida <agaida@siduction.org>  Fri, 15 Sep 2017 23:50:47 +0200
+ -- Alf Gaida <agaida@siduction.org>  Fri, 15 Sep 2017 23:53:45 +0200
 
 calamares (3.1.5~16-g2d94e8802-1) unstable; urgency=medium
 
