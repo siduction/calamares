@@ -2,17 +2,17 @@
 <context>
     <name>BootInfoWidget</name>
     <message>
-        <location filename="../src/modules/partition/gui/BootInfoWidget.cpp" line="61"/>
+        <location filename="../src/modules/partition/gui/BootInfoWidget.cpp" line="69"/>
         <source>The &lt;strong&gt;boot environment&lt;/strong&gt; of this system.&lt;br&gt;&lt;br&gt;Older x86 systems only support &lt;strong&gt;BIOS&lt;/strong&gt;.&lt;br&gt;Modern systems usually use &lt;strong&gt;EFI&lt;/strong&gt;, but may also show up as BIOS if started in compatibility mode.</source>
         <translation>Šios sistemos &lt;strong&gt;paleidimo aplinka&lt;/strong&gt;.&lt;br&gt;&lt;br&gt;Senesnės x86 sistemos palaiko tik &lt;strong&gt;BIOS&lt;/strong&gt;.&lt;br&gt;Šiuolaikinės sistemos, dažniausiai, naudoja &lt;strong&gt;EFI&lt;/strong&gt;, tačiau, jeigu jos yra paleistos suderinamumo veiksenoje, taip pat gali būti rodomos kaip BIOS.</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/BootInfoWidget.cpp" line="75"/>
+        <location filename="../src/modules/partition/gui/BootInfoWidget.cpp" line="79"/>
         <source>This system was started with an &lt;strong&gt;EFI&lt;/strong&gt; boot environment.&lt;br&gt;&lt;br&gt;To configure startup from an EFI environment, this installer must deploy a boot loader application, like &lt;strong&gt;GRUB&lt;/strong&gt; or &lt;strong&gt;systemd-boot&lt;/strong&gt; on an &lt;strong&gt;EFI System Partition&lt;/strong&gt;. This is automatic, unless you choose manual partitioning, in which case you must choose it or create it on your own.</source>
         <translation>Ši sistema buvo paleista su &lt;strong&gt;EFI&lt;/strong&gt; paleidimo aplinka.&lt;br&gt;&lt;br&gt;Tam, kad sukonfigūruotų paleidimą iš EFI aplinkos, ši diegimo programa, &lt;strong&gt;EFI sistemos skaidinyje&lt;/strong&gt;, privalo išskleisti paleidyklės programą, kaip, pavyzdžiui, &lt;strong&gt;GRUB&lt;/strong&gt; ar &lt;strong&gt;systemd-boot&lt;/strong&gt;. Tai vyks automatiškai, nebent pasirinksite rankinį skaidymą ir tokiu atveju patys turėsite pasirinkti arba sukurti skaidinį.</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/BootInfoWidget.cpp" line="87"/>
+        <location filename="../src/modules/partition/gui/BootInfoWidget.cpp" line="91"/>
         <source>This system was started with a &lt;strong&gt;BIOS&lt;/strong&gt; boot environment.&lt;br&gt;&lt;br&gt;To configure startup from a BIOS environment, this installer must install a boot loader, like &lt;strong&gt;GRUB&lt;/strong&gt;, either at the beginning of a partition or on the &lt;strong&gt;Master Boot Record&lt;/strong&gt; near the beginning of the partition table (preferred). This is automatic, unless you choose manual partitioning, in which case you must set it up on your own.</source>
         <translation>Ši sistema buvo paleista su &lt;strong&gt;BIOS&lt;/strong&gt; paleidimo aplinka.&lt;br&gt;&lt;br&gt;Tam, kad sukonfigūruotų paleidimą iš BIOS aplinkos, ši diegimo programa, arba skaidinio pradžioje, arba &lt;strong&gt;Paleidimo įraše (MBR)&lt;/strong&gt;, šalia skaidinių lentelės pradžios (pageidautina), privalo įdiegti paleidyklę, kaip, pavyzdžiui, &lt;strong&gt;GRUB&lt;/strong&gt;. Tai vyks automatiškai, nebent pasirinksite rankinį skaidymą ir tokiu atveju, viską turėsite nusistatyti patys.</translation>
     </message>
@@ -188,32 +188,32 @@ Išvestis:
 <context>
     <name>Calamares::PythonJob</name>
     <message>
-        <location filename="../src/libcalamares/PythonJob.cpp" line="252"/>
+        <location filename="../src/libcalamares/PythonJob.cpp" line="265"/>
         <source>Running %1 operation.</source>
         <translation>Vykdoma %1 operacija.</translation>
     </message>
     <message>
-        <location filename="../src/libcalamares/PythonJob.cpp" line="267"/>
+        <location filename="../src/libcalamares/PythonJob.cpp" line="280"/>
         <source>Bad working directory path</source>
         <translation>Netinkama darbinio katalogo vieta</translation>
     </message>
     <message>
-        <location filename="../src/libcalamares/PythonJob.cpp" line="268"/>
+        <location filename="../src/libcalamares/PythonJob.cpp" line="281"/>
         <source>Working directory %1 for python job %2 is not readable.</source>
         <translation>Darbinis %1 python katalogas  dėl %2 užduoties yra neskaitomas</translation>
     </message>
     <message>
-        <location filename="../src/libcalamares/PythonJob.cpp" line="278"/>
+        <location filename="../src/libcalamares/PythonJob.cpp" line="291"/>
         <source>Bad main script file</source>
         <translation>Prastas pagrindinio skripto failas</translation>
     </message>
     <message>
-        <location filename="../src/libcalamares/PythonJob.cpp" line="279"/>
+        <location filename="../src/libcalamares/PythonJob.cpp" line="292"/>
         <source>Main script file %1 for python job %2 is not readable.</source>
         <translation>Pagrindinis skriptas %1  dėl python %2 užduoties yra neskaitomas</translation>
     </message>
     <message>
-        <location filename="../src/libcalamares/PythonJob.cpp" line="335"/>
+        <location filename="../src/libcalamares/PythonJob.cpp" line="368"/>
         <source>Boost.Python error in job &quot;%1&quot;.</source>
         <translation>Boost.Python klaida darbe &quot;%1&quot;.</translation>
     </message>
@@ -240,7 +240,7 @@ Išvestis:
         <location filename="../src/libcalamaresui/ViewManager.cpp" line="76"/>
         <location filename="../src/libcalamaresui/ViewManager.cpp" line="310"/>
         <source>Cancel installation without changing the system.</source>
-        <translation>Atsisakyti diegimo, nekeičiant sistemos.</translation>
+        <translation>Atsisakyti diegimo, nieko nekeisti sistemoje.</translation>
     </message>
     <message>
         <location filename="../src/libcalamaresui/ViewManager.cpp" line="99"/>
@@ -523,22 +523,22 @@ Diegimo programa užbaigs darbą ir visi pakeitimai bus prarasti.</translation>
 <context>
     <name>ClearTempMountsJob</name>
     <message>
-        <location filename="../src/modules/partition/jobs/ClearTempMountsJob.cpp" line="40"/>
+        <location filename="../src/modules/partition/jobs/ClearTempMountsJob.cpp" line="42"/>
         <source>Clear all temporary mounts.</source>
         <translation>Išvalyti visus laikinuosius prijungimus.</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/jobs/ClearTempMountsJob.cpp" line="47"/>
+        <location filename="../src/modules/partition/jobs/ClearTempMountsJob.cpp" line="49"/>
         <source>Clearing all temporary mounts.</source>
         <translation>Išvalomi visi laikinieji prijungimai.</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/jobs/ClearTempMountsJob.cpp" line="58"/>
+        <location filename="../src/modules/partition/jobs/ClearTempMountsJob.cpp" line="60"/>
         <source>Cannot get list of temporary mounts.</source>
         <translation>Nepavyksta gauti laikinųjų prijungimų sąrašo.</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/jobs/ClearTempMountsJob.cpp" line="97"/>
+        <location filename="../src/modules/partition/jobs/ClearTempMountsJob.cpp" line="99"/>
         <source>Cleared all temporary mounts.</source>
         <translation>Visi laikinieji prijungimai išvalyti.</translation>
     </message>
@@ -591,27 +591,27 @@ Diegimo programa užbaigs darbą ir visi pakeitimai bus prarasti.</translation>
         <translation>D&amp;ydis:</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/CreatePartitionDialog.cpp" line="65"/>
+        <location filename="../src/modules/partition/gui/CreatePartitionDialog.cpp" line="66"/>
         <source>En&amp;crypt</source>
         <translation>Užši&amp;fruoti</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/CreatePartitionDialog.cpp" line="161"/>
+        <location filename="../src/modules/partition/gui/CreatePartitionDialog.cpp" line="162"/>
         <source>Logical</source>
         <translation>Loginė</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/CreatePartitionDialog.cpp" line="166"/>
+        <location filename="../src/modules/partition/gui/CreatePartitionDialog.cpp" line="167"/>
         <source>Primary</source>
         <translation>Pagrindinė</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/CreatePartitionDialog.cpp" line="183"/>
+        <location filename="../src/modules/partition/gui/CreatePartitionDialog.cpp" line="184"/>
         <source>GPT</source>
         <translation>GPT</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/CreatePartitionDialog.cpp" line="268"/>
+        <location filename="../src/modules/partition/gui/CreatePartitionDialog.cpp" line="269"/>
         <source>Mountpoint already in use. Please select another one.</source>
         <translation>Prijungimo taškas jau yra naudojamas. Prašome pasirinkti kitą.</translation>
     </message>
@@ -824,7 +824,7 @@ Diegimo programa užbaigs darbą ir visi pakeitimai bus prarasti.</translation>
 <context>
     <name>DeviceInfoWidget</name>
     <message>
-        <location filename="../src/modules/partition/gui/DeviceInfoWidget.cpp" line="63"/>
+        <location filename="../src/modules/partition/gui/DeviceInfoWidget.cpp" line="150"/>
         <source>The type of &lt;strong&gt;partition table&lt;/strong&gt; on the selected storage device.&lt;br&gt;&lt;br&gt;The only way to change the partition table type is to erase and recreate the partition table from scratch, which destroys all data on the storage device.&lt;br&gt;This installer will keep the current partition table unless you explicitly choose otherwise.&lt;br&gt;If unsure, on modern systems GPT is preferred.</source>
         <translation>Pasirinktame atminties įrenginyje esančios, &lt;strong&gt;skaidinių lentelės&lt;/strong&gt; tipas.&lt;br&gt;&lt;br&gt;Vienintelis būdas kaip galima pakeisti skaidinių lentelės tipą yra ištrinti ir iš naujo sukurti skaidinių lentelę, kas savo ruožtu ištrina visus atminties įrenginyje esančius duomenis.&lt;br&gt;Ši diegimo programa paliks esamą skaidinių lentelę, nebent aiškiai pasirinksite kitaip.&lt;br&gt;Jeigu nesate tikri, šiuolaikinėse sistemose pirmenybė yra teikiama GPT tipui.</translation>
     </message>
@@ -908,12 +908,12 @@ Diegimo programa užbaigs darbą ir visi pakeitimai bus prarasti.</translation>
     <message>
         <location filename="../src/modules/partition/gui/EditExistingPartitionDialog.ui" line="70"/>
         <source>Format</source>
-        <translation>Formatuoti</translation>
+        <translation>Suženklinti</translation>
     </message>
     <message>
         <location filename="../src/modules/partition/gui/EditExistingPartitionDialog.ui" line="89"/>
         <source>Warning: Formatting the partition will erase all existing data.</source>
-        <translation>Įspėjimas: Skaidinio formatavimas sunaikins visus esamus duomenis.</translation>
+        <translation>Įspėjimas: suženklinant skaidinį, sunaikinami visi jame esantys duomenys.</translation>
     </message>
     <message>
         <location filename="../src/modules/partition/gui/EditExistingPartitionDialog.ui" line="99"/>
@@ -941,7 +941,7 @@ Diegimo programa užbaigs darbą ir visi pakeitimai bus prarasti.</translation>
         <translation>Vėliavėlės:</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/EditExistingPartitionDialog.cpp" line="306"/>
+        <location filename="../src/modules/partition/gui/EditExistingPartitionDialog.cpp" line="307"/>
         <source>Mountpoint already in use. Please select another one.</source>
         <translation>Prijungimo taškas jau yra naudojamas. Prašome pasirinkti kitą.</translation>
     </message>
@@ -969,7 +969,7 @@ Diegimo programa užbaigs darbą ir visi pakeitimai bus prarasti.</translation>
         <translation>Patvirtinkite slaptafrazę</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/EncryptWidget.cpp" line="150"/>
+        <location filename="../src/modules/partition/gui/EncryptWidget.cpp" line="151"/>
         <source>Please enter the same passphrase in both boxes.</source>
         <translation>Prašome abiejuose langeliuose įrašyti tą pačią slaptafrazę.</translation>
     </message>
@@ -1027,7 +1027,7 @@ Diegimo programa užbaigs darbą ir visi pakeitimai bus prarasti.</translation>
     <message>
         <location filename="../src/modules/finished/FinishedPage.cpp" line="52"/>
         <source>&lt;h1&gt;All done.&lt;/h1&gt;&lt;br/&gt;%1 has been installed on your computer.&lt;br/&gt;You may now restart into your new system, or continue using the %2 Live environment.</source>
-        <translation>&lt;h1&gt;Viskas atlikta.&lt;/h1&gt;&lt;br/&gt;%1 yra įdiegta jūsų kompiuteryje.&lt;br/&gt;Galite iš naujo paleisti kompiuterį dabar ir naudotis savo naująja sistema arba tęsti naudojimąsi %2 Live aplinka.</translation>
+        <translation>&lt;h1&gt;Viskas atlikta.&lt;/h1&gt;&lt;br/&gt;%1 sistema jau įdiegta.&lt;br/&gt;Galite iš naujo paleisti kompiuterį dabar ir naudotis savo naująja sistema; arba galite tęsti naudojimąsi %2 sistema demonstracinėje aplinkoje.</translation>
     </message>
     <message>
         <location filename="../src/modules/finished/FinishedPage.cpp" line="110"/>
@@ -1038,9 +1038,19 @@ Diegimo programa užbaigs darbą ir visi pakeitimai bus prarasti.</translation>
 <context>
     <name>FinishedViewStep</name>
     <message>
-        <location filename="../src/modules/finished/FinishedViewStep.cpp" line="51"/>
+        <location filename="../src/modules/finished/FinishedViewStep.cpp" line="60"/>
         <source>Finish</source>
         <translation>Pabaiga</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/finished/FinishedViewStep.cpp" line="126"/>
+        <source>Installation Complete</source>
+        <translation>Diegimas užbaigtas</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/finished/FinishedViewStep.cpp" line="127"/>
+        <source>The installation of %1 is complete.</source>
+        <translation>%1 diegimas yra užbaigtas.</translation>
     </message>
 </context>
 <context>
@@ -1048,22 +1058,22 @@ Diegimo programa užbaigs darbą ir visi pakeitimai bus prarasti.</translation>
     <message>
         <location filename="../src/modules/partition/jobs/FormatPartitionJob.cpp" line="49"/>
         <source>Format partition %1 (file system: %2, size: %3 MB) on %4.</source>
-        <translation>Formatuoti skaidinį %1 (failų sistema: %2, dydis: %3 MB) diske %4.</translation>
+        <translation>Suženklinti skaidinį %1 (failų sistema: %2, dydis: %3 MB) diske %4.</translation>
     </message>
     <message>
         <location filename="../src/modules/partition/jobs/FormatPartitionJob.cpp" line="60"/>
         <source>Format &lt;strong&gt;%3MB&lt;/strong&gt; partition &lt;strong&gt;%1&lt;/strong&gt; with file system &lt;strong&gt;%2&lt;/strong&gt;.</source>
-        <translation>Formatuoti &lt;strong&gt;%3MB&lt;/strong&gt; skaidinį &lt;strong&gt;%1&lt;/strong&gt; su failų sistema &lt;strong&gt;%2&lt;/strong&gt;.</translation>
+        <translation>Suženklinti &lt;strong&gt;%3MB&lt;/strong&gt; skaidinį &lt;strong&gt;%1&lt;/strong&gt; su failų sistema &lt;strong&gt;%2&lt;/strong&gt;.</translation>
     </message>
     <message>
         <location filename="../src/modules/partition/jobs/FormatPartitionJob.cpp" line="71"/>
         <source>Formatting partition %1 with file system %2.</source>
-        <translation>Formatuojamas skaidinys %1 su %2 failų sistema.</translation>
+        <translation>Suženklinamas skaidinys %1 su %2 failų sistema.</translation>
     </message>
     <message>
         <location filename="../src/modules/partition/jobs/FormatPartitionJob.cpp" line="83"/>
         <source>The installer failed to format partition %1 on disk &apos;%2&apos;.</source>
-        <translation>Diegimo programai nepavyko formatuoti skaidinio %1 diske &apos;%2&apos;.</translation>
+        <translation>Diegimo programai nepavyko suženklinti „%2“ disko skaidinio %1.</translation>
     </message>
     <message>
         <location filename="../src/modules/partition/jobs/FormatPartitionJob.cpp" line="91"/>
@@ -1149,6 +1159,16 @@ Diegimo programa užbaigs darbą ir visi pakeitimai bus prarasti.</translation>
         <source>The system locale setting affects the language and character set for some command line user interface elements.&lt;br/&gt;The current setting is &lt;strong&gt;%1&lt;/strong&gt;.</source>
         <translation>Sistemos lokalės nustatymas įtakoja, kai kurių komandų eilutės naudotojo sąsajos elementų, kalbos ir simbolių rinkinį.&lt;br/&gt;Dabar yra nustatyta &lt;strong&gt;%1&lt;/strong&gt;.</translation>
     </message>
+    <message>
+        <location filename="../src/modules/locale/LCLocaleDialog.cpp" line="66"/>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Atsisakyti</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/locale/LCLocaleDialog.cpp" line="67"/>
+        <source>&amp;OK</source>
+        <translation>&amp;Gerai</translation>
+    </message>
 </context>
 <context>
     <name>LicensePage</name>
@@ -1160,7 +1180,7 @@ Diegimo programa užbaigs darbą ir visi pakeitimai bus prarasti.</translation>
     <message>
         <location filename="../src/modules/license/LicensePage.cpp" line="88"/>
         <source>I accept the terms and conditions above.</source>
-        <translation>Aš sutinku su aukščiau išdėstytomis nuostatomis ir sąlygomis.</translation>
+        <translation>Sutinku su aukščiau išdėstytomis nuostatomis ir sąlygomis.</translation>
     </message>
     <message>
         <location filename="../src/modules/license/LicensePage.cpp" line="115"/>
@@ -1217,7 +1237,7 @@ Diegimo programa užbaigs darbą ir visi pakeitimai bus prarasti.</translation>
     <message>
         <location filename="../src/modules/license/LicensePage.cpp" line="202"/>
         <source>&lt;a href=&quot;%1&quot;&gt;view license agreement&lt;/a&gt;</source>
-        <translation>&lt;a href=&quot;%1&quot;&gt;žiūrėti licencijos sutartį&lt;/a&gt;</translation>
+        <translation>&lt;a href=&quot;%1&quot;&gt;žiūrėti licenciją&lt;/a&gt;</translation>
     </message>
 </context>
 <context>
@@ -1231,12 +1251,12 @@ Diegimo programa užbaigs darbą ir visi pakeitimai bus prarasti.</translation>
 <context>
     <name>LocalePage</name>
     <message>
-        <location filename="../src/modules/locale/LocalePage.cpp" line="236"/>
+        <location filename="../src/modules/locale/LocalePage.cpp" line="387"/>
         <source>The system language will be set to %1.</source>
         <translation>Sistemos kalba bus nustatyta į %1.</translation>
     </message>
     <message>
-        <location filename="../src/modules/locale/LocalePage.cpp" line="239"/>
+        <location filename="../src/modules/locale/LocalePage.cpp" line="389"/>
         <source>The numbers and dates locale will be set to %1.</source>
         <translation>Skaičių ir datų lokalė bus nustatyta į %1.</translation>
     </message>
@@ -1257,12 +1277,12 @@ Diegimo programa užbaigs darbą ir visi pakeitimai bus prarasti.</translation>
         <translation>K&amp;eisti...</translation>
     </message>
     <message>
-        <location filename="../src/modules/locale/LocalePage.cpp" line="391"/>
+        <location filename="../src/modules/locale/LocalePage.cpp" line="398"/>
         <source>Set timezone to %1/%2.&lt;br/&gt;</source>
         <translation>Nustatyti laiko juostą kaip %1/%2.&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/modules/locale/LocalePage.cpp" line="466"/>
+        <location filename="../src/modules/locale/LocalePage.cpp" line="480"/>
         <source>%1 (%2)</source>
         <extracomment>Language (Country)</extracomment>
         <translation>%1 (%2)</translation>
@@ -1392,7 +1412,6 @@ Diegimo programa užbaigs darbą ir visi pakeitimai bus prarasti.</translation>
         <translation>Kokį vardą norite naudoti prisijungimui?</translation>
     </message>
     <message>
-        <location filename="../src/modules/users/page_usersetup.ui" line="197"/>
         <location filename="../src/modules/users/page_usersetup.ui" line="306"/>
         <location filename="../src/modules/users/page_usersetup.ui" line="437"/>
         <location filename="../src/modules/users/page_usersetup.ui" line="582"/>
@@ -1553,12 +1572,12 @@ Diegimo programa užbaigs darbą ir visi pakeitimai bus prarasti.</translation>
     <message>
         <location filename="../src/modules/partition/gui/PartitionPage.ui" line="114"/>
         <source>&amp;Edit</source>
-        <translation>&amp;Redaguoti</translation>
+        <translation>&amp;Keisti</translation>
     </message>
     <message>
         <location filename="../src/modules/partition/gui/PartitionPage.ui" line="121"/>
         <source>&amp;Delete</source>
-        <translation>&amp;Trinti</translation>
+        <translation>Ša&amp;linti</translation>
     </message>
     <message>
         <location filename="../src/modules/partition/gui/PartitionPage.ui" line="148"/>
@@ -1566,7 +1585,7 @@ Diegimo programa užbaigs darbą ir visi pakeitimai bus prarasti.</translation>
         <translation>Įdiegti pa&amp;leidyklę skaidinyje:</translation>
     </message>
     <message>
-        <location filename="../src/modules/partition/gui/PartitionPage.cpp" line="160"/>
+        <location filename="../src/modules/partition/gui/PartitionPage.cpp" line="161"/>
         <source>Are you sure you want to create a new partition table on %1?</source>
         <translation>Ar tikrai %1 norite sukurti naują skaidinių lentelę?</translation>
     </message>

@@ -33,9 +33,8 @@ Build-Depends: cmake,
                qtdeclarative5-dev,
                qttools5-dev,
                qttools5-dev-tools,
-#               qtwebengine5-dev,
                quilt
-Standards-Version: 3.9.8
+Standards-Version: 4.1.0
 Homepage: https://github.com/calamares/calamares
 Vcs-Git: https://gitlab.com/highvoltage/calamares-packaging.git
 Vcs-Browser: https://gitlab.com/highvoltage/calamares-packaging/tree/master
@@ -43,7 +42,7 @@ Vcs-Browser: https://gitlab.com/highvoltage/calamares-packaging/tree/master
 Package: calamares
 Architecture: any
 Depends: calamares-branding,
-         libkpmcore4 (>= 3.0.3~),
+         libkpmcore5,
          os-prober,
          policykit-1,
          qml-module-qtquick-layouts,

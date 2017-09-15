@@ -36,7 +36,7 @@ class PartitionLabelsView : public QAbstractItemView
     Q_OBJECT
 public:
     explicit PartitionLabelsView( QWidget* parent = nullptr );
-    virtual ~PartitionLabelsView();
+    virtual ~PartitionLabelsView() override;
 
     QSize minimumSizeHint() const override;
 
@@ -83,7 +83,7 @@ private:
     QModelIndexList getIndexesToDraw( const QModelIndex& parent ) const;
     QStringList buildTexts( const QModelIndex& index ) const;
 
-    SelectionFilter canBeSelected;
+    SelectionFilter m_canBeSelected;
     bool m_extendedPartitionHidden;
 
     QString m_customNewRootLabel;

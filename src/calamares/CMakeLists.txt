@@ -37,10 +37,8 @@ include( GNUInstallDirs )
 
 qt5_wrap_ui( calamaresUi_H ${calamaresUi} )
 
-#qt_add_resources( calamaresRc "../../resources.qrc" )
-
 # Translations
-include( ${CMAKE_SOURCE_DIR}/lang/translations.cmake )
+include( CalamaresAddTranslations )
 add_calamares_translations( ${CALAMARES_TRANSLATION_LANGUAGES} )
 
 set( final_src ${calamaresUi_H} ${calamaresSources} ${calamaresRc} ${trans_outfile} )
@@ -57,7 +55,6 @@ if( WITH_CRASHREPORTER )
     list( APPEND LINK_LIBRARIES ${LINK_LIBRARIES} pthread crashreporter-handler )
 endif()
 
-qt5_use_modules( calamares_bin Core Widgets )
 target_link_libraries( calamares_bin
     PRIVATE
         ${CALAMARES_LIBRARIES}
