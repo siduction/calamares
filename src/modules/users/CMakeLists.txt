@@ -5,7 +5,7 @@ if( ECM_FOUND )
 endif()
 
 find_package( Qt5 COMPONENTS Core Test REQUIRED )
-find_package( Crypt REQUIRED )
+find_package( Crypt )
 
 include_directories( ${PROJECT_BINARY_DIR}/src/libcalamaresui )
 

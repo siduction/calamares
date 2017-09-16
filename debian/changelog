@@ -1,3 +1,35 @@
+calamares (3.1.5~39~really~3.1.4-20-gec8692283-1) unstable; urgency=medium
+
+  [ root ]
+  * New snapshot: v3.1.4-20-gec8692283 works
+
+ -- siducer <siducer@newdev.siduction.org>  Sat, 16 Sep 2017 19:53:23 -0400
+
+calamares (3.1.5~38-gca60a7fc1-4) unstable; urgency=medium
+
+  * New snapshot: v3.1.4-19-gd8a47bb8b works
+
+ -- root <root@newdev.siduction.org>  Sat, 16 Sep 2017 19:36:30 -0400
+
+calamares (3.1.5~38-gca60a7fc1-3) unstable; urgency=medium
+
+  * New snapshot: v3.1.4-16-g2d94e8802 works
+
+ -- root <root@newdev.siduction.org>  Sat, 16 Sep 2017 19:31:23 -0400
+
+calamares (3.1.5~38-gca60a7fc1-2) unstable; urgency=medium
+
+  * New snapshot: v3.1.4-21-gbe2338ff0 broken
+
+ -- root <root@newdev.siduction.org>  Sat, 16 Sep 2017 19:21:49 -0400
+
+calamares (3.1.5~38-gca60a7fc1-1.1) unstable; urgency=medium
+
+  * New snapshot: v3.1.4-11-gd2964cc71 - works
+  * New snapshot: v3.1.4-32-gc9f4bc0cc - broken
+
+ -- root <root@newdev.siduction.org>  Sat, 16 Sep 2017 19:11:44 -0400
+
 calamares (3.1.5~38-gca60a7fc1-1) unstable; urgency=medium
 
   * New snapshot: v3.1.4-38-gca60a7fc1

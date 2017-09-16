@@ -28,7 +28,7 @@ class FixedAspectRatioLabel : public QLabel
     Q_OBJECT
 public:
     explicit FixedAspectRatioLabel( QWidget* parent = nullptr );
-    virtual ~FixedAspectRatioLabel() override;
+    virtual ~FixedAspectRatioLabel();
 
 public slots:
     void setPixmap( const QPixmap &pixmap );

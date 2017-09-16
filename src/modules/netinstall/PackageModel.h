@@ -35,14 +35,14 @@ class PackageModel : public QAbstractItemModel
     Q_OBJECT
 
 public:
-    explicit PackageModel( const YAML::Node& data, QObject* parent = nullptr );
-    ~PackageModel() override;
+    explicit PackageModel( const YAML::Node& data, QObject* parent = 0 );
+    ~PackageModel();
 
     QVariant data( const QModelIndex& index, int role ) const override;
     bool setData( const QModelIndex& index, const QVariant& value,
                   int role = Qt::EditRole ) override;
     bool setHeaderData( int section, Qt::Orientation orientation,
-                        const QVariant& value, int role = Qt::EditRole ) override;
+                        const QVariant& value, int role = Qt::EditRole );
     Qt::ItemFlags flags( const QModelIndex& index ) const override;
     QVariant headerData( int section, Qt::Orientation orientation,
                          int role = Qt::DisplayRole ) const override;

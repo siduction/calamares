@@ -33,7 +33,7 @@ class UIDLLEXPORT QtWaitingSpinner : public QWidget {
 	Q_OBJECT
 
 public:
-	explicit QtWaitingSpinner(int linesNumber = 12, int length = 7, int width = 5, int radius = 10, QWidget* parent = nullptr);
+	explicit QtWaitingSpinner(int linesNumber = 12, int length = 7, int width = 5, int radius = 10, QWidget* parent = 0);
 
 public Q_SLOTS:
 	void start();

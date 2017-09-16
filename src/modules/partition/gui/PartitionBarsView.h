@@ -42,7 +42,7 @@ public:
     };
 
     explicit PartitionBarsView( QWidget* parent = nullptr );
-    virtual ~PartitionBarsView() override;
+    virtual ~PartitionBarsView();
 
     void setNestedPartitionsMode( NestedPartitionsMode mode );
 

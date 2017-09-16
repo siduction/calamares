@@ -63,7 +63,7 @@ DeletePartitionJob::prettyStatusMessage() const
 Calamares::JobResult
 DeletePartitionJob::exec()
 {
-    Report report( nullptr );
+    Report report( 0 );
     QString message = tr( "The installer failed to delete partition %1." ).arg( m_partition->devicePath() );
 
     if ( m_device->deviceNode() != m_partition->devicePath() )

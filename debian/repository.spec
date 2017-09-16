@@ -15,7 +15,8 @@
 # =========
 # cleanup ()
 
-repository="git@github.com:calamares/calamares"
+repository="https://github.com/calamares/calamares"
+commit=ec86922839eae9794ccb95
 
 
 # cleanup function definiton

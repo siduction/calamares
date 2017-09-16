@@ -43,7 +43,7 @@ class PLUGINDLLEXPORT WebViewStep : public Calamares::ViewStep
 
 public:
     explicit WebViewStep( QObject* parent = nullptr );
-    virtual ~WebViewStep() override;
+    virtual ~WebViewStep();
 
     QString prettyName() const override;
 

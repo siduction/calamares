@@ -90,7 +90,7 @@ public:
         ColumnCount // Must remain last
     };
 
-    PartitionModel( QObject* parent = nullptr );
+    PartitionModel( QObject* parent = 0 );
     /**
      * device must remain alive for the life of PartitionModel
      */
