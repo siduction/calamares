@@ -16,8 +16,8 @@
 # cleanup ()
 
 repository="https://github.com/calamares/calamares"
-# commit=ec86922839eae9794ccb95 working
-commit=be2338ff08b2ea9ae6e7fb81
+commit=ec86922839eae9794ccb95 # working
+# commit=be2338ff08b2ea9ae6e7fb81 # broken
 
 
 # cleanup function definiton

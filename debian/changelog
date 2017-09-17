@@ -1,8 +1,12 @@
-calamares (3.1.5~39~really~3.1.4-20-gec8692283-3) UNRELEASED; urgency=medium
+calamares (3.1.5~39~really~3.1.4-20-gec8692283-3) unstable; urgency=medium
 
-  * New snapshot: v3.1.4-21-gbe2338ff0
+  [ siducer ]
+  * New snapshot: v3.1.4-21-gbe2338ff0 - nix da
 
- -- siducer <siducer@newdev.siduction.org>  Sat, 16 Sep 2017 19:58:11 -0400
+  [ Alf Gaida ]
+  * back to v3.1.4-20-gec8692283
+
+ -- Alf Gaida <agaida@siduction.org>  Sun, 17 Sep 2017 02:31:48 +0200
 
 calamares (3.1.5~39~really~3.1.4-20-gec8692283-2) unstable; urgency=medium
 
