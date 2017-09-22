@@ -1,3 +1,15 @@
+calamares (3.1.5~73-gd20285d4f-1) unstable; urgency=medium
+
+  * New snapshot: v3.1.4-73-gd20285d4f
+
+ -- Alf Gaida <agaida@siduction.org>  Fri, 22 Sep 2017 20:31:10 +0200
+
+calamares (3.1.5~52-gc2a69ea94-1) unstable; urgency=medium
+
+  * New snapshot: v3.1.4-52-gc2a69ea94
+
+ -- Alf Gaida <agaida@siduction.org>  Mon, 18 Sep 2017 17:32:25 +0200
+
 calamares (3.1.5~39~really~3.1.4-20-gec8692283-3) unstable; urgency=medium
 
   [ siducer ]

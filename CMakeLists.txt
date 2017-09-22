@@ -1,4 +1,22 @@
-### CMakeLists.txt for Calamares
+# === This file is part of Calamares - <https://github.com/calamares> ===
+#
+#   Calamares is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   Calamares is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with Calamares. If not, see <http://www.gnu.org/licenses/>.
+#
+#   SPDX-License-Identifier: GPL-3.0+
+#   License-Filename: LICENSE
+#
+###
 #
 # Generally, this CMakeLists.txt will find all the dependencies for Calamares
 # and complain appropriately. See below (later in this file) for CMake-level
@@ -11,7 +29,7 @@
 #
 #   cmake . -DSKIP_MODULES="partition luksbootkeycfg"
 
-project( calamares CXX )
+project( calamares C CXX )
 
 cmake_minimum_required( VERSION 3.2 )
 
@@ -30,7 +48,29 @@ if( CMAKE_CXX_COMPILER_ID MATCHES "Clang" )
     set( CMAKE_C_FLAGS_RELEASE          "-O4 -DNDEBUG" )
     set( CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g" )
 
-    set( CMAKE_CXX_FLAGS                "${CMAKE_CXX_FLAGS} -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-padded -Wno-undefined-reinterpret-cast -Wno-global-constructors -Wno-exit-time-destructors" )
+    # Clang warnings: doing *everything* is counter-productive, since it warns
+    # about things which we can't fix (e.g. C++98 incompatibilities, but
+    # Calaares is C++14).
+    foreach( CLANG_WARNINGS
+        -Weverything
+        -Wno-c++98-compat
+        -Wno-c++98-compat-pedantic
+        -Wno-padded
+        -Wno-undefined-reinterpret-cast
+        -Wno-global-constructors
+        -Wno-exit-time-destructors
+        -Wno-missing-prototypes
+        -Wno-documentation-unknown-command
+    )
+        string( APPEND CMAKE_CXX_FLAGS " ${CLANG_WARNINGS}" )
+    endforeach()
+
+    # Third-party code where we don't care so much about compiler warnings
+    # (because it's uncomfortable to patch) get different flags; use
+    #       mark_thirdparty_code( <file> [<file>...] )
+    # to switch off warnings for those sources.
+    set( SUPPRESS_3RDPARTY_WARNINGS "-Wno-everything" )
+
     set( CMAKE_CXX_FLAGS_DEBUG          "-g" )
     set( CMAKE_CXX_FLAGS_MINSIZEREL     "-Os -DNDEBUG" )
     set( CMAKE_CXX_FLAGS_RELEASE        "-O4 -DNDEBUG" )
@@ -42,7 +82,17 @@ if( CMAKE_CXX_COMPILER_ID MATCHES "Clang" )
 else()
     set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wl,--no-undefined" )
     set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wl,--fatal-warnings -Wnon-virtual-dtor -Woverloaded-virtual -Werror=return-type" )
+
+    set( SUPPRESS_3RDPARTY_WARNINGS "" )
 endif()
+
+macro(mark_thirdparty_code)
+    set_source_files_properties( ${ARGV}
+        PROPERTIES
+            COMPILE_FLAGS "${SUPPRESS_3RDPARTY_WARNINGS}"
+            COMPILE_DEFINITIONS "THIRDPARTY"
+    )
+endmacro()
 
 if( CMAKE_COMPILER_IS_GNUCXX )
     if( CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 4.9 OR
@@ -52,12 +102,7 @@ if( CMAKE_COMPILER_IS_GNUCXX )
     endif()
 endif()
 
-cmake_policy( SET CMP0023 OLD )
-cmake_policy( SET CMP0028 NEW ) # double colons in KF5::Foo and Qt5::Foo are necessarily IMPORTED or ALIAS targets, don't search further
-cmake_policy( SET CMP0043 OLD )
-
-include( MacroOptionalFindPackage )
-include( MacroLogFeature )
+include( FeatureSummary )
 
 set( QT_VERSION 5.6.0 )
 
@@ -65,9 +110,8 @@ find_package( Qt5 ${QT_VERSION} CONFIG REQUIRED Core Gui Widgets LinguistTools S
 find_package( YAMLCPP 0.5.1 REQUIRED )
 find_package( PolkitQt5-1 REQUIRED )
 
-option( WITH_PYTHON "Enable Python modules API (requires Boost.Python)." ON )
-option( WITH_CRASHREPORTER "Build with CrashReporter" ON )
 option( INSTALL_CONFIG "Install configuration files" ON )
+option( WITH_PYTHON "Enable Python modules API (requires Boost.Python)." ON )
 option( WITH_PYTHONQT "Enable next generation Python modules API (experimental, requires PythonQt)." OFF )
 option( BUILD_TESTING "Build the testing tree." ON )
 
@@ -75,40 +119,29 @@ if( BUILD_TESTING )
     enable_testing()
 endif ()
 
-if( CMAKE_SYSTEM_PROCESSOR MATCHES "arm" OR NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/libcrashreporter-qt/CMakeLists.txt" )
-    message( STATUS "Build of crashreporter disabled." )
-    set( WITH_CRASHREPORTER OFF )
-endif()
-
-macro_optional_find_package( PythonLibs 3.3 )
-macro_log_feature(
-    PYTHONLIBS_FOUND
-    "Python"
-    "C interface libraries for the Python 3 interpreter."
-    "http://python.org"
-    FALSE "3.3"
-    "Python 3 is used for some Calamares job modules."
+find_package( PythonLibs 3.3 )
+set_package_properties(
+    PythonLibs PROPERTIES
+    DESCRIPTION "C interface libraries for the Python 3 interpreter."
+    URL "http://python.org"
+    PURPOSE "Python 3 is used for some Calamares job modules."
 )
 
 if ( PYTHONLIBS_FOUND )
     include( BoostPython3 )
-    find_boost_python3( 1.54.0 ${PYTHONLIBS_VERSION_STRING} CALAMARES_BOOST_PYTHON3_FOUND )
-    macro_log_feature(
-        CALAMARES_BOOST_PYTHON3_FOUND
-        "Boost.Python"
-        "A C++ library which enables seamless interoperability between C++ and Python 3."
-        "http://www.boost.org"
-        FALSE "1.54.0"
-        "Boost.Python is used for interfacing with Calamares job modules written in Python 3."
+    find_boost_python3( 1.54.0 ${PYTHONLIBS_VERSION_STRING} CALAMARES_BOOST_PYTHON3 )
+    set_package_properties(
+        CALAMARES_BOOST_PYTHON3 PROPERTIES
+        DESCRIPTION "A C++ library which enables seamless interoperability between C++ and Python 3."
+        URL "http://www.boost.org"
+        PURPOSE "Boost.Python is used for interfacing with Calamares job modules written in Python 3."
     )
 
-    macro_optional_find_package( PythonQt )
-    macro_log_feature( PYTHONQT_FOUND
-        "PythonQt"
-        "A Python embedding solution for Qt applications."
-        "http://pythonqt.sourceforge.net"
-        FALSE "3.1"
-        "PythonQt is used for the Python modules API."
+    find_package( PythonQt )
+    set_package_properties( PythonQt PROPERTIES
+        DESCRIPTION "A Python embedding solution for Qt applications."
+        URL "http://pythonqt.sourceforge.net"
+        PURPOSE "PythonQt is used for the Python modules API."
     )
 endif()
 
@@ -203,8 +236,8 @@ set( THIRDPARTY_DIR "${CMAKE_SOURCE_DIR}/thirdparty" )
 #   make example-distro
 #
 find_program( mksquashfs_PROGRAM mksquashfs )
-macro_log_feature( mksquashfs_PROGRAM "mksquashfs" "Create example distro" "http://tldp.org/HOWTO/SquashFS-HOWTO/creatingandusing.html")
 if( mksquashfs_PROGRAM )
+    set( mksquashfs_FOUND ON )
     set( src_fs ${CMAKE_SOURCE_DIR}/data/example-root/ )
     set( dst_fs ${CMAKE_BINARY_DIR}/example.sqfs )
     if( EXISTS ${src_fs} )
@@ -227,12 +260,22 @@ if( mksquashfs_PROGRAM )
         )
         add_custom_target(example-distro DEPENDS ${dst_fs})
     endif()
+else()
+    set( mksquashfs_FOUND OFF )
 endif()
+# Doesn't list mksquashfs as an optional dep, though, because it
+# hasn't been sent through the find_package() scheme.
+set_package_properties( mksquashfs PROPERTIES
+    DESCRIPTION "Create squashed filesystems"
+    URL "http://tldp.org/HOWTO/SquashFS-HOWTO/creatingandusing.html"
+    PURPOSE "Create example distro"
+    TYPE OPTIONAL
+)
 
-add_subdirectory( thirdparty )
+# add_subdirectory( thirdparty )
 add_subdirectory( src )
 
-macro_display_feature_log()
+feature_summary(WHAT ALL)
 
 if( NOT WITH_PYTHON )
     message( "-- WARNING: Building Calamares without Python support. Legacy Python job modules will not work.\n" )
