@@ -1,4 +1,4 @@
-/* === This file is part of Calamares - <http://github.com/calamares> ===
+/* === This file is part of Calamares - <https://github.com/calamares> ===
  *
  *   Copyright 2014-2015, Teo Mrnjavac <teo@kde.org>
  *
@@ -68,6 +68,7 @@ private:
     void sendNotification();
 
     bool installFailed;
+    bool m_notifyOnFinished;
 };
 
 CALAMARES_PLUGIN_FACTORY_DECLARATION( FinishedViewStepFactory )

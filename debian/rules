@@ -16,12 +16,23 @@ override_dh_auto_configure:
                 -DCMAKE_INSTALL_RPATH="/usr/lib/calamares" \
                 -DLIBRARY_INSTALL_BINDIR="/usr/lib/calamares" \
                 -DLIB_SUFFIX="/calamares" \
-                -DWEBVIEW_FORCE_WEBKIT=ON
+                -DWEBVIEW_FORCE_WEBKIT=ON \
+		-DWITH_KF5Crash=OFF \
+		-DBUILD_TESTING=OFF \
+                -DSKIP_MODULES="dracut dracutlukscfg dummycpp dummyprocess \
+                                dummypython dummypythonqt initcpio initcpiocfg \
+                                luksbootkeyfile luksopenswaphookcfg openrcdmcryptcfg \
+                                plasmalnf plymouthcfg"
+
 
 override_dh_fixperms:
 	dh_fixperms
 	chmod 755 debian/*/*/*/*/*/*/encrypt_hook
 	chmod 755 debian/*/*/*/*/*/*/encrypt_hook_nokey
+
+override_dh_auto_test:
+	dh_auto_test | true
+
 
 override_dh_makeshlibs:
 	# just do nothing

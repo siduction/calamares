@@ -1,4 +1,4 @@
-/* === This file is part of Calamares - <http://github.com/calamares> ===
+/* === This file is part of Calamares - <https://github.com/calamares> ===
  *
  *   Copyright 2014, Teo Mrnjavac <teo@kde.org>
  *
@@ -39,7 +39,7 @@ public:
                         const QString& workingPath,
                         const QVariantMap& moduleConfiguration = QVariantMap(),
                         QObject* parent = nullptr );
-    virtual ~PythonJob();
+    virtual ~PythonJob() override;
 
     QString prettyName() const override;
     QString prettyStatusMessage() const override;

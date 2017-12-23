@@ -1,3 +1,17 @@
+calamares (3.1.11-202-g980b39961-1) experimental-snapshots; urgency=medium
+
+  * New snapshot: v3.1.11-202-g980b39961
+
+ -- Alf Gaida <agaida@siduction.org>  Sat, 23 Dec 2017 01:57:25 +0100
+
+calamares (3.1.10~213-g55ed2ba4c-1) experimental-snapshots; urgency=medium
+
+  * New snapshot: v3.1.9-213-g55ed2ba4c
+  * Partly reworked dependencies
+  * Refined debian/rules
+
+ -- Alf Gaida <agaida@siduction.org>  Sun, 17 Dec 2017 04:07:53 +0100
+
 calamares (3.1.5~73-gd20285d4f-1) unstable; urgency=medium
 
   * New snapshot: v3.1.4-73-gd20285d4f
@@ -144,7 +158,7 @@ calamares (3.1.1~285-gad1c96cdd-1) unstable; urgency=medium
   * Removed pep8-networkcfg.patch, applied upstream
   * Removed pep8-grubcfg.patch, applied upstream
   * Removed pep8-initramfscfg.patch, applied upstream
-  * New iteration of pep8-services.patch 
+  * New iteration of pep8-services.patch
   * New iteration of pep8-unpackfs.patch
   * New iteration of pep8-displaymanager.patch
 
@@ -162,9 +176,9 @@ calamares (3.1.1~263-g231a83cf6-1) unstable; urgency=medium
   * New snapshot: v3.1-263-g231a83cf6
   * Removed pep8-fstab.patch -- applied upstream
   * Removed pep8-luksbootkeyfile.patch -- applied upstream
-  * new iteration of pep8-unpackfs 
-  * new iteration of pep8-networkcfg 
-  * new iteration of pep8-grubcfg 
+  * new iteration of pep8-unpackfs
+  * new iteration of pep8-networkcfg
+  * new iteration of pep8-grubcfg
   * new iteration of pep8-services
   * new iteration of pep8-initramfscfg
 
@@ -213,7 +227,7 @@ calamares (3.1.1~244-g3f4d42756-3) unstable; urgency=medium
     - pep8-initramfs.patch
     - pep8-luksswapopen.patch
     - pep8-initcpiocfg.patch
-    - pep8-luksbootkeyfile.patch 
+    - pep8-luksbootkeyfile.patch
 
  -- Alf Gaida <agaida@siduction.org>  Sat, 03 Jun 2017 23:53:50 +0200
 
@@ -294,13 +308,13 @@ calamares (3.1.1~121-g91c29def-1) unstable; urgency=medium
 
   * New snapshot: v3.1-121-g91c29def
   * Removed pep8-testmodule.patch
-  * Added pep8-fstab.patch 
-  
+  * Added pep8-fstab.patch
+
  -- Alf Gaida <agaida@siduction.org>  Mon, 10 Apr 2017 17:56:19 +0200
 
 calamares (3.1.1~118-ga3de3de4-2) unstable; urgency=medium
 
-  * Added pep8-mount.patch 
+  * Added pep8-mount.patch
 
  -- Alf Gaida <agaida@siduction.org>  Sun, 09 Apr 2017 22:32:29 +0200
 
@@ -326,13 +340,13 @@ calamares (3.1.1~69-ge0138641-1) unstable; urgency=medium
 
 calamares (3.1.1~56-g1e260784-7) unstable; urgency=medium
 
-  * added pep8-fstab patch 
+  * added pep8-fstab patch
 
  -- Alf Gaida <agaida@siduction.org>  Tue, 21 Mar 2017 01:05:35 +0100
 
 calamares (3.1.1~56-g1e260784-6) unstable; urgency=medium
 
-  * added pep8-plymouthcfg patch 
+  * added pep8-plymouthcfg patch
   * fixed patch
 
  -- Alf Gaida <agaida@siduction.org>  Tue, 21 Mar 2017 00:37:47 +0100
@@ -370,7 +384,7 @@ calamares (3.1.1~32-g6c1c82be-3) unstable; urgency=medium
 
 calamares (3.1.1~32-g6c1c82be-2) unstable; urgency=medium
 
-  * fix uefi installation path 
+  * fix uefi installation path
 
  -- Alf Gaida <agaida@siduction.org>  Wed, 15 Mar 2017 22:18:48 +0100
 
@@ -390,13 +404,13 @@ calamares (3.1.0-1) unstable; urgency=medium
 calamares (3.0.96~7-g5f3fa59c-1) unstable; urgency=medium
 
   * New snapshot: v3.1-beta1-7-g5f3fa59c
-  * make some things simple again 
+  * make some things simple again
 
  -- Alf Gaida <agaida@siduction.org>  Wed, 15 Feb 2017 18:29:41 +0100
 
 calamares (3.0.96~5-g250e3b94-2) unstable; urgency=medium
 
-  * und ab dafür 
+  * und ab dafür
 
  -- Alf Gaida <agaida@siduction.org>  Tue, 14 Feb 2017 00:56:51 +0100
 
@@ -420,7 +434,7 @@ calamares (3.0.96~3-gd209ead9-1) unstable; urgency=medium
 
 calamares (3.0.2~4-g0acf96fb-1) unstable; urgency=medium
 
-  * use sudo in desktop file 
+  * use sudo in desktop file
   * New snapshot: v3.0.1-4-g0acf96fb
 
  -- Alf Gaida <agaida@siduction.org>  Mon, 30 Jan 2017 02:11:32 +0100

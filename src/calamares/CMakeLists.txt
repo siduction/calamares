@@ -27,8 +27,6 @@ include_directories(
     ${CMAKE_CURRENT_BINARY_DIR}
     ${CMAKE_CURRENT_BINARY_DIR}/../libcalamares
 
-    ${THIRDPARTY_DIR}/libcrashreporter-qt/src/
-
     ../libcalamares
     ../libcalamaresui
 )
@@ -51,8 +49,11 @@ SET_TARGET_PROPERTIES(calamares_bin
         RUNTIME_OUTPUT_NAME calamares
 )
 
-if( WITH_CRASHREPORTER )
-    list( APPEND LINK_LIBRARIES ${LINK_LIBRARIES} pthread crashreporter-handler )
+if( WITH_KF5Crash )
+    set( LINK_LIBRARIES
+        KF5::CoreAddons
+        KF5::Crash
+    )
 endif()
 
 target_link_libraries( calamares_bin

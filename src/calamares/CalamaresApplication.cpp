@@ -1,4 +1,4 @@
-/* === This file is part of Calamares - <http://github.com/calamares> ===
+/* === This file is part of Calamares - <https://github.com/calamares> ===
  *
  *   Copyright 2014-2015, Teo Mrnjavac <teo@kde.org>
  *
@@ -356,7 +356,7 @@ CalamaresApplication::initViewSteps()
 {
     cDebug() << "STARTUP: loadModules for all modules done";
     m_mainwindow->show();
-    ProgressTreeModel* m = new ProgressTreeModel( this );
+    ProgressTreeModel* m = new ProgressTreeModel( nullptr );
     ProgressTreeView::instance()->setModel( m );
     cDebug() << "STARTUP: Window now visible and ProgressTreeView populated";
 }

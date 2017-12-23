@@ -7,7 +7,7 @@
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/5389/badge.svg)](https://scan.coverity.com/projects/5389)
 [![GitHub license](https://img.shields.io/github/license/calamares/calamares.svg)](https://github.com/calamares/calamares/blob/master/LICENSE)
 
-| [Report a Bug](https://calamares.io/bugs/) | [Contribute](https://github.com/calamares/calamares/blob/master/HACKING.md) | [Translate](https://www.transifex.com/projects/p/calamares/) | Freenode (IRC): #calamares | [Wiki](https://github.com/calamares/calamares/wiki) |
+| [Report a Bug](https://github.com/calamares/calamares/issues/new) | [Contribute](https://github.com/calamares/calamares/blob/master/ci/HACKING.md) | [Translate](https://www.transifex.com/projects/p/calamares/) | Freenode (IRC): #calamares | [Wiki](https://github.com/calamares/calamares/wiki) |
 |:-----------------------------------------:|:----------------------:|:-----------------------:|:--------------------------:|:--------------------------:|
 
 ### Dependencies
@@ -19,16 +19,15 @@ Main:
 * yaml-cpp >= 0.5.1
 * Python >= 3.3
 * Boost.Python >= 1.55.0
-* dmidecode
+* extra-cmake-modules (recommended; required for some modules)
 
 Modules:
 * welcome:
   * NetworkManager
-  * UPower
+  * UPower (optional, runtime)
 * partition:
-  * extra-cmake-modules
   * KF5: KCoreAddons, KConfig, KI18n, KIconThemes, KIO, KService
-  * KPMcore >= 3.0.3
+  * KPMcore >= 3.0.2
 * bootloader:
   * systemd-boot or GRUB
 * unpackfs:
@@ -37,4 +36,7 @@ Modules:
 
 ### Building
 
-See [wiki](https://github.com/calamares/calamares/wiki) for up to date building and deployment instructions.
+See [wiki](https://github.com/calamares/calamares/wiki) for up to date
+[building](https://github.com/calamares/calamares/wiki/Developer's-Guide)
+and [deployment](https://github.com/calamares/calamares/wiki/Deployer's-Guide)
+instructions.

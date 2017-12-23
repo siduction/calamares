@@ -1,4 +1,4 @@
-/* === This file is part of Calamares - <http://github.com/calamares> ===
+/* === This file is part of Calamares - <https://github.com/calamares> ===
  *
  *   Copyright 2014-2015, Teo Mrnjavac <teo@kde.org>
  *   Copyright 2017, Adriaan de Groot <groot@kde.org>
@@ -34,6 +34,7 @@ FinishedViewStep::FinishedViewStep( QObject* parent )
     : Calamares::ViewStep( parent )
     , m_widget( new FinishedPage() )
     , installFailed( false )
+    , m_notifyOnFinished( false )
 {
     auto jq = Calamares::JobQueue::instance();
     connect( jq, &Calamares::JobQueue::failed,
@@ -110,7 +111,7 @@ FinishedViewStep::sendNotification()
 {
     // If the installation failed, don't send notification popup;
     // there's a (modal) dialog popped up with the failure notice.
-    if (installFailed)
+    if ( installFailed )
         return;
 
     QDBusInterface notify( "org.freedesktop.Notifications", "/org/freedesktop/Notifications", "org.freedesktop.Notifications" );
@@ -139,7 +140,8 @@ FinishedViewStep::onActivate()
 {
     m_widget->setUpRestart();
 
-    sendNotification();
+    if ( m_notifyOnFinished )
+        sendNotification();
 }
 
 
@@ -152,8 +154,8 @@ FinishedViewStep::jobs() const
 void
 FinishedViewStep::onInstallationFailed( const QString& message, const QString& details )
 {
-    Q_UNUSED(message);
-    Q_UNUSED(details);
+    Q_UNUSED( message );
+    Q_UNUSED( details );
     installFailed = true;
 }
 
@@ -176,9 +178,12 @@ FinishedViewStep::setConfigurationMap( const QVariantMap& configurationMap )
                     configurationMap.value( "restartNowCommand" ).type() == QVariant::String )
                 m_widget->setRestartNowCommand( configurationMap.value( "restartNowCommand" ).toString() );
             else
-                m_widget->setRestartNowCommand( "systemctl -i reboot" );
+                m_widget->setRestartNowCommand( "shutdown -r now" );
         }
     }
+    if ( configurationMap.contains( "notifyOnFinished" ) &&
+            configurationMap.value( "notifyOnFinished" ).type() == QVariant::Bool )
+        m_notifyOnFinished = configurationMap.value( "notifyOnFinished" ).toBool();
 }
 
 CALAMARES_PLUGIN_FACTORY_DEFINITION( FinishedViewStepFactory, registerPlugin<FinishedViewStep>(); )

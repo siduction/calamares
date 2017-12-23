@@ -1,4 +1,4 @@
-/* === This file is part of Calamares - <http://github.com/calamares> ===
+/* === This file is part of Calamares - <https://github.com/calamares> ===
  *
  *   Copyright 2014-2015, Teo Mrnjavac <teo@kde.org>
  *   Copyright 2017, Adriaan de Groot <groot@kde.org>
@@ -96,7 +96,7 @@ CalamaresWindow::CalamaresWindow( QWidget* parent )
     logoLabel->setAlignment( Qt::AlignCenter );
     logoLabel->setFixedSize( 80, 80 );
     logoLabel->setPixmap( Calamares::Branding::instance()->
-                          image( Calamares::Branding::ProductIcon,
+                          image( Calamares::Branding::ProductLogo,
                                  logoLabel->size() ) );
     logoLayout->addWidget( logoLabel );
     logoLayout->addStretch();
