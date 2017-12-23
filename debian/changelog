@@ -1,8 +1,20 @@
+calamares (3.1.11-202-g980b39961-3) experimental-snapshots; urgency=medium
+
+  * added iprogress.patch 
+
+ -- Alf Gaida <agaida@siduction.org>  Sat, 23 Dec 2017 17:02:48 +0100
+
+calamares (3.1.11-202-g980b39961-2) experimental-snapshots; urgency=medium
+
+  * New snapshot: v3.1.11-202-g980b39961
+
+ -- Alf Gaida <agaida@siduction.org>  Sat, 23 Dec 2017 15:37:24 +0100
+
 calamares (3.1.11-202-g980b39961-1) experimental-snapshots; urgency=medium
 
   * New snapshot: v3.1.11-202-g980b39961
 
- -- Alf Gaida <agaida@siduction.org>  Sat, 23 Dec 2017 01:57:25 +0100
+ -- Alf Gaida <agaida@siduction.org>  Sat, 23 Dec 2017 02:13:28 +0100
 
 calamares (3.1.10~213-g55ed2ba4c-1) experimental-snapshots; urgency=medium
 
