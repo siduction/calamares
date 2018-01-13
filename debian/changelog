@@ -1,28 +1,15 @@
-calamares (3.1.11-202-g980b39961-3) experimental-snapshots; urgency=medium
+calamares (3.1.11-207-g1cffa9faf-2) unstable; urgency=medium
 
-  * added iprogress.patch 
+  * fixed finalize in unpackfs - bummer, really
 
- -- Alf Gaida <agaida@siduction.org>  Sat, 23 Dec 2017 17:02:48 +0100
+ -- Alf Gaida <agaida@siduction.org>  Tue, 26 Dec 2017 21:21:59 +0100
 
-calamares (3.1.11-202-g980b39961-2) experimental-snapshots; urgency=medium
+calamares (3.1.11-207-g1cffa9faf-1) unstable; urgency=medium
 
-  * New snapshot: v3.1.11-202-g980b39961
+  * New snapshot: v3.1.11-207-g1cffa9faf
+  * Some dependencies  reworked
 
- -- Alf Gaida <agaida@siduction.org>  Sat, 23 Dec 2017 15:37:24 +0100
-
-calamares (3.1.11-202-g980b39961-1) experimental-snapshots; urgency=medium
-
-  * New snapshot: v3.1.11-202-g980b39961
-
- -- Alf Gaida <agaida@siduction.org>  Sat, 23 Dec 2017 02:13:28 +0100
-
-calamares (3.1.10~213-g55ed2ba4c-1) experimental-snapshots; urgency=medium
-
-  * New snapshot: v3.1.9-213-g55ed2ba4c
-  * Partly reworked dependencies
-  * Refined debian/rules
-
- -- Alf Gaida <agaida@siduction.org>  Sun, 17 Dec 2017 04:07:53 +0100
+ -- Alf Gaida <agaida@siduction.org>  Tue, 26 Dec 2017 18:44:58 +0100
 
 calamares (3.1.5~73-gd20285d4f-1) unstable; urgency=medium
 
