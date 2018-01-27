@@ -1,3 +1,22 @@
+calamares (3.1.12-300-g54a9bbb94-1) unstable; urgency=medium
+
+  * New snapshot: v3.1.12-300-g54a9bbb94
+  * fix debian foo for libkpmcore8
+
+ -- Alf Gaida <agaida@siduction.org>  Sat, 27 Jan 2018 16:27:48 +0100
+
+calamares (3.1.12-275-g3b3e80b33-1) unstable; urgency=medium
+
+  * New snapshot: v3.1.12-275-g3b3e80b33
+
+ -- Alf Gaida <agaida@siduction.org>  Sun, 21 Jan 2018 21:24:48 +0100
+
+calamares (3.1.12-253-g6e01bb0fa-1) unstable; urgency=medium
+
+  * New snapshot: v3.1.12-253-g6e01bb0fa
+
+ -- Alf Gaida <agaida@siduction.org>  Sat, 13 Jan 2018 02:18:43 +0100
+
 calamares (3.1.11-207-g1cffa9faf-2) unstable; urgency=medium
 
   * fixed finalize in unpackfs - bummer, really
