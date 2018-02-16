@@ -85,7 +85,7 @@ ContextualProcessJob::exec()
     {
         if ( gs->contains( binding->variable ) && ( gs->value( binding->variable ).toString() == binding->value ) )
         {
-            Calamares::JobResult r = binding->commands->run( this );
+            Calamares::JobResult r = binding->commands->run();
             if ( !r )
                 return r;
         }
@@ -97,17 +97,20 @@ ContextualProcessJob::exec()
 void
 ContextualProcessJob::setConfigurationMap( const QVariantMap& configurationMap )
 {
-    m_dontChroot = CalamaresUtils::getBool( configurationMap, "dontChroot", false );
+    bool dontChroot = CalamaresUtils::getBool( configurationMap, "dontChroot", false );
+    int timeout = CalamaresUtils::getInteger( configurationMap, "timeout", 10 );
+    if ( timeout < 1 )
+        timeout = 10;
 
     for ( QVariantMap::const_iterator iter = configurationMap.cbegin(); iter != configurationMap.cend(); ++iter )
     {
         QString variableName = iter.key();
-        if ( variableName.isEmpty() || ( variableName == "dontChroot" ) )
+        if ( variableName.isEmpty() || ( variableName == "dontChroot" ) || ( variableName == "timeout" ) )
             continue;
 
         if ( iter.value().type() != QVariant::Map )
         {
-            cDebug() << "WARNING:" << moduleInstanceKey() << "bad configuration values for" << variableName;
+            cWarning() << moduleInstanceKey() << "bad configuration values for" << variableName;
             continue;
         }
 
@@ -117,11 +120,11 @@ ContextualProcessJob::setConfigurationMap( const QVariantMap& configurationMap )
             QString valueString = valueiter.key();
             if ( variableName.isEmpty() )
             {
-                cDebug() << "WARNING:" << moduleInstanceKey() << "variable" << variableName << "unrecognized value" << valueiter.key();
+                cWarning() << moduleInstanceKey() << "variable" << variableName << "unrecognized value" << valueiter.key();
                 continue;
             }
 
-            CalamaresUtils::CommandList* commands = new CalamaresUtils::CommandList( valueiter.value(), !m_dontChroot );
+            CalamaresUtils::CommandList* commands = new CalamaresUtils::CommandList( valueiter.value(), !dontChroot, timeout );
 
             if ( commands->count() > 0 )
             {

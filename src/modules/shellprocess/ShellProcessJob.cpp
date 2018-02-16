@@ -34,7 +34,6 @@
 ShellProcessJob::ShellProcessJob( QObject* parent )
     : Calamares::CppJob( parent )
     , m_commands( nullptr )
-    , m_dontChroot( false )
 {
 }
 
@@ -59,27 +58,30 @@ ShellProcessJob::exec()
 
     if ( ! m_commands || m_commands->isEmpty() )
     {
-        cDebug() << "WARNING: No commands to execute" << moduleInstanceKey();
+        cWarning() << "No commands to execute" << moduleInstanceKey();
         return Calamares::JobResult::ok();
     }
 
-    return m_commands->run( this );
+    return m_commands->run();
 }
 
 
 void
 ShellProcessJob::setConfigurationMap( const QVariantMap& configurationMap )
 {
-    m_dontChroot = CalamaresUtils::getBool( configurationMap, "dontChroot", false );
+    bool dontChroot = CalamaresUtils::getBool( configurationMap, "dontChroot", false );
+    int timeout = CalamaresUtils::getInteger( configurationMap, "timeout", 10 );
+    if ( timeout < 1 )
+        timeout = 10;
 
     if ( configurationMap.contains( "script" ) )
     {
-        m_commands = new CalamaresUtils::CommandList( configurationMap.value( "script" ), !m_dontChroot );
+        m_commands = new CalamaresUtils::CommandList( configurationMap.value( "script" ), !dontChroot, timeout );
         if ( m_commands->isEmpty() )
             cDebug() << "ShellProcessJob: \"script\" contains no commands for" << moduleInstanceKey();
     }
     else
-        cDebug() << "WARNING: No script given for ShellProcessJob" << moduleInstanceKey();
+        cWarning() << "No script given for ShellProcessJob" << moduleInstanceKey();
 }
 
 CALAMARES_PLUGIN_FACTORY_DEFINITION( ShellProcessJobFactory, registerPlugin<ShellProcessJob>(); )

@@ -21,36 +21,57 @@
 #include "GlobalStorage.h"
 #include "JobQueue.h"
 
+#include "utils/CalamaresUtils.h"
 #include "utils/CalamaresUtilsSystem.h"
 #include "utils/Logger.h"
 
+#include <QCoreApplication>
 #include <QVariantList>
 
-static QStringList get_variant_stringlist( const QVariantList& l )
+namespace CalamaresUtils
 {
-    QStringList retl;
+
+static CommandLine get_variant_object( const QVariantMap& m )
+{
+    QString command = CalamaresUtils::getString( m, "command" );
+    int timeout = CalamaresUtils::getInteger( m, "timeout", CommandLine::TimeoutNotSet );
+
+    if ( !command.isEmpty() )
+        return CommandLine( command, timeout );
+    cWarning() << "Bad CommandLine element" << m;
+    return CommandLine();
+}
+
+static CommandList_t get_variant_stringlist( const QVariantList& l )
+{
+    CommandList_t retl;
     unsigned int c = 0;
     for ( const auto& v : l )
     {
         if ( v.type() == QVariant::String )
-            retl.append( v.toString() );
+            retl.append( CommandLine( v.toString(), CommandLine::TimeoutNotSet ) );
+        else if ( v.type() == QVariant::Map )
+        {
+            auto c( get_variant_object( v.toMap() ) );
+            if ( c.isValid() )
+                retl.append( c );
+            // Otherwise warning is already given
+        }
         else
-            cDebug() << "WARNING Bad CommandList element" << c << v.type() << v;
+            cWarning() << "Bad CommandList element" << c << v.type() << v;
         ++c;
     }
     return retl;
 }
 
-namespace CalamaresUtils
-{
-
-CommandList::CommandList( bool doChroot )
+CommandList::CommandList( bool doChroot, int timeout )
     : m_doChroot( doChroot )
+    , m_timeout( timeout )
 {
 }
 
-CommandList::CommandList::CommandList( const QVariant& v, bool doChroot )
-    : CommandList( doChroot )
+CommandList::CommandList::CommandList( const QVariant& v, bool doChroot, int timeout )
+    : CommandList( doChroot, timeout )
 {
     if ( v.type() == QVariant::List )
     {
@@ -58,19 +79,26 @@ CommandList::CommandList::CommandList( const QVariant& v, bool doChroot )
         if ( v_list.count() )
             append( get_variant_stringlist( v_list ) );
         else
-            cDebug() << "WARNING: Empty CommandList";
+            cWarning() << "Empty CommandList";
     }
     else if ( v.type() == QVariant::String )
         append( v.toString() );
+    else if ( v.type() == QVariant::Map )
+    {
+        auto c( get_variant_object( v.toMap() ) );
+        if ( c.isValid() )
+            append( c );
+        // Otherwise warning is already given
+    }
     else
-        cDebug() << "WARNING: CommandList does not understand variant" << v.type();
+        cWarning() << "CommandList does not understand variant" << v.type();
 }
 
 CommandList::~CommandList()
 {
 }
 
-Calamares::JobResult CommandList::run( const QObject* parent )
+Calamares::JobResult CommandList::run()
 {
     System::RunLocation location = m_doChroot ? System::RunLocation::RunInTarget : System::RunLocation::RunInHost;
 
@@ -81,40 +109,47 @@ Calamares::JobResult CommandList::run( const QObject* parent )
     {
         if ( !gs || !gs->contains( "rootMountPoint" ) )
         {
-            cDebug() << "ERROR: No rootMountPoint defined.";
-            return Calamares::JobResult::error( parent->tr( "Could not run command." ),
-                                                parent->tr( "No rootMountPoint is defined, so command cannot be run in the target environment." ) );
+            cError() << "No rootMountPoint defined.";
+            return Calamares::JobResult::error( QCoreApplication::translate( "CommandList", "Could not run command." ),
+                                                QCoreApplication::translate( "CommandList", "No rootMountPoint is defined, so command cannot be run in the target environment." ) );
         }
         root = gs->value( "rootMountPoint" ).toString();
     }
 
     for ( CommandList::const_iterator i = cbegin(); i != cend(); ++i )
     {
-        QString processed_cmd = *i;
-        processed_cmd.replace( "@@ROOT@@", root );  // FIXME?
+        QString processed_cmd = i->command();
+        processed_cmd.replace( "@@ROOT@@", root );
         bool suppress_result = false;
         if ( processed_cmd.startsWith( '-' ) )
         {
             suppress_result = true;
-            processed_cmd.remove( 0, 1 );  // Drop the -  // FIXME?
+            processed_cmd.remove( 0, 1 );  // Drop the -
         }
 
         QStringList shell_cmd { "/bin/sh", "-c" };
         shell_cmd << processed_cmd;
 
+        int timeout = i->timeout() >= 0 ? i->timeout() : m_timeout;
         ProcessResult r = System::runCommand(
-                              location, shell_cmd, QString(), QString(), 10 );
+                              location, shell_cmd, QString(), QString(), timeout );
 
         if ( r.getExitCode() != 0 )
         {
             if ( suppress_result )
                 cDebug() << "Error code" << r.getExitCode() << "ignored by CommandList configuration.";
             else
-                return r.explainProcess( parent, processed_cmd, 10 );
+                return r.explainProcess( processed_cmd, timeout );
         }
     }
 
     return Calamares::JobResult::ok();
+}
+
+void
+CommandList::append( const QString& s )
+{
+    append( CommandLine( s, m_timeout ) );
 }
 
 }  // namespace

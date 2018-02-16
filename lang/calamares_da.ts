@@ -4,17 +4,17 @@
     <message>
         <location filename="../src/modules/partition/gui/BootInfoWidget.cpp" line="69"/>
         <source>The &lt;strong&gt;boot environment&lt;/strong&gt; of this system.&lt;br&gt;&lt;br&gt;Older x86 systems only support &lt;strong&gt;BIOS&lt;/strong&gt;.&lt;br&gt;Modern systems usually use &lt;strong&gt;EFI&lt;/strong&gt;, but may also show up as BIOS if started in compatibility mode.</source>
-        <translation>&lt;strong&gt;Bootmiljøet&lt;/strong&gt; for dette system.&lt;br&gt;&lt;br&gt;Ældre x86-systemer understøtter kun &lt;strong&gt;BIOS&lt;/strong&gt;.&lt;br&gt;Moderne systemer bruger normalt &lt;strong&gt;EFI&lt;/strong&gt;, men kan også vises som BIOS hvis det startes i kompatibilitetstilstand.</translation>
+        <translation>Systemets &lt;strong&gt;bootmiljø&lt;/strong&gt;.&lt;br&gt;&lt;br&gt;Ældre x86-systemer understøtter kun &lt;strong&gt;BIOS&lt;/strong&gt;.&lt;br&gt;Moderne systemer bruger normalt &lt;strong&gt;EFI&lt;/strong&gt;, men kan også vises som BIOS hvis det startes i kompatibilitetstilstand.</translation>
     </message>
     <message>
         <location filename="../src/modules/partition/gui/BootInfoWidget.cpp" line="79"/>
         <source>This system was started with an &lt;strong&gt;EFI&lt;/strong&gt; boot environment.&lt;br&gt;&lt;br&gt;To configure startup from an EFI environment, this installer must deploy a boot loader application, like &lt;strong&gt;GRUB&lt;/strong&gt; or &lt;strong&gt;systemd-boot&lt;/strong&gt; on an &lt;strong&gt;EFI System Partition&lt;/strong&gt;. This is automatic, unless you choose manual partitioning, in which case you must choose it or create it on your own.</source>
-        <translation>Dette system blev startet med et &lt;strong&gt;EFI&lt;/strong&gt;-bootmiljø.&lt;br&gt;&lt;br&gt;For at konfigurere opstart fra et EFI-miljø, bliver installationsprogrammet nødt til at installere et bootloaderprogram, såsom &lt;strong&gt;GRUB&lt;/strong&gt; eller &lt;strong&gt;systemd-boot&lt;/strong&gt; på en &lt;strong&gt;EFI-systempartition&lt;/strong&gt;. Dette vil ske automatisk, med mindre du vælger manuel partitionering, hvor du i så fald skal vælge eller oprette den selv.</translation>
+        <translation>Systemet blev startet med et &lt;strong&gt;EFI&lt;/strong&gt;-bootmiljø.&lt;br&gt;&lt;br&gt;For at konfigurere opstart fra et EFI-miljø, bliver installationsprogrammet nødt til at installere et bootloaderprogram, såsom &lt;strong&gt;GRUB&lt;/strong&gt; eller &lt;strong&gt;systemd-boot&lt;/strong&gt; på en &lt;strong&gt;EFI-systempartition&lt;/strong&gt;. Det sker automatisk, med mindre du vælger manuel partitionering, hvor du i så fald skal vælge eller oprette den selv.</translation>
     </message>
     <message>
         <location filename="../src/modules/partition/gui/BootInfoWidget.cpp" line="91"/>
         <source>This system was started with a &lt;strong&gt;BIOS&lt;/strong&gt; boot environment.&lt;br&gt;&lt;br&gt;To configure startup from a BIOS environment, this installer must install a boot loader, like &lt;strong&gt;GRUB&lt;/strong&gt;, either at the beginning of a partition or on the &lt;strong&gt;Master Boot Record&lt;/strong&gt; near the beginning of the partition table (preferred). This is automatic, unless you choose manual partitioning, in which case you must set it up on your own.</source>
-        <translation>Dette system blev startet med et &lt;strong&gt;BIOS&lt;/strong&gt;-bootmiljø.&lt;br&gt;&lt;br&gt;For at konfigurere opstart fra et BIOS-miljø, bliver installationsprogrammet nødt til at installere en bootloader, såsom &lt;strong&gt;GRUB&lt;/strong&gt;, enten i begyndelsen af en partition eller på &lt;strong&gt;Master Boot Record&lt;/strong&gt; nær begyndelsen af partitionstabellen (foretrukket). Dette sker automatisk, med mindre du vælger manuel partitionering, hvor du i så fald skal opsætte den selv.</translation>
+        <translation>Systemet blev startet med et &lt;strong&gt;BIOS&lt;/strong&gt;-bootmiljø.&lt;br&gt;&lt;br&gt;For at konfigurere opstart fra et BIOS-miljø, bliver installationsprogrammet nødt til at installere en bootloader, såsom &lt;strong&gt;GRUB&lt;/strong&gt;, enten i begyndelsen af en partition eller på &lt;strong&gt;Master Boot Record&lt;/strong&gt; nær begyndelsen af partitionstabellen (foretrukket). Det sker automatisk, med mindre du vælger manuel partitionering, hvor du i så fald skal opsætte den selv.</translation>
     </message>
 </context>
 <context>
@@ -105,7 +105,7 @@
 <context>
     <name>Calamares::JobThread</name>
     <message>
-        <location filename="../src/libcalamares/JobQueue.cpp" line="89"/>
+        <location filename="../src/libcalamares/JobQueue.cpp" line="86"/>
         <source>Done</source>
         <translation>Færdig</translation>
     </message>
@@ -138,7 +138,7 @@
     <message>
         <location filename="../src/libcalamares/PythonJob.cpp" line="281"/>
         <source>Working directory %1 for python job %2 is not readable.</source>
-        <translation>Arbejdsmappe %1 for python-job %2 er ikke læsbar.</translation>
+        <translation>Arbejdsmappen %1 til python-jobbet %2 er ikke læsbar.</translation>
     </message>
     <message>
         <location filename="../src/libcalamares/PythonJob.cpp" line="291"/>
@@ -148,7 +148,7 @@
     <message>
         <location filename="../src/libcalamares/PythonJob.cpp" line="292"/>
         <source>Main script file %1 for python job %2 is not readable.</source>
-        <translation>Primær skriptfil %1 for python-job %2 er ikke læsbar.</translation>
+        <translation>Primær skriptfil %1 til python-jobbet %2 er ikke læsbar.</translation>
     </message>
     <message>
         <location filename="../src/libcalamares/PythonJob.cpp" line="368"/>
@@ -170,80 +170,80 @@
     </message>
     <message>
         <location filename="../src/libcalamaresui/ViewManager.cpp" line="75"/>
-        <location filename="../src/libcalamaresui/ViewManager.cpp" line="278"/>
+        <location filename="../src/libcalamaresui/ViewManager.cpp" line="279"/>
         <source>&amp;Cancel</source>
         <translation>&amp;Annullér</translation>
     </message>
     <message>
         <location filename="../src/libcalamaresui/ViewManager.cpp" line="76"/>
-        <location filename="../src/libcalamaresui/ViewManager.cpp" line="279"/>
+        <location filename="../src/libcalamaresui/ViewManager.cpp" line="280"/>
         <source>Cancel installation without changing the system.</source>
         <translation>Annullér installation uden at ændre systemet.</translation>
     </message>
     <message>
-        <location filename="../src/libcalamaresui/ViewManager.cpp" line="290"/>
+        <location filename="../src/libcalamaresui/ViewManager.cpp" line="291"/>
         <source>Cancel installation?</source>
         <translation>Annullér installationen?</translation>
     </message>
     <message>
-        <location filename="../src/libcalamaresui/ViewManager.cpp" line="291"/>
+        <location filename="../src/libcalamaresui/ViewManager.cpp" line="292"/>
         <source>Do you really want to cancel the current install process?
 The installer will quit and all changes will be lost.</source>
         <translation>Vil du virkelig annullere den igangværende installationsproces?
 Installationsprogrammet vil stoppe og alle ændringer vil gå tabt.</translation>
     </message>
     <message>
-        <location filename="../src/libcalamaresui/ViewManager.cpp" line="296"/>
+        <location filename="../src/libcalamaresui/ViewManager.cpp" line="297"/>
         <source>&amp;Yes</source>
         <translation>&amp;Ja</translation>
     </message>
     <message>
-        <location filename="../src/libcalamaresui/ViewManager.cpp" line="297"/>
+        <location filename="../src/libcalamaresui/ViewManager.cpp" line="298"/>
         <source>&amp;No</source>
         <translation>&amp;Nej</translation>
     </message>
     <message>
-        <location filename="../src/libcalamaresui/ViewManager.cpp" line="161"/>
+        <location filename="../src/libcalamaresui/ViewManager.cpp" line="162"/>
         <source>&amp;Close</source>
         <translation>&amp;Luk</translation>
     </message>
     <message>
-        <location filename="../src/libcalamaresui/ViewManager.cpp" line="211"/>
-        <source>Continue with setup?</source>
-        <translation>Fortsæt med installation?</translation>
-    </message>
-    <message>
         <location filename="../src/libcalamaresui/ViewManager.cpp" line="212"/>
-        <source>The %1 installer is about to make changes to your disk in order to install %2.&lt;br/&gt;&lt;strong&gt;You will not be able to undo these changes.&lt;/strong&gt;</source>
-        <translation>%1-installationsprogrammet er ved at foretage ændringer til din disk for at installere %2. &lt;br/&gt;&lt;strong&gt;Det vil ikke være muligt at fortryde disse ændringer.&lt;/strong&gt;</translation>
+        <source>Continue with setup?</source>
+        <translation>Fortsæt med opsætningen?</translation>
     </message>
     <message>
-        <location filename="../src/libcalamaresui/ViewManager.cpp" line="217"/>
+        <location filename="../src/libcalamaresui/ViewManager.cpp" line="213"/>
+        <source>The %1 installer is about to make changes to your disk in order to install %2.&lt;br/&gt;&lt;strong&gt;You will not be able to undo these changes.&lt;/strong&gt;</source>
+        <translation>%1-installationsprogrammet er ved at foretage ændringer til din disk for at installere %2. &lt;br/&gt;&lt;strong&gt;Det vil ikke være muligt at fortryde ændringerne.&lt;/strong&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/libcalamaresui/ViewManager.cpp" line="218"/>
         <source>&amp;Install now</source>
         <translation>&amp;Installér nu</translation>
     </message>
     <message>
-        <location filename="../src/libcalamaresui/ViewManager.cpp" line="218"/>
+        <location filename="../src/libcalamaresui/ViewManager.cpp" line="219"/>
         <source>Go &amp;back</source>
         <translation>Gå &amp;tilbage</translation>
     </message>
     <message>
-        <location filename="../src/libcalamaresui/ViewManager.cpp" line="247"/>
+        <location filename="../src/libcalamaresui/ViewManager.cpp" line="248"/>
         <source>&amp;Done</source>
         <translation>&amp;Færdig</translation>
     </message>
     <message>
-        <location filename="../src/libcalamaresui/ViewManager.cpp" line="248"/>
+        <location filename="../src/libcalamaresui/ViewManager.cpp" line="249"/>
         <source>The installation is complete. Close the installer.</source>
         <translation>Installationen er fuldført. Luk installationsprogrammet.</translation>
     </message>
     <message>
-        <location filename="../src/libcalamaresui/ViewManager.cpp" line="158"/>
+        <location filename="../src/libcalamaresui/ViewManager.cpp" line="159"/>
         <source>Error</source>
         <translation>Fejl</translation>
     </message>
     <message>
-        <location filename="../src/libcalamaresui/ViewManager.cpp" line="159"/>
+        <location filename="../src/libcalamaresui/ViewManager.cpp" line="160"/>
         <source>Installation Failed</source>
         <translation>Installation mislykkedes</translation>
     </message>
@@ -251,99 +251,24 @@ Installationsprogrammet vil stoppe og alle ændringer vil gå tabt.</translation
 <context>
     <name>CalamaresPython::Helper</name>
     <message>
-        <location filename="../src/libcalamares/PythonHelper.cpp" line="268"/>
+        <location filename="../src/libcalamares/PythonHelper.cpp" line="270"/>
         <source>Unknown exception type</source>
         <translation>Ukendt undtagelsestype</translation>
     </message>
     <message>
-        <location filename="../src/libcalamares/PythonHelper.cpp" line="282"/>
+        <location filename="../src/libcalamares/PythonHelper.cpp" line="284"/>
         <source>unparseable Python error</source>
         <translation>Python-fejl som ikke kan fortolkes</translation>
     </message>
     <message>
-        <location filename="../src/libcalamares/PythonHelper.cpp" line="322"/>
+        <location filename="../src/libcalamares/PythonHelper.cpp" line="324"/>
         <source>unparseable Python traceback</source>
         <translation>Python-traceback som ikke kan fortolkes</translation>
     </message>
     <message>
-        <location filename="../src/libcalamares/PythonHelper.cpp" line="327"/>
+        <location filename="../src/libcalamares/PythonHelper.cpp" line="329"/>
         <source>Unfetchable Python error.</source>
         <translation>Python-fejl som ikke kan hentes.</translation>
-    </message>
-</context>
-<context>
-    <name>CalamaresUtils::CommandList</name>
-    <message>
-        <location filename="../src/libcalamares/utils/CommandList.cpp" line="85"/>
-        <source>Could not run command.</source>
-        <translation>Kunne ikke køre kommando.</translation>
-    </message>
-    <message>
-        <location filename="../src/libcalamares/utils/CommandList.cpp" line="86"/>
-        <source>No rootMountPoint is defined, so command cannot be run in the target environment.</source>
-        <translation>Der er ikke defineret nogen rootMountPoint, så kommandoen kan ikke køre i målmiljøet.</translation>
-    </message>
-</context>
-<context>
-    <name>CalamaresUtils::ProcessResult</name>
-    <message>
-        <location filename="../src/libcalamares/utils/CalamaresUtilsSystem.cpp" line="262"/>
-        <source>
-Output:
-</source>
-        <translation>
-Output:
-</translation>
-    </message>
-    <message>
-        <location filename="../src/libcalamares/utils/CalamaresUtilsSystem.cpp" line="265"/>
-        <source>External command crashed.</source>
-        <translation>Ekstern kommando holdt op med at virke.</translation>
-    </message>
-    <message>
-        <location filename="../src/libcalamares/utils/CalamaresUtilsSystem.cpp" line="266"/>
-        <source>Command &lt;i&gt;%1&lt;/i&gt; crashed.</source>
-        <translation>Kommandoen &lt;i&gt;%1&lt;/i&gt; holdet op med at virke.</translation>
-    </message>
-    <message>
-        <location filename="../src/libcalamares/utils/CalamaresUtilsSystem.cpp" line="271"/>
-        <source>External command failed to start.</source>
-        <translation>Ekstern kommando kunne ikke starte.</translation>
-    </message>
-    <message>
-        <location filename="../src/libcalamares/utils/CalamaresUtilsSystem.cpp" line="272"/>
-        <source>Command &lt;i&gt;%1&lt;/i&gt; failed to start.</source>
-        <translation>Kommandoen &lt;i&gt;%1&lt;/i&gt; kunne ikke starte.</translation>
-    </message>
-    <message>
-        <location filename="../src/libcalamares/utils/CalamaresUtilsSystem.cpp" line="276"/>
-        <source>Internal error when starting command.</source>
-        <translation>Intern kommando ved start af kommando.</translation>
-    </message>
-    <message>
-        <location filename="../src/libcalamares/utils/CalamaresUtilsSystem.cpp" line="277"/>
-        <source>Bad parameters for process job call.</source>
-        <translation>Ugyldige parametre til kald af procesjob.</translation>
-    </message>
-    <message>
-        <location filename="../src/libcalamares/utils/CalamaresUtilsSystem.cpp" line="280"/>
-        <source>External command failed to finish.</source>
-        <translation>Ekstern kommando blev ikke færdig.</translation>
-    </message>
-    <message>
-        <location filename="../src/libcalamares/utils/CalamaresUtilsSystem.cpp" line="281"/>
-        <source>Command &lt;i&gt;%1&lt;/i&gt; failed to finish in %2 seconds.</source>
-        <translation>Kommandoen &lt;i&gt;%1&lt;/i&gt; blev ikke færdig på %2 sekunder.</translation>
-    </message>
-    <message>
-        <location filename="../src/libcalamares/utils/CalamaresUtilsSystem.cpp" line="287"/>
-        <source>External command finished with errors.</source>
-        <translation>Ekstern kommando blev færdig med fejl.</translation>
-    </message>
-    <message>
-        <location filename="../src/libcalamares/utils/CalamaresUtilsSystem.cpp" line="288"/>
-        <source>Command &lt;i&gt;%1&lt;/i&gt; finished with exit code %2.</source>
-        <translation>Kommandoen &lt;i&gt;%1&lt;/i&gt; blev færdig med afslutningskoden %2.</translation>
     </message>
 </context>
 <context>
@@ -364,22 +289,22 @@ Output:
     <message>
         <location filename="../src/modules/welcome/checker/CheckerWidget.cpp" line="96"/>
         <source>This computer does not satisfy the minimum requirements for installing %1.&lt;br/&gt;Installation cannot continue. &lt;a href=&quot;#details&quot;&gt;Details...&lt;/a&gt;</source>
-        <translation>Denne computer møder ikke minimumsystemkravene for at installere %1.&lt;br/&gt;Installationen kan ikke fortsætte. &lt;a href=&quot;#details&quot;&gt;Detaljer...&lt;/a&gt;</translation>
+        <translation>Computeren imødekommer ikke minimumsystemkravene for at installere %1.&lt;br/&gt;Installationen kan ikke fortsætte. &lt;a href=&quot;#details&quot;&gt;Detaljer...&lt;/a&gt;</translation>
     </message>
     <message>
         <location filename="../src/modules/welcome/checker/CheckerWidget.cpp" line="113"/>
         <source>This computer does not satisfy some of the recommended requirements for installing %1.&lt;br/&gt;Installation can continue, but some features might be disabled.</source>
-        <translation>Denne computer møder ikke nogle af de anbefalede systemkrav for at installere %1.&lt;br/&gt;Installationen kan fortsætte, men nogle funktionaliteter kan være deaktiveret.</translation>
+        <translation>Computeren imødekommer ikke nogle af de anbefalede systemkrav for at installere %1.&lt;br/&gt;Installationen kan fortsætte, men nogle funktionaliteter kan være deaktiveret.</translation>
     </message>
     <message>
         <location filename="../src/modules/welcome/checker/CheckerWidget.cpp" line="151"/>
         <source>This program will ask you some questions and set up %2 on your computer.</source>
-        <translation>Dette program vil stille dig nogle spørgsmål og opsætte %2 på din computer.</translation>
+        <translation>Programmet vil stille dig nogle spørgsmål og opsætte %2 på din computer.</translation>
     </message>
     <message>
         <location filename="../src/modules/welcome/checker/CheckerWidget.cpp" line="174"/>
         <source>For best results, please ensure that this computer:</source>
-        <translation>For det bedste resultat sørg venligst for at denne computer:</translation>
+        <translation>For at få det bedste resultat sørg venligst for at computeren:</translation>
     </message>
     <message>
         <location filename="../src/modules/welcome/checker/CheckerWidget.cpp" line="202"/>
@@ -407,7 +332,7 @@ Output:
     <message>
         <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="998"/>
         <source>Boot loader location:</source>
-        <translation>Bootloaderplacering:</translation>
+        <translation>Placering af bootloader:</translation>
     </message>
     <message>
         <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="942"/>
@@ -460,7 +385,7 @@ Output:
     <message>
         <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1200"/>
         <source>This storage device does not seem to have an operating system on it. What would you like to do?&lt;br/&gt;You will be able to review and confirm your choices before any change is made to the storage device.</source>
-        <translation>Denne lagerenhed ser ikke ud til at indeholde et styresystem. Hvad ønsker du at gøre?&lt;br/&gt;Du vil få mulighed for at se og bekræfte dine valg før der sker ændringer til lagerenheden.</translation>
+        <translation>Lagerenheden ser ikke ud til at indeholde et styresystem. Hvad ønsker du at gøre?&lt;br/&gt;Du vil få mulighed for at se og bekræfte dine valg før der sker ændringer til lagerenheden.</translation>
     </message>
     <message>
         <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1205"/>
@@ -468,12 +393,12 @@ Output:
         <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1264"/>
         <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1288"/>
         <source>&lt;strong&gt;Erase disk&lt;/strong&gt;&lt;br/&gt;This will &lt;font color=&quot;red&quot;&gt;delete&lt;/font&gt; all data currently present on the selected storage device.</source>
-        <translation>&lt;strong&gt;Slet disk&lt;/strong&gt;&lt;br/&gt;Dette vil &lt;font color=&quot;red&quot;&gt;slette&lt;/font&gt; alt data på den valgte lagerenhed.</translation>
+        <translation>&lt;strong&gt;Slet disk&lt;/strong&gt;&lt;br/&gt;Det vil &lt;font color=&quot;red&quot;&gt;slette&lt;/font&gt; alt data på den valgte lagerenhed.</translation>
     </message>
     <message>
         <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1232"/>
         <source>This storage device has %1 on it. What would you like to do?&lt;br/&gt;You will be able to review and confirm your choices before any change is made to the storage device.</source>
-        <translation>Denne lagerenhed har %1 på sig. Hvad ønsker du at gøre?&lt;br/&gt;Du vil få mulighed for at se og bekræfte dine valg før det sker ændringer til lagerenheden.</translation>
+        <translation>Lagerenheden har %1 på sig. Hvad ønsker du at gøre?&lt;br/&gt;Du vil få mulighed for at se og bekræfte dine valg før det sker ændringer til lagerenheden.</translation>
     </message>
     <message>
         <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1209"/>
@@ -494,12 +419,12 @@ Output:
     <message>
         <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1255"/>
         <source>This storage device already has an operating system on it. What would you like to do?&lt;br/&gt;You will be able to review and confirm your choices before any change is made to the storage device.</source>
-        <translation>Denne lagerenhed indeholder allerede et styresystem. Hvad ønsker du at gøre?&lt;br/&gt;Du vil få mulighed for at se og bekræfte dine valg før der sker ændringer til lagerenheden.</translation>
+        <translation>Lagerenheden indeholder allerede et styresystem. Hvad ønsker du at gøre?&lt;br/&gt;Du vil få mulighed for at se og bekræfte dine valg før der sker ændringer til lagerenheden.</translation>
     </message>
     <message>
         <location filename="../src/modules/partition/gui/ChoicePage.cpp" line="1279"/>
         <source>This storage device has multiple operating systems on it. What would you like to do?&lt;br/&gt;You will be able to review and confirm your choices before any change is made to the storage device.</source>
-        <translation>Denne lagerenhed indeholder flere styresystemer. Hvad ønsker du at gøre?&lt;br/&gt;Du vil få mulighed for at se og bekræfte dine valg før der sker ændringer til lagerenheden.</translation>
+        <translation>Lagerenheden indeholder flere styresystemer. Hvad ønsker du at gøre?&lt;br/&gt;Du vil få mulighed for at se og bekræfte dine valg før der sker ændringer til lagerenheden.</translation>
     </message>
 </context>
 <context>
@@ -541,6 +466,19 @@ Output:
         <location filename="../src/modules/partition/jobs/ClearTempMountsJob.cpp" line="99"/>
         <source>Cleared all temporary mounts.</source>
         <translation>Rydder alle midlertidige monteringspunkter.</translation>
+    </message>
+</context>
+<context>
+    <name>CommandList</name>
+    <message>
+        <location filename="../src/libcalamares/utils/CommandList.cpp" line="113"/>
+        <source>Could not run command.</source>
+        <translation>Kunne ikke køre kommando.</translation>
+    </message>
+    <message>
+        <location filename="../src/libcalamares/utils/CommandList.cpp" line="114"/>
+        <source>No rootMountPoint is defined, so command cannot be run in the target environment.</source>
+        <translation>Der er ikke defineret nogen rootMountPoint, så kommandoen kan ikke køre i målmiljøet.</translation>
     </message>
 </context>
 <context>
@@ -804,12 +742,12 @@ Output:
     <message>
         <location filename="../src/modules/partition/gui/DeviceInfoWidget.cpp" line="107"/>
         <source>This device has a &lt;strong&gt;%1&lt;/strong&gt; partition table.</source>
-        <translation>Denne enhed har en &lt;strong&gt;%1&lt;/strong&gt; partitionstabel.</translation>
+        <translation>Enheden har en &lt;strong&gt;%1&lt;/strong&gt; partitionstabel.</translation>
     </message>
     <message>
         <location filename="../src/modules/partition/gui/DeviceInfoWidget.cpp" line="114"/>
         <source>This is a &lt;strong&gt;loop&lt;/strong&gt; device.&lt;br&gt;&lt;br&gt;It is a pseudo-device with no partition table that makes a file accessible as a block device. This kind of setup usually only contains a single filesystem.</source>
-        <translation>Dette er en &lt;strong&gt;loop&lt;/strong&gt;-enhed.&lt;br&gt;&lt;br&gt;Det er en pseudo-enhed uden en partitionstabel, der gør en fil tilgængelig som en blokenhed. Denne type opsætning indeholder typisk kun et enkelt filsystem.</translation>
+        <translation>Dette er en &lt;strong&gt;loop&lt;/strong&gt;-enhed.&lt;br&gt;&lt;br&gt;Det er en pseudo-enhed uden en partitionstabel, der gør en fil tilgængelig som en blokenhed. Denne slags opsætning indeholder typisk kun et enkelt filsystem.</translation>
     </message>
     <message>
         <location filename="../src/modules/partition/gui/DeviceInfoWidget.cpp" line="121"/>
@@ -824,7 +762,7 @@ Output:
     <message>
         <location filename="../src/modules/partition/gui/DeviceInfoWidget.cpp" line="137"/>
         <source>&lt;br&gt;&lt;br&gt;This partition table type is only advisable on older systems which start from a &lt;strong&gt;BIOS&lt;/strong&gt; boot environment. GPT is recommended in most other cases.&lt;br&gt;&lt;br&gt;&lt;strong&gt;Warning:&lt;/strong&gt; the MBR partition table is an obsolete MS-DOS era standard.&lt;br&gt;Only 4 &lt;em&gt;primary&lt;/em&gt; partitions may be created, and of those 4, one can be an &lt;em&gt;extended&lt;/em&gt; partition, which may in turn contain many &lt;em&gt;logical&lt;/em&gt; partitions.</source>
-        <translation>&lt;br&gt;&lt;br&gt;Denne partitionstabeltype er kun anbefalet på ældre systemer der starter fra et &lt;strong&gt;BIOS&lt;/strong&gt;-bootmiljø. GPT anbefales i de fleste tilfælde.&lt;br&gt;&lt;br&gt;&lt;strong&gt;Advarsel:&lt;/strong&gt; MBR-partitionstabeltypen er en forældet MS-DOS-æra standard.&lt;br&gt;Kun 4 &lt;em&gt;primære&lt;/em&gt; partitioner var tilladt, og ud af de fire kan én af dem være en &lt;em&gt;udvidet&lt;/em&gt; partition, som igen må indeholde mange &lt;em&gt;logiske&lt;/em&gt; partitioner.</translation>
+        <translation>&lt;br&gt;&lt;br&gt;Partitionstabeltypen anbefales kun på ældre systemer der starter fra et &lt;strong&gt;BIOS&lt;/strong&gt;-bootmiljø. GPT anbefales i de fleste tilfælde.&lt;br&gt;&lt;br&gt;&lt;strong&gt;Advarsel:&lt;/strong&gt; MBR-partitionstabeltypen er en forældet MS-DOS-æra standard.&lt;br&gt;Kun 4 &lt;em&gt;primære&lt;/em&gt; partitioner var tilladt, og ud af de fire kan én af dem være en &lt;em&gt;udvidet&lt;/em&gt; partition, som igen må indeholde mange &lt;em&gt;logiske&lt;/em&gt; partitioner.</translation>
     </message>
 </context>
 <context>
@@ -995,7 +933,7 @@ Output:
     <message>
         <location filename="../src/modules/finished/FinishedPage.ui" line="95"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When this box is checked, your system will restart immediately when you click on &lt;span style=&quot; font-style:italic;&quot;&gt;Done&lt;/span&gt; or close the installer.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Når denne boks er tilvalgt, vil dit system genstarte med det samme når du klikker på &lt;span style=&quot; font-style:italic;&quot;&gt;Færdig&lt;/span&gt; eller lukker installationsprogrammet.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Når boksen er tilvalgt, vil dit system genstarte med det samme når du klikker på &lt;span style=&quot; font-style:italic;&quot;&gt;Færdig&lt;/span&gt; eller lukker installationsprogrammet.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../src/modules/finished/FinishedPage.ui" line="98"/>
@@ -1139,17 +1077,17 @@ Output:
     <message>
         <location filename="../src/modules/license/LicensePage.cpp" line="115"/>
         <source>&lt;h1&gt;License Agreement&lt;/h1&gt;This setup procedure will install proprietary software that is subject to licensing terms.</source>
-        <translation>&lt;h1&gt;Licensaftale&lt;/h1&gt;Denne installationsprocedure vil installere proprietær software der er underlagt licenseringsvilkår.</translation>
+        <translation>&lt;h1&gt;Licensaftale&lt;/h1&gt;Opsætningsproceduren installerer proprietær software der er underlagt licenseringsvilkår.</translation>
     </message>
     <message>
         <location filename="../src/modules/license/LicensePage.cpp" line="118"/>
         <source>Please review the End User License Agreements (EULAs) above.&lt;br/&gt;If you do not agree with the terms, the setup procedure cannot continue.</source>
-        <translation>Gennemgå venligst slutbrugerlicensaftalerne (EULA&apos;er) ovenfor.&lt;br/&gt;Hvis du ikke er enig med disse vilkår, kan installationen ikke fortsætte.</translation>
+        <translation>Gennemgå venligst slutbrugerlicensaftalerne (EULA&apos;er) ovenfor.&lt;br/&gt;Hvis du ikke er enig med disse vilkår, kan opsætningsproceduren ikke fortsætte.</translation>
     </message>
     <message>
         <location filename="../src/modules/license/LicensePage.cpp" line="124"/>
         <source>&lt;h1&gt;License Agreement&lt;/h1&gt;This setup procedure can install proprietary software that is subject to licensing terms in order to provide additional features and enhance the user experience.</source>
-        <translation>&lt;h1&gt;Licensaftale&lt;/h1&gt;Denne installationsprocedure kan installere proprietær software der er underlagt licenseringsvilkår, for at kunne tilbyde yderligere funktionaliteter og forbedre brugeroplevelsen.</translation>
+        <translation>&lt;h1&gt;Licensaftale&lt;/h1&gt;Opsætningsproceduren kan installere proprietær software der er underlagt licenseringsvilkår, for at kunne tilbyde yderligere funktionaliteter og forbedre brugeroplevelsen.</translation>
     </message>
     <message>
         <location filename="../src/modules/license/LicensePage.cpp" line="129"/>
@@ -1287,6 +1225,249 @@ Output:
     </message>
 </context>
 <context>
+    <name>PWQ</name>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="67"/>
+        <source>Password is too short</source>
+        <translation>Adgangskoden er for kort</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="89"/>
+        <source>Password is too long</source>
+        <translation>Adgangskoden er for lang</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="155"/>
+        <source>Password is too weak</source>
+        <translation>Adgangskoden er for svag</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="162"/>
+        <source>Memory allocation error when setting &apos;%1&apos;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="166"/>
+        <source>Memory allocation error</source>
+        <translation>Fejl ved allokering af hukommelse</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="168"/>
+        <source>The password is the same as the old one</source>
+        <translation>Adgangskoden er den samme som den gamle</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="170"/>
+        <source>The password is a palindrome</source>
+        <translation>Adgangskoden er et palindrom</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="172"/>
+        <source>The password differs with case changes only</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="174"/>
+        <source>The password is too similar to the old one</source>
+        <translation>Adgangskoden minder for meget om den gamle</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="176"/>
+        <source>The password contains the user name in some form</source>
+        <translation>Adgangskoden indeholde i nogen form brugernavnet</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="178"/>
+        <source>The password contains words from the real name of the user in some form</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="180"/>
+        <source>The password contains forbidden words in some form</source>
+        <translation>Adgangskoden indeholder i nogen form forbudte ord</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="183"/>
+        <source>The password contains less than %1 digits</source>
+        <translation>Adgangskoden indeholder færre end %1 tal</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="184"/>
+        <source>The password contains too few digits</source>
+        <translation>Adgangskoden indeholder for få tal</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="187"/>
+        <source>The password contains less than %1 uppercase letters</source>
+        <translation>Adgangskoden indeholder færre end %1 bogstaver med stort</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="188"/>
+        <source>The password contains too few uppercase letters</source>
+        <translation>Adgangskoden indeholder for få bogstaver med stort</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="191"/>
+        <source>The password contains less than %1 lowercase letters</source>
+        <translation>Adgangskoden indeholder færre end %1 bogstaver med småt</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="192"/>
+        <source>The password contains too few lowercase letters</source>
+        <translation>Adgangskoden indeholder for få bogstaver med småt</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="195"/>
+        <source>The password contains less than %1 non-alphanumeric characters</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="196"/>
+        <source>The password contains too few non-alphanumeric characters</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="199"/>
+        <source>The password is shorter than %1 characters</source>
+        <translation>Adgangskoden er kortere end %1 tegn</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="200"/>
+        <source>The password is too short</source>
+        <translation>Adgangskoden er for kort</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="202"/>
+        <source>The password is just rotated old one</source>
+        <translation>Adgangskoden er blot det gamle hvor der er byttet om på tegnene</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="205"/>
+        <source>The password contains less than %1 character classes</source>
+        <translation>Adgangskoden indeholder færre end %1 tegnklasser</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="206"/>
+        <source>The password does not contain enough character classes</source>
+        <translation>Adgangskoden indeholder ikke nok tegnklasser</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="209"/>
+        <source>The password contains more than %1 same characters consecutively</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="210"/>
+        <source>The password contains too many same characters consecutively</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="213"/>
+        <source>The password contains more than %1 characters of the same class consecutively</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="214"/>
+        <source>The password contains too many characters of the same class consecutively</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="217"/>
+        <source>The password contains monotonic sequence longer than %1 characters</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="218"/>
+        <source>The password contains too long of a monotonic character sequence</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="220"/>
+        <source>No password supplied</source>
+        <translation>Der er ikke angivet nogen adgangskode</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="222"/>
+        <source>Cannot obtain random numbers from the RNG device</source>
+        <translation>Kan ikke få tilfældige tal fra RNG-enhed</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="224"/>
+        <source>Password generation failed - required entropy too low for settings</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="229"/>
+        <source>The password fails the dictionary check - %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="231"/>
+        <source>The password fails the dictionary check</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="235"/>
+        <source>Unknown setting - %1</source>
+        <translation>Ukendt indstilling - %1</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="239"/>
+        <source>Unknown setting</source>
+        <translation>Ukendt indstilling</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="243"/>
+        <source>Bad integer value of setting - %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="247"/>
+        <source>Bad integer value</source>
+        <translation>Ugyldig heltalsværdi</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="251"/>
+        <source>Setting %1 is not of integer type</source>
+        <translation>Indstillingen %1 er ikke en helttalsstype</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="255"/>
+        <source>Setting is not of integer type</source>
+        <translation>Indstillingen er ikke en helttalsstype</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="259"/>
+        <source>Setting %1 is not of string type</source>
+        <translation>Indstillingen %1 er ikke en strengtype</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="263"/>
+        <source>Setting is not of string type</source>
+        <translation>Indstillingen er ikke en strengtype</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="265"/>
+        <source>Opening the configuration file failed</source>
+        <translation>Åbningen af konfigurationsfilen mislykkedes</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="267"/>
+        <source>The configuration file is malformed</source>
+        <translation>Konfigurationsfilen er forkert udformet</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="269"/>
+        <source>Fatal failure</source>
+        <translation>Fatal fejl</translation>
+    </message>
+    <message>
+        <location filename="../src/modules/users/CheckPWQuality.cpp" line="271"/>
+        <source>Unknown error</source>
+        <translation>Ukendt fejl</translation>
+    </message>
+</context>
+<context>
     <name>Page_Keyboard</name>
     <message>
         <location filename="../src/modules/keyboard/KeyboardPage.ui" line="14"/>
@@ -1319,7 +1500,7 @@ Output:
     <message>
         <location filename="../src/modules/users/page_usersetup.ui" line="117"/>
         <source>What name do you want to use to log in?</source>
-        <translation>Hvilket navn vil du bruge til at logge ind med?</translation>
+        <translation>Hvilket navn skal bruges til at logge ind?</translation>
     </message>
     <message>
         <location filename="../src/modules/users/page_usersetup.ui" line="306"/>
@@ -1331,7 +1512,7 @@ Output:
     <message>
         <location filename="../src/modules/users/page_usersetup.ui" line="200"/>
         <source>&lt;small&gt;If more than one person will use this computer, you can set up multiple accounts after installation.&lt;/small&gt;</source>
-        <translation>&lt;small&gt;Hvis mere end én person vil bruge denne computer, kan du opsætte flere konti efter installationen.&lt;/small&gt;</translation>
+        <translation>&lt;small&gt;Hvis mere end én person bruger computeren, kan du opsætte flere konti efter installationen.&lt;/small&gt;</translation>
     </message>
     <message>
         <location filename="../src/modules/users/page_usersetup.ui" line="335"/>
@@ -1346,17 +1527,17 @@ Output:
     <message>
         <location filename="../src/modules/users/page_usersetup.ui" line="226"/>
         <source>What is the name of this computer?</source>
-        <translation>Hvad er navnet på denne computer?</translation>
+        <translation>Hvad er navnet på computeren?</translation>
     </message>
     <message>
         <location filename="../src/modules/users/page_usersetup.ui" line="309"/>
         <source>&lt;small&gt;This name will be used if you make the computer visible to others on a network.&lt;/small&gt;</source>
-        <translation>&lt;small&gt;Dette navn vil blive brugt, hvis du gør computeren synlig for andre på netværket.&lt;/small&gt;</translation>
+        <translation>&lt;small&gt;Navnet bruges, hvis du gør computeren synlig for andre på et netværk.&lt;/small&gt;</translation>
     </message>
     <message>
         <location filename="../src/modules/users/page_usersetup.ui" line="450"/>
         <source>Log in automatically without asking for the password.</source>
-        <translation>Log ind automatisk uden at spørge om adgangskoden.</translation>
+        <translation>Log ind automatisk uden at spørge efter adgangskoden.</translation>
     </message>
     <message>
         <location filename="../src/modules/users/page_usersetup.ui" line="457"/>
@@ -1595,7 +1776,7 @@ Output:
     <message>
         <location filename="../src/modules/partition/gui/PartitionViewStep.cpp" line="449"/>
         <source>A separate boot partition was set up together with an encrypted root partition, but the boot partition is not encrypted.&lt;br/&gt;&lt;br/&gt;There are security concerns with this kind of setup, because important system files are kept on an unencrypted partition.&lt;br/&gt;You may continue if you wish, but filesystem unlocking will happen later during system startup.&lt;br/&gt;To encrypt the boot partition, go back and recreate it, selecting &lt;strong&gt;Encrypt&lt;/strong&gt; in the partition creation window.</source>
-        <translation>En separat bootpartition blev opsat sammen med en krypteret rodpartition, men bootpartitionen er ikke krypteret.&lt;br/&gt;&lt;br/&gt;Der er sikkerhedsmæssige bekymringer med denne type opsætning, da vigtige systemfiler er gemt på en ikke-krypteret partition.&lt;br/&gt;Du kan fortsætte hvis du vil, men oplåsning af filsystemet sker senere under systemets opstart.&lt;br/&gt;For at kryptere bootpartitionen skal du gå tilbage og oprette den igen, vælge &lt;strong&gt;Kryptér&lt;/strong&gt; i partitionsoprettelsesvinduet.</translation>
+        <translation>En separat bootpartition blev opsat sammen med en krypteret rodpartition, men bootpartitionen er ikke krypteret.&lt;br/&gt;&lt;br/&gt;Der er sikkerhedsmæssige bekymringer med denne slags opsætning, da vigtige systemfiler er gemt på en ikke-krypteret partition.&lt;br/&gt;Du kan fortsætte hvis du vil, men oplåsning af filsystemet sker senere under systemets opstart.&lt;br/&gt;For at kryptere bootpartitionen skal du gå tilbage og oprette den igen, vælge &lt;strong&gt;Kryptér&lt;/strong&gt; i partitionsoprettelsesvinduet.</translation>
     </message>
 </context>
 <context>
@@ -1627,7 +1808,7 @@ Output:
     <message>
         <location filename="../src/modules/plasmalnf/PlasmaLnfPage.cpp" line="64"/>
         <source>Please choose a look-and-feel for the KDE Plasma Desktop. You can also skip this step and configure the look-and-feel once the system is installed.</source>
-        <translation>Vælg venligst et udseende og fremtoning til KDE Plasma-skrivebordet. Du kan også springe dette trin over og konfigurere udseendet og fremtoningen når systemet er installeret.</translation>
+        <translation>Vælg venligst et udseende og fremtoning til KDE Plasma-skrivebordet. Du kan også springe trinnet over og konfigurere udseendet og fremtoningen når systemet er installeret.</translation>
     </message>
 </context>
 <context>
@@ -1636,6 +1817,75 @@ Output:
         <location filename="../src/modules/plasmalnf/PlasmaLnfViewStep.cpp" line="51"/>
         <source>Look-and-Feel</source>
         <translation>Udseende og fremtoning</translation>
+    </message>
+</context>
+<context>
+    <name>ProcessResult</name>
+    <message>
+        <location filename="../src/libcalamares/utils/CalamaresUtilsSystem.cpp" line="263"/>
+        <source>
+There was no output from the command.</source>
+        <translation>
+Der var ikke nogen output fra kommandoen.</translation>
+    </message>
+    <message>
+        <location filename="../src/libcalamares/utils/CalamaresUtilsSystem.cpp" line="264"/>
+        <source>
+Output:
+</source>
+        <translation>
+Output:
+</translation>
+    </message>
+    <message>
+        <location filename="../src/libcalamares/utils/CalamaresUtilsSystem.cpp" line="267"/>
+        <source>External command crashed.</source>
+        <translation>Ekstern kommando holdt op med at virke.</translation>
+    </message>
+    <message>
+        <location filename="../src/libcalamares/utils/CalamaresUtilsSystem.cpp" line="268"/>
+        <source>Command &lt;i&gt;%1&lt;/i&gt; crashed.</source>
+        <translation>Kommandoen &lt;i&gt;%1&lt;/i&gt; holdet op med at virke.</translation>
+    </message>
+    <message>
+        <location filename="../src/libcalamares/utils/CalamaresUtilsSystem.cpp" line="273"/>
+        <source>External command failed to start.</source>
+        <translation>Ekstern kommando kunne ikke starte.</translation>
+    </message>
+    <message>
+        <location filename="../src/libcalamares/utils/CalamaresUtilsSystem.cpp" line="274"/>
+        <source>Command &lt;i&gt;%1&lt;/i&gt; failed to start.</source>
+        <translation>Kommandoen &lt;i&gt;%1&lt;/i&gt; kunne ikke starte.</translation>
+    </message>
+    <message>
+        <location filename="../src/libcalamares/utils/CalamaresUtilsSystem.cpp" line="278"/>
+        <source>Internal error when starting command.</source>
+        <translation>Intern kommando ved start af kommando.</translation>
+    </message>
+    <message>
+        <location filename="../src/libcalamares/utils/CalamaresUtilsSystem.cpp" line="279"/>
+        <source>Bad parameters for process job call.</source>
+        <translation>Ugyldige parametre til kald af procesjob.</translation>
+    </message>
+    <message>
+        <location filename="../src/libcalamares/utils/CalamaresUtilsSystem.cpp" line="282"/>
+        <source>External command failed to finish.</source>
+        <translation>Ekstern kommando blev ikke færdig.</translation>
+    </message>
+    <message>
+        <location filename="../src/libcalamares/utils/CalamaresUtilsSystem.cpp" line="283"/>
+        <source>Command &lt;i&gt;%1&lt;/i&gt; failed to finish in %2 seconds.</source>
+        <translation>Kommandoen &lt;i&gt;%1&lt;/i&gt; blev ikke færdig på %2 sekunder.</translation>
+    </message>
+    <message>
+        <location filename="../src/libcalamares/utils/CalamaresUtilsSystem.cpp" line="289"/>
+        <source>External command finished with errors.</source>
+        <translation>Ekstern kommando blev færdig med fejl.</translation>
+    </message>
+    <message>
+        <location filename="../src/libcalamares/utils/CalamaresUtilsSystem.cpp" line="290"/>
+        <source>Command &lt;i&gt;%1&lt;/i&gt; finished with exit code %2.</source>
+        <translation>Kommandoen &lt;i&gt;%1&lt;/i&gt; blev færdig med afslutningskoden %2.</translation>
     </message>
 </context>
 <context>
@@ -1687,7 +1937,7 @@ Output:
     <message>
         <location filename="../src/modules/partition/gui/ReplaceWidget.cpp" line="134"/>
         <source>Select where to install %1.&lt;br/&gt;&lt;font color=&quot;red&quot;&gt;Warning: &lt;/font&gt;this will delete all files on the selected partition.</source>
-        <translation>Vælg hvor %1 skal installeres.&lt;br/&gt;&lt;font color=&quot;red&quot;&gt;Advarsel: &lt;/font&gt;Dette vil slette alle filer på den valgte partition.</translation>
+        <translation>Vælg hvor %1 skal installeres.&lt;br/&gt;&lt;font color=&quot;red&quot;&gt;Advarsel: &lt;/font&gt;Det vil slette alle filer på den valgte partition.</translation>
     </message>
     <message>
         <location filename="../src/modules/partition/gui/ReplaceWidget.cpp" line="160"/>
@@ -2073,7 +2323,7 @@ Output:
 <context>
     <name>ShellProcessJob</name>
     <message>
-        <location filename="../src/modules/shellprocess/ShellProcessJob.cpp" line="52"/>
+        <location filename="../src/modules/shellprocess/ShellProcessJob.cpp" line="51"/>
         <source>Shell Processes Job</source>
         <translation>Skal-procesjob</translation>
     </message>
@@ -2214,45 +2464,35 @@ Output:
 <context>
     <name>UsersPage</name>
     <message>
-        <location filename="../src/modules/users/UsersPage.cpp" line="287"/>
+        <location filename="../src/modules/users/UsersPage.cpp" line="289"/>
         <source>Your username is too long.</source>
         <translation>Dit brugernavn er for langt.</translation>
     </message>
     <message>
-        <location filename="../src/modules/users/UsersPage.cpp" line="293"/>
+        <location filename="../src/modules/users/UsersPage.cpp" line="295"/>
         <source>Your username contains invalid characters. Only lowercase letters and numbers are allowed.</source>
         <translation>Dit brugernavn indeholder ugyldige tegn. Kun små bogstaver og tal er tilladt.</translation>
     </message>
     <message>
-        <location filename="../src/modules/users/UsersPage.cpp" line="331"/>
+        <location filename="../src/modules/users/UsersPage.cpp" line="333"/>
         <source>Your hostname is too short.</source>
         <translation>Dit værtsnavn er for kort.</translation>
     </message>
     <message>
-        <location filename="../src/modules/users/UsersPage.cpp" line="337"/>
+        <location filename="../src/modules/users/UsersPage.cpp" line="339"/>
         <source>Your hostname is too long.</source>
         <translation>Dit værtsnavn er for langt.</translation>
     </message>
     <message>
-        <location filename="../src/modules/users/UsersPage.cpp" line="343"/>
+        <location filename="../src/modules/users/UsersPage.cpp" line="345"/>
         <source>Your hostname contains invalid characters. Only letters, numbers and dashes are allowed.</source>
         <translation>Dit værtsnavn indeholder ugyldige tegn. Kun bogstaver, tal og tankestreger er tilladt.</translation>
     </message>
     <message>
-        <location filename="../src/modules/users/UsersPage.cpp" line="371"/>
-        <location filename="../src/modules/users/UsersPage.cpp" line="415"/>
+        <location filename="../src/modules/users/UsersPage.cpp" line="373"/>
+        <location filename="../src/modules/users/UsersPage.cpp" line="417"/>
         <source>Your passwords do not match!</source>
         <translation>Dine adgangskoder er ikke ens!</translation>
-    </message>
-    <message>
-        <location filename="../src/modules/users/UsersPage.cpp" line="494"/>
-        <source>Password is too short</source>
-        <translation>Adgangskoden er for kort</translation>
-    </message>
-    <message>
-        <location filename="../src/modules/users/UsersPage.cpp" line="513"/>
-        <source>Password is too long</source>
-        <translation>Adgangskoden er for lang</translation>
     </message>
 </context>
 <context>
