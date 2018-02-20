@@ -1,8 +1,14 @@
+calamares (3.2~rc3-47-gde1710a9f-1) unstable; urgency=medium
+
+  * New snapshot: v3.2-rc3-47-gde1710a9f
+
+ -- Alf Gaida <agaida@siduction.org>  Tue, 20 Feb 2018 22:30:08 +0100
+
 calamares (3.2~rc3-29-g04de4a0b0-1) unstable; urgency=medium
 
   * New snapshot: v3.2-rc3-29-g04de4a0b0
 
- -- Alf Gaida <agaida@siduction.org>  Fri, 16 Feb 2018 22:19:07 +0100
+ -- Alf Gaida <agaida@siduction.org>  Fri, 16 Feb 2018 22:21:46 +0100
 
 calamares (3.2~rc3-28-g958aee1d4-1) unstable; urgency=medium
 
