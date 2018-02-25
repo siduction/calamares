@@ -1,4 +1,4 @@
-Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: calamares
 Source: https://github.com/calamares/calamares
 
@@ -28,7 +28,7 @@ Copyright: 2014-2016, Teo Mrnjavac <teo@kde.org>
 	   1999, Ian Zepp (icszepp@islc.net)
 	   2006, by Dominic Battre <dominic@battre.de>
 	   2006, by Martin Pool <mbp@canonical.com>
-License: GPL-3+
+License: GPL-3.0+
 
 Files: src/libcalamares/kdsingleapplicationguard/*
 Copyright: 2001-2010 Klaralvdalens Datakonsult AB
@@ -49,11 +49,12 @@ License: LGPL-2
  is licensed under the LGPL-2, see `/usr/share/common-licenses/LGPL-2'.
 
 Files: debian/*
-Copyright: 2014 Rohan Garg <rohan@kde.org>
-           2016 Jonathan Carter <jcarter@linux.com>
-License: GPL-3+
+Copyright: 2017-2018, Alf Gaida <agaida@siduction.org>
+           2014,      Rohan Garg <rohan@kde.org>
+           2016,      Jonathan Carter <jcarter@linux.com>
+License: GPL-3.0+
 
-License: GPL-3+
+License: GPL-3.0+
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation; either version 3 of the License, or
@@ -70,4 +71,3 @@ License: GPL-3+
  On Debian systems the full text of the GNU General Public License
  version 3 can be found in the file
  `/usr/share/common-licenses/GPL-3'.
-
