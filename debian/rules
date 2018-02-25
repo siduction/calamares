@@ -13,9 +13,7 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 override_dh_auto_configure:
 	dh_auto_configure -- \
 		-DCMAKE_BUILD_TYPE=RelWithDebInfo \
-                -DCMAKE_INSTALL_RPATH="/usr/lib/calamares" \
-                -DLIBRARY_INSTALL_BINDIR="/usr/lib/calamares" \
-                -DLIB_SUFFIX="/calamares" \
+		-DLIBRARY_INSTALL_BINDIR="/usr/lib/calamares" \
                 -DWEBVIEW_FORCE_WEBKIT=ON \
 		-DWITH_KF5Crash=OFF \
 		-DBUILD_TESTING=OFF \
