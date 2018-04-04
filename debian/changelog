@@ -1,3 +1,15 @@
+calamares (3.2~rc4-15-g20e9c2c8e-1) unstable; urgency=medium
+
+  * New snapshot: v3.2-rc4-15-g20e9c2c8e
+
+ -- Alf Gaida <agaida@siduction.org>  Wed, 04 Apr 2018 22:58:18 +0200
+
+calamares (3.2~rc3-53-g36ef4556b-2) unstable; urgency=medium
+
+  * name calamares Installer - all name translations are patched out
+
+ -- Alf Gaida <agaida@siduction.org>  Tue, 06 Mar 2018 23:12:37 +0100
+
 calamares (3.2~rc3-53-g36ef4556b-1) unstable; urgency=medium
 
   * New snapshot: v3.2-rc3-53-g36ef4556b

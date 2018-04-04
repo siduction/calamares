@@ -58,14 +58,14 @@ ThemeWidget::ThemeWidget(const ThemeInfo& info, QWidget* parent)
         image.fill( QColor( QRgb( hash_color ) ) );
     }
 
-    image = image.scaled( image_size, Qt::KeepAspectRatio, Qt::SmoothTransformation );
+    image = image.scaled( image_size, Qt::IgnoreAspectRatio, Qt::SmoothTransformation );
 
     QLabel* image_label = new QLabel( this );
     image_label->setPixmap( image );
     layout->addWidget( image_label, 1 );
     layout->addWidget( m_description, 3 );
 
-    connect( m_check, &QRadioButton::clicked, this, &ThemeWidget::clicked );
+    connect( m_check, &QRadioButton::toggled, this, &ThemeWidget::clicked );
 }
 
 void
