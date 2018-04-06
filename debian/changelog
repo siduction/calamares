@@ -1,8 +1,21 @@
+calamares (3.2~rc4-31-g00a5baa3d-1) unstable; urgency=medium
+
+  * New snapshot: v3.2-rc4-31-g00a5baa3d
+  * Fixed VCS fields to https://git.siduction.org/extra/calamares
+
+ -- Alf Gaida <agaida@siduction.org>  Fri, 06 Apr 2018 20:17:07 +0200
+
+calamares (3.2~rc4-15-g20e9c2c8e-2) unstable; urgency=medium
+
+  * Patched calamares.desktop and some CMakeLists.txt §foo 
+
+ -- Alf Gaida <agaida@siduction.org>  Thu, 05 Apr 2018 21:30:58 +0200
+
 calamares (3.2~rc4-15-g20e9c2c8e-1) unstable; urgency=medium
 
   * New snapshot: v3.2-rc4-15-g20e9c2c8e
 
- -- Alf Gaida <agaida@siduction.org>  Wed, 04 Apr 2018 22:58:18 +0200
+ -- Alf Gaida <agaida@siduction.org>  Thu, 05 Apr 2018 02:12:10 +0200
 
 calamares (3.2~rc3-53-g36ef4556b-2) unstable; urgency=medium
 
