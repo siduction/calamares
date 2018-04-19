@@ -56,6 +56,10 @@ index 1bb0c01..6bbf39e 100644
  Icon[he]=קלמארס
  GenericName[he]=אשף התקנה
  Comment[he]=קלמארס - אשף התקנה
+-Name[hi]=Calamares
+ Icon[hi]=calamares
+ GenericName[hi]=सिस्टम इंस्टॉलर
+ Comment[hi]=Calamares — सिस्टम इंस्टॉलर
 -Name[hr]=Calamares
  Icon[hr]=calamares
  GenericName[hr]=Instalacija sustava
