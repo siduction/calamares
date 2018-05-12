@@ -1,0 +1,8 @@
+debian/files
+debian/*.substvars
+
+debian/.debhelper/
+debian/calamares/
+debian/debhelper-build-stamp
+
+obj-x86_64-linux-gnu/
