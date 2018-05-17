@@ -1,3 +1,9 @@
+calamares (3.2.0-1) unstable; urgency=medium
+
+  * New snapshot: v3.2.0
+
+ -- Alf Gaida <agaida@siduction.org>  Fri, 18 May 2018 01:07:30 +0200
+
 calamares (3.2~rc5-1) unstable; urgency=medium
 
   * New snapshot: v3.2-rc5
