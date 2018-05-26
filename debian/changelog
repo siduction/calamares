@@ -1,9 +1,3 @@
-calamares (3.2.1~43-g50dea6ded-3) UNRELEASED; urgency=medium
-
-  * New snapshot: v3.2.0-43-g50dea6ded
-
- -- Alf Gaida <agaida@siduction.org>  Sat, 26 May 2018 20:57:10 +0200
-
 calamares (3.2.1~43-g50dea6ded-2) unstable; urgency=medium
 
   * Replaced pkexec with sudo in desktop file
