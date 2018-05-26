@@ -141,7 +141,7 @@ endif()
 
 option( INSTALL_CONFIG "Install configuration files" ON )
 option( WITH_PYTHON "Enable Python modules API (requires Boost.Python)." ON )
-option( WITH_PYTHONQT "Enable next generation Python modules API (experimental, requires PythonQt)." OFF )
+option( WITH_PYTHONQT "Enable next generation Python modules API (experimental, requires PythonQt)." ON )
 option( WITH_KF5Crash "Enable crash reporting with KCrash." ON )
 option( BUILD_TESTING "Build the testing tree." ON )
 
@@ -213,7 +213,7 @@ set( _tx_complete da pt_PT ro tr_TR zh_TW zh_CN pt_BR fr hr ca lt id cs_CZ )
 set( _tx_good sq es pl ja sk it_IT hu ru he de nl bg uk )
 set( _tx_ok ast is ar sv el es_MX gl en_GB th fi_FI hi eu sr nb
             sl sr@latin mr es_PR kk kn et )
-set( _tx_bad uz lo ur gu fr_CH fa eo )
+set( _tx_bad uz lo ur gu fr_CH fa be eo )
 
 # check translation update
 set( prev_tx ${p_tx_complete} ${p_tx_good} ${p_tx_ok} ${p_tx_bad} )

@@ -24,8 +24,7 @@ Build-Depends: cmake,
                pyqt5-dev,
                python3-dev,
                qttools5-dev,
-               qttools5-dev-tools,
-               quilt
+               qttools5-dev-tools
 Standards-Version: 4.1.4
 Vcs-Git: https://git.siduction.org/extra/calamares
 Vcs-Browser: https://git.siduction.org/extra/calamares.git
@@ -33,7 +32,9 @@ Homepage: https://github.com/calamares/calamares
 
 Package: calamares
 Architecture: any
-Depends: calamares-branding,
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         calamares-branding,
          cryptsetup,
          libkpmcore8,
          os-prober,
@@ -43,9 +44,7 @@ Depends: calamares-branding,
          qml-module-qtquick-window2,
          qml-module-qtquick2,
          sudo,
-         squashfs-tools,
-         ${misc:Depends},
-         ${shlibs:Depends}
+         squashfs-tools
 Description: distribution-independent installer framework
  Calamares is a distribution-independent installer framework.
  .

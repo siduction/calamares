@@ -6,15 +6,11 @@ export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
 %:
-	dh ${@} --buildsystem cmake \
-                --fail-missing \
-                --with quilt
+	dh ${@} --buildsystem cmake
 
 override_dh_auto_configure:
 	dh_auto_configure -- \
 		-DCMAKE_BUILD_TYPE=RelWithDebInfo \
-		-DLIBRARY_INSTALL_BINDIR="/usr/lib/calamares" \
-		-DCMAKE_INSTALL_RPATH="/usr/lib/calamares" \
                 -DWEBVIEW_FORCE_WEBKIT=ON \
 		-DWITH_KF5Crash=OFF \
 		-DBUILD_TESTING=OFF \
@@ -26,14 +22,11 @@ override_dh_auto_configure:
 
 override_dh_fixperms:
 	dh_fixperms
-	chmod 755 debian/*/*/*/*/*/*/encrypt_hook
-	chmod 755 debian/*/*/*/*/*/*/encrypt_hook_nokey
+	chmod 755 ./debian/calamares/usr/lib/*/calamares/modules/initramfscfg/encrypt_hook
+	chmod 755 ./debian/calamares/usr/lib/*/calamares/modules/initramfscfg/encrypt_hook_nokey
 
 override_dh_auto_test:
 	dh_auto_test | true
 
 override_dh_missing:
 	dh_missing --fail-missing
-
-override_dh_makeshlibs:
-	# just do nothing
