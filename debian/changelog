@@ -1,8 +1,9 @@
-calamares (3.2.1~43-g50dea6ded-2) unstable; urgency=medium
+calamares (3.2.1~43-g50dea6ded-3) unstable; urgency=medium
 
   * Replaced pkexec with sudo in desktop file
+  * added quilt as build dependency
 
- -- Alf Gaida <agaida@siduction.org>  Sat, 26 May 2018 20:48:41 +0200
+ -- Alf Gaida <agaida@siduction.org>  Sat, 26 May 2018 22:11:52 +0200
 
 calamares (3.2.1~43-g50dea6ded-1) unstable; urgency=medium
 

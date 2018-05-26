@@ -24,7 +24,8 @@ Build-Depends: cmake,
                pyqt5-dev,
                python3-dev,
                qttools5-dev,
-               qttools5-dev-tools
+               qttools5-dev-tools,
+               quilt
 Standards-Version: 4.1.4
 Vcs-Git: https://git.siduction.org/extra/calamares
 Vcs-Browser: https://git.siduction.org/extra/calamares.git
