@@ -476,13 +476,19 @@ The installer will quit and all changes will be lost.</source>
 <context>
     <name>CommandList</name>
     <message>
-        <location filename="../src/libcalamares/utils/CommandList.cpp" line="124"/>
+        <location filename="../src/libcalamares/utils/CommandList.cpp" line="127"/>
+        <location filename="../src/libcalamares/utils/CommandList.cpp" line="138"/>
         <source>Could not run command.</source>
         <translation>Не удалось выполнить команду.</translation>
     </message>
     <message>
-        <location filename="../src/libcalamares/utils/CommandList.cpp" line="125"/>
+        <location filename="../src/libcalamares/utils/CommandList.cpp" line="128"/>
         <source>The command runs in the host environment and needs to know the root path, but no rootMountPoint is defined.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/libcalamares/utils/CommandList.cpp" line="139"/>
+        <source>The command needs to know the user&apos;s name, but no username is defined.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -649,69 +655,39 @@ The installer will quit and all changes will be lost.</source>
 <context>
     <name>CreateUserJob</name>
     <message>
-        <location filename="../src/modules/users/CreateUserJob.cpp" line="50"/>
+        <location filename="../src/modules/users/CreateUserJob.cpp" line="51"/>
         <source>Create user %1</source>
         <translation>Создать учетную запись %1</translation>
     </message>
     <message>
-        <location filename="../src/modules/users/CreateUserJob.cpp" line="57"/>
+        <location filename="../src/modules/users/CreateUserJob.cpp" line="58"/>
         <source>Create user &lt;strong&gt;%1&lt;/strong&gt;.</source>
         <translation>Создать учетную запись &lt;strong&gt;%1&lt;/strong&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/modules/users/CreateUserJob.cpp" line="64"/>
+        <location filename="../src/modules/users/CreateUserJob.cpp" line="65"/>
         <source>Creating user %1.</source>
         <translation>Создается учетная запись %1.</translation>
     </message>
     <message>
-        <location filename="../src/modules/users/CreateUserJob.cpp" line="80"/>
+        <location filename="../src/modules/users/CreateUserJob.cpp" line="81"/>
         <source>Sudoers dir is not writable.</source>
         <translation>Каталог sudoers не доступен для записи.</translation>
     </message>
     <message>
-        <location filename="../src/modules/users/CreateUserJob.cpp" line="84"/>
+        <location filename="../src/modules/users/CreateUserJob.cpp" line="85"/>
         <source>Cannot create sudoers file for writing.</source>
         <translation>Не удалось записать файл sudoers.</translation>
     </message>
     <message>
-        <location filename="../src/modules/users/CreateUserJob.cpp" line="92"/>
+        <location filename="../src/modules/users/CreateUserJob.cpp" line="93"/>
         <source>Cannot chmod sudoers file.</source>
         <translation>Не удалось применить chmod к файлу sudoers.</translation>
     </message>
     <message>
-        <location filename="../src/modules/users/CreateUserJob.cpp" line="98"/>
+        <location filename="../src/modules/users/CreateUserJob.cpp" line="99"/>
         <source>Cannot open groups file for reading.</source>
         <translation>Не удалось открыть файл groups для чтения.</translation>
-    </message>
-    <message>
-        <location filename="../src/modules/users/CreateUserJob.cpp" line="159"/>
-        <source>Cannot create user %1.</source>
-        <translation>Не удалось создать учетную запись пользователя %1.</translation>
-    </message>
-    <message>
-        <location filename="../src/modules/users/CreateUserJob.cpp" line="161"/>
-        <source>useradd terminated with error code %1.</source>
-        <translation>Команда useradd завершилась с кодом ошибки %1.</translation>
-    </message>
-    <message>
-        <location filename="../src/modules/users/CreateUserJob.cpp" line="170"/>
-        <source>Cannot add user %1 to groups: %2.</source>
-        <translation>Не удается добавить пользователя %1 в группы: %2.</translation>
-    </message>
-    <message>
-        <location filename="../src/modules/users/CreateUserJob.cpp" line="173"/>
-        <source>usermod terminated with error code %1.</source>
-        <translation>Команда usermod завершилась с кодом ошибки %1.</translation>
-    </message>
-    <message>
-        <location filename="../src/modules/users/CreateUserJob.cpp" line="183"/>
-        <source>Cannot set home directory ownership for user %1.</source>
-        <translation>Не удалось задать владельца домашней папки пользователя %1.</translation>
-    </message>
-    <message>
-        <location filename="../src/modules/users/CreateUserJob.cpp" line="185"/>
-        <source>chown terminated with error code %1.</source>
-        <translation>Команда chown завершилась с кодом ошибки %1.</translation>
     </message>
 </context>
 <context>
@@ -1201,22 +1177,22 @@ The installer will quit and all changes will be lost.</source>
 <context>
     <name>NetInstallPage</name>
     <message>
-        <location filename="../src/modules/netinstall/NetInstallPage.cpp" line="72"/>
+        <location filename="../src/modules/netinstall/NetInstallPage.cpp" line="64"/>
         <source>Name</source>
         <translation>Имя</translation>
     </message>
     <message>
-        <location filename="../src/modules/netinstall/NetInstallPage.cpp" line="73"/>
+        <location filename="../src/modules/netinstall/NetInstallPage.cpp" line="65"/>
         <source>Description</source>
         <translation>Описание</translation>
     </message>
     <message>
-        <location filename="../src/modules/netinstall/NetInstallPage.cpp" line="94"/>
+        <location filename="../src/modules/netinstall/NetInstallPage.cpp" line="86"/>
         <source>Network Installation. (Disabled: Unable to fetch package lists, check your network connection)</source>
         <translation>Установка по сети. (Отключено: не удается получить список пакетов, проверьте сетевое подключение)</translation>
     </message>
     <message>
-        <location filename="../src/modules/netinstall/NetInstallPage.cpp" line="104"/>
+        <location filename="../src/modules/netinstall/NetInstallPage.cpp" line="96"/>
         <source>Network Installation. (Disabled: Received invalid groups data)</source>
         <translation type="unfinished"/>
     </message>
@@ -1224,7 +1200,7 @@ The installer will quit and all changes will be lost.</source>
 <context>
     <name>NetInstallViewStep</name>
     <message>
-        <location filename="../src/modules/netinstall/NetInstallViewStep.cpp" line="52"/>
+        <location filename="../src/modules/netinstall/NetInstallViewStep.cpp" line="54"/>
         <source>Package selection</source>
         <translation>Выбор пакетов</translation>
     </message>
@@ -1349,12 +1325,12 @@ The installer will quit and all changes will be lost.</source>
     <message>
         <location filename="../src/modules/users/CheckPWQuality.cpp" line="201"/>
         <source>The password contains less than %1 character classes</source>
-        <translation type="unfinished"/>
+        <translation>Пароль содержит менее %1 классов символов</translation>
     </message>
     <message>
         <location filename="../src/modules/users/CheckPWQuality.cpp" line="202"/>
         <source>The password does not contain enough character classes</source>
-        <translation type="unfinished"/>
+        <translation>Пароль содержит недостаточно классов символов</translation>
     </message>
     <message>
         <location filename="../src/modules/users/CheckPWQuality.cpp" line="205"/>
@@ -1369,27 +1345,27 @@ The installer will quit and all changes will be lost.</source>
     <message>
         <location filename="../src/modules/users/CheckPWQuality.cpp" line="209"/>
         <source>The password contains more than %1 characters of the same class consecutively</source>
-        <translation type="unfinished"/>
+        <translation>Пароль содержит более %1 символов одного и того же класса последовательно</translation>
     </message>
     <message>
         <location filename="../src/modules/users/CheckPWQuality.cpp" line="210"/>
         <source>The password contains too many characters of the same class consecutively</source>
-        <translation type="unfinished"/>
+        <translation>Пароль содержит слишком длинную последовательность символов одного и того же класса</translation>
     </message>
     <message>
         <location filename="../src/modules/users/CheckPWQuality.cpp" line="213"/>
         <source>The password contains monotonic sequence longer than %1 characters</source>
-        <translation type="unfinished"/>
+        <translation>Пароль содержит монотонную последовательность длиннее %1 символов</translation>
     </message>
     <message>
         <location filename="../src/modules/users/CheckPWQuality.cpp" line="214"/>
         <source>The password contains too long of a monotonic character sequence</source>
-        <translation type="unfinished"/>
+        <translation>Пароль содержит слишком длинную монотонную последовательность символов</translation>
     </message>
     <message>
         <location filename="../src/modules/users/CheckPWQuality.cpp" line="216"/>
         <source>No password supplied</source>
-        <translation type="unfinished"/>
+        <translation>Не задан пароль</translation>
     </message>
     <message>
         <location filename="../src/modules/users/CheckPWQuality.cpp" line="218"/>
@@ -1835,6 +1811,24 @@ The installer will quit and all changes will be lost.</source>
     </message>
 </context>
 <context>
+    <name>PreserveFiles</name>
+    <message>
+        <location filename="../src/modules/preservefiles/PreserveFiles.cpp" line="83"/>
+        <source>Saving files for later ...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/modules/preservefiles/PreserveFiles.cpp" line="89"/>
+        <source>No files configured to save for later.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/modules/preservefiles/PreserveFiles.cpp" line="145"/>
+        <source>Not all of the configured files could be preserved.</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>ProcessResult</name>
     <message>
         <location filename="../src/libcalamares/utils/CalamaresUtilsSystem.cpp" line="271"/>
@@ -1847,7 +1841,9 @@ There was no output from the command.</source>
         <source>
 Output:
 </source>
-        <translation type="unfinished"/>
+        <translation>
+Вывод:
+</translation>
     </message>
     <message>
         <location filename="../src/libcalamares/utils/CalamaresUtilsSystem.cpp" line="275"/>
@@ -1862,17 +1858,17 @@ Output:
     <message>
         <location filename="../src/libcalamares/utils/CalamaresUtilsSystem.cpp" line="281"/>
         <source>External command failed to start.</source>
-        <translation type="unfinished"/>
+        <translation>Не удалось запустить внешнюю команду.</translation>
     </message>
     <message>
         <location filename="../src/libcalamares/utils/CalamaresUtilsSystem.cpp" line="282"/>
         <source>Command &lt;i&gt;%1&lt;/i&gt; failed to start.</source>
-        <translation type="unfinished"/>
+        <translation>Не удалось запустить команду &lt;i&gt;%1&lt;/i&gt;.</translation>
     </message>
     <message>
         <location filename="../src/libcalamares/utils/CalamaresUtilsSystem.cpp" line="286"/>
         <source>Internal error when starting command.</source>
-        <translation type="unfinished"/>
+        <translation>Внутренняя ошибка при запуске команды.</translation>
     </message>
     <message>
         <location filename="../src/libcalamares/utils/CalamaresUtilsSystem.cpp" line="287"/>
@@ -1882,7 +1878,7 @@ Output:
     <message>
         <location filename="../src/libcalamares/utils/CalamaresUtilsSystem.cpp" line="290"/>
         <source>External command failed to finish.</source>
-        <translation type="unfinished"/>
+        <translation>Не удалось завершить внешнюю команду.</translation>
     </message>
     <message>
         <location filename="../src/libcalamares/utils/CalamaresUtilsSystem.cpp" line="291"/>
@@ -2370,12 +2366,12 @@ Output:
     <message>
         <location filename="../src/modules/tracking/TrackingJobs.cpp" line="43"/>
         <source>Installation feedback</source>
-        <translation type="unfinished"/>
+        <translation>Отчёт об установке</translation>
     </message>
     <message>
         <location filename="../src/modules/tracking/TrackingJobs.cpp" line="53"/>
         <source>Sending installation feedback.</source>
-        <translation type="unfinished"/>
+        <translation>Отправка отчёта об установке.</translation>
     </message>
     <message>
         <location filename="../src/modules/tracking/TrackingJobs.cpp" line="88"/>
@@ -2519,7 +2515,7 @@ Output:
 <context>
     <name>UsersViewStep</name>
     <message>
-        <location filename="../src/modules/users/UsersViewStep.cpp" line="51"/>
+        <location filename="../src/modules/users/UsersViewStep.cpp" line="53"/>
         <source>Users</source>
         <translation>Пользователи</translation>
     </message>

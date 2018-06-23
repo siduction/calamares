@@ -1,7 +1,7 @@
 diff --git a/calamares.desktop.in b/calamares.desktop.in
 index 0c4041b..fd41f69 100644
---- a/calamares.desktop.in
-+++ b/calamares.desktop.in
+--- a/calamares.desktop
++++ b/calamares.desktop
 @@ -5,7 +5,7 @@ Name=Install System
  GenericName=System Installer
  Keywords=calamares;system;installer

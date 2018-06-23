@@ -1,3 +1,21 @@
+calamares (3.2.1~166-g47b130c53-1) unstable; urgency=medium
+
+  * New snapshot: v3.2.0-166-g47b130c53
+
+ -- Alf Gaida <agaida@siduction.org>  Sun, 24 Jun 2018 00:46:24 +0200
+
+calamares (3.2.1~157-gec09272b8-1) unstable; urgency=medium
+
+  * New snapshot: v3.2.0-157-gec09272b8
+
+ -- Alf Gaida <agaida@siduction.org>  Tue, 19 Jun 2018 20:10:49 +0200
+
+calamares (3.2.1~43-g50dea6ded-4) unstable; urgency=medium
+
+  * Patch the right file
+
+ -- Alf Gaida <agaida@siduction.org>  Sat, 26 May 2018 23:51:48 +0200
+
 calamares (3.2.1~43-g50dea6ded-3) unstable; urgency=medium
 
   * Replaced pkexec with sudo in desktop file
