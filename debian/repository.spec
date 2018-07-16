@@ -15,7 +15,7 @@
 # =========
 # cleanup ()
 
-baseversion=3.2.1~
+baseversion=3.2.2~
 distribution=experimental-snapshots
 uploadrepo=snapshot
 
@@ -24,8 +24,8 @@ repository="https://github.com/calamares/calamares"
 # cleanup function definiton
 cleanup() {
     echo ""
-    echo "┌──────────────────────┐"
-    echo "│ Cleanup calamares... │"
-    echo "└──────────────────────┘"
+    echo "┌───────────────────────┐"
+    echo "│ Cleanup calamares ... │"
+    echo "└───────────────────────┘"
     rm -rf .git*
 }

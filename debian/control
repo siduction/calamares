@@ -14,8 +14,9 @@ Build-Depends: cmake,
                libkf5iconthemes-dev,
                libkf5parts-dev,
                libkf5service-dev,
-               libkpmcore-dev (>= 3.3.0~),
+               libkpmcore-dev (>= 3.3.1~),
                libpolkit-qt5-1-dev,
+               libpwquality-dev,
                libqt5svg5-dev,
                libqt5webkit5-dev,
                libyaml-cpp-dev,
@@ -25,16 +26,19 @@ Build-Depends: cmake,
                qttools5-dev,
                qttools5-dev-tools,
                quilt
-Standards-Version: 4.1.4
-Vcs-Git: https://notdecided
-Vcs-Browser: https://notdecided
+Standards-Version: 4.1.5
+X-Python3-Version: 3.6
+Vcs-Git: https://git.siduction.org/extra/calamares
+Vcs-Browser: https://git.siduction.org/extra/calamares.git
 Homepage: https://github.com/calamares/calamares
 
 Package: calamares
 Architecture: any
-Depends: calamares-branding,
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         calamares-branding,
          cryptsetup,
-         libkpmcore7,
+         libkpmcore8,
          os-prober,
          policykit-1,
          qml-module-qtquick-layouts,
@@ -42,9 +46,7 @@ Depends: calamares-branding,
          qml-module-qtquick-window2,
          qml-module-qtquick2,
          sudo,
-         squashfs-tools,
-         ${misc:Depends},
-         ${shlibs:Depends}
+         squashfs-tools
 Description: distribution-independent installer framework
  Calamares is a distribution-independent installer framework.
  .
