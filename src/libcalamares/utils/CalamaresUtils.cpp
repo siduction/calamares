@@ -1,6 +1,7 @@
 /* === This file is part of Calamares - <https://github.com/calamares> ===
  *
  *   Copyright 2013-2016, Teo Mrnjavac <teo@kde.org>
+ *   Copyright 2018, Adriaan de Groot <groot@kde.org>
  *
  *   Originally from Tomahawk, portions:
  *   Copyright 2010-2011, Christian Muehlhaeuser <muesli@tomahawk-player.org>
@@ -24,6 +25,7 @@
 #include "CalamaresUtils.h"
 
 #include "CalamaresConfig.h"
+#include "Logger.h"
 
 #include <QCoreApplication>
 #include <QDebug>
@@ -32,11 +34,9 @@
 #include <QStandardPaths>
 #include <QTranslator>
 
-
-// stdc++
 #include <iostream>
 
-using namespace std;
+using std::cerr;
 
 namespace CalamaresUtils
 {
@@ -146,6 +146,14 @@ installTranslator( const QLocale& locale,
     if ( localeName == "C" )
         localeName = "en";
 
+    // Special case of sr@latin
+    //
+    // See top-level CMakeLists.txt about special cases for translation loading.
+    if ( locale.language() == QLocale::Language::Serbian && locale.script() == QLocale::Script::LatinScript )
+        localeName = QStringLiteral( "sr@latin" );
+
+    cDebug() << "Looking for translations for" << localeName;
+
     QTranslator* translator = nullptr;
 
     // Branding translations
@@ -166,11 +174,11 @@ installTranslator( const QLocale& locale,
                                    "_",
                                    brandingTranslationsDir.absolutePath() ) )
             {
-                qDebug() << "Translation: Branding component: Using system locale:" << localeName;
+                cDebug() << " .. Branding using locale:" << localeName;
             }
             else
             {
-                qDebug() << "Translation: Branding component: Using default locale, system locale one not found:" << localeName;
+                cDebug() << " .. Branding using default, system locale not found:" << localeName;
                 translator->load( brandingTranslationsPrefix + "en" );
             }
 
@@ -189,11 +197,11 @@ installTranslator( const QLocale& locale,
     translator = new QTranslator( parent );
     if ( translator->load( QString( ":/lang/calamares_" ) + localeName ) )
     {
-        qDebug() << "Translation: Calamares: Using system locale:" << localeName;
+        cDebug() << " .. Calamares using locale:" << localeName;
     }
     else
     {
-        qDebug() << "Translation: Calamares: Using default locale, system locale one not found:" << localeName;
+        cDebug() << " .. Calamares using default, system locale not found:" << localeName;
         translator->load( QString( ":/lang/calamares_en" ) );
     }
 
@@ -350,6 +358,36 @@ getString(const QVariantMap& map, const QString& key)
             return v.toString();
     }
     return QString();
+}
+
+int
+getInteger( const QVariantMap& map, const QString& key, int d )
+{
+    int result = d;
+    if ( map.contains( key ) )
+    {
+        auto v = map.value( key );
+        if ( v.type() == QVariant::Int )
+            result = v.toInt();
+    }
+
+    return result;
+}
+
+double
+getDouble( const QVariantMap& map, const QString& key, double d )
+{
+    double result = d;
+    if ( map.contains( key ) )
+    {
+        auto v = map.value( key );
+        if ( v.type() == QVariant::Int )
+            result = v.toInt();
+        else if ( v.type() == QVariant::Double )
+            result = v.toDouble();
+    }
+
+    return result;
 }
 
 QVariantMap

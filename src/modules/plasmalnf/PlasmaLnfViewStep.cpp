@@ -1,6 +1,6 @@
 /* === This file is part of Calamares - <https://github.com/calamares> ===
  *
- *   Copyright 2017, Adriaan de Groot <groot@kde.org>
+ *   Copyright 2017-2018, Adriaan de Groot <groot@kde.org>
  *
  *   Calamares is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -27,7 +27,24 @@
 #include <QProcess>
 #include <QVariantMap>
 
+#ifdef WITH_KCONFIG
+#include <KConfigGroup>
+#include <KSharedConfig>
+#endif
+
 CALAMARES_PLUGIN_FACTORY_DEFINITION( PlasmaLnfViewStepFactory, registerPlugin<PlasmaLnfViewStep>(); )
+
+static QString
+currentPlasmaTheme()
+{
+#ifdef WITH_KCONFIG
+    KConfigGroup cg( KSharedConfig::openConfig( QStringLiteral( "kdeglobals" ) ), "KDE" );
+    return cg.readEntry( "LookAndFeelPackage", QString() );
+#else
+    cWarning() << "No KConfig support, cannot determine Plasma theme.";
+    return QString();
+#endif
+}
 
 PlasmaLnfViewStep::PlasmaLnfViewStep( QObject* parent )
     : Calamares::ViewStep( parent )
@@ -115,7 +132,7 @@ PlasmaLnfViewStep::jobs() const
         if ( !m_lnfPath.isEmpty() )
             l.append( Calamares::job_ptr( new PlasmaLnfJob( m_lnfPath, m_themeId ) ) );
         else
-            cDebug() << "WARNING: no lnftool given for plasmalnf module.";
+            cWarning() << "no lnftool given for plasmalnf module.";
     }
     return l;
 }
@@ -128,14 +145,22 @@ PlasmaLnfViewStep::setConfigurationMap( const QVariantMap& configurationMap )
     m_widget->setLnfPath( m_lnfPath );
 
     if ( m_lnfPath.isEmpty() )
-        cDebug() << "WARNING: no lnftool given for plasmalnf module.";
+        cWarning() << "no lnftool given for plasmalnf module.";
 
     m_liveUser = CalamaresUtils::getString( configurationMap, "liveuser" );
+
+    QString preselect = CalamaresUtils::getString( configurationMap, "preselect" );
+    if ( preselect == QStringLiteral( "*" ) )
+        preselect = currentPlasmaTheme();
+    if ( !preselect.isEmpty() )
+        m_widget->setPreselect( preselect );
+
+    bool showAll = CalamaresUtils::getBool( configurationMap, "showAll", false );
 
     if ( configurationMap.contains( "themes" ) &&
         configurationMap.value( "themes" ).type() == QVariant::List )
     {
-        ThemeInfoList allThemes;
+        ThemeInfoList listedThemes;
         auto themeList = configurationMap.value( "themes" ).toList();
         // Create the ThemInfo objects for the listed themes; information
         // about the themes from Plasma (e.g. human-readable name and description)
@@ -144,14 +169,14 @@ PlasmaLnfViewStep::setConfigurationMap( const QVariantMap& configurationMap )
             if ( i.type() == QVariant::Map )
             {
                 auto iv = i.toMap();
-                allThemes.append( ThemeInfo( iv.value( "theme" ).toString(), iv.value( "image" ).toString() ) );
+                listedThemes.append( ThemeInfo( iv.value( "theme" ).toString(), iv.value( "image" ).toString() ) );
             }
             else if ( i.type() == QVariant::String )
-                allThemes.append( ThemeInfo( i.toString() ) );
+                listedThemes.append( ThemeInfo( i.toString() ) );
 
-        if ( allThemes.length() == 1 )
-            cDebug() << "WARNING: only one theme enabled in plasmalnf";
-        m_widget->setEnabledThemes( allThemes );
+        if ( listedThemes.length() == 1 )
+            cWarning() << "only one theme enabled in plasmalnf";
+        m_widget->setEnabledThemes( listedThemes, showAll );
     }
     else
         m_widget->setEnabledThemesAll();  // All of them
@@ -163,7 +188,7 @@ PlasmaLnfViewStep::themeSelected( const QString& id )
     m_themeId = id;
     if ( m_lnfPath.isEmpty() )
     {
-        cDebug() << "WARNING: no lnftool given for plasmalnf module.";
+        cWarning() << "no lnftool given for plasmalnf module.";
         return;
     }
 
@@ -175,17 +200,17 @@ PlasmaLnfViewStep::themeSelected( const QString& id )
 
     if ( !lnftool.waitForStarted( 1000 ) )
     {
-        cDebug() << "WARNING: could not start look-and-feel" << m_lnfPath;
+        cWarning() << "could not start look-and-feel" << m_lnfPath;
         return;
     }
     if ( !lnftool.waitForFinished() )
     {
-        cDebug() << "WARNING:" << m_lnfPath << "timed out.";
+        cWarning() << m_lnfPath << "timed out.";
         return;
     }
 
     if ( ( lnftool.exitCode() == 0 ) && ( lnftool.exitStatus() == QProcess::NormalExit ) )
         cDebug() << "Plasma look-and-feel applied" << id;
     else
-        cDebug() << "WARNING: could not apply look-and-feel" << id;
+        cWarning() << "could not apply look-and-feel" << id;
 }

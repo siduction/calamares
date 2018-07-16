@@ -1,7 +1,7 @@
 /* === This file is part of Calamares - <https://github.com/calamares> ===
  *
  *   Copyright 2014-2016, Teo Mrnjavac <teo@kde.org>
- *   Copyright 2017, Adriaan de Groot <groot@kde.org>
+ *   Copyright 2017-2018, Adriaan de Groot <groot@kde.org>
  *
  *   Calamares is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -346,7 +346,7 @@ LocalePage::init( const QString& initialRegion,
 
     if ( m_localeGenLines.isEmpty() )
     {
-        cDebug() << "WARNING: cannot acquire a list of available locales."
+        cWarning() << "cannot acquire a list of available locales."
                     << "The locale and localecfg modules will be broken as long as this "
                     "system does not provide"
                     << "\n\t  "
@@ -454,7 +454,7 @@ LocalePage::guessLocaleConfiguration() const
     // If we cannot say anything about available locales
     if ( m_localeGenLines.isEmpty() )
     {
-        cDebug() << "WARNING: guessLocaleConfiguration can't guess from an empty list.";
+        cWarning() << "guessLocaleConfiguration can't guess from an empty list.";
         return LocaleConfiguration::createDefault();
     }
 
@@ -489,17 +489,20 @@ LocalePage::updateGlobalStorage()
             ->insert( "locationRegion", location.region );
     Calamares::JobQueue::instance()->globalStorage()
             ->insert( "locationZone", location.zone );
-    Calamares::JobQueue::instance()->globalStorage()
-            ->insert( "locale", m_selectedLocaleConfiguration.myLanguageLocaleBcp47);
+
+    const QString bcp47 = m_selectedLocaleConfiguration.toBcp47();
+    Calamares::JobQueue::instance()->globalStorage()->insert( "locale", bcp47 );
 
     // If we're in chroot mode (normal install mode), then we immediately set the
-    // timezone on the live system.
+    // timezone on the live system. When debugging timezones, don't bother.
+#ifndef DEBUG_TIMEZONES
     if ( Calamares::Settings::instance()->doChroot() )
     {
-        QProcess ::execute( "timedatectl",  // depends on systemd
+        QProcess::execute( "timedatectl",  // depends on systemd
                             { "set-timezone",
                               location.region + '/' + location.zone } );
     }
+#endif
 
     // Preserve those settings that have been made explicit.
     auto newLocale = guessLocaleConfiguration();

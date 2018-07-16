@@ -2,7 +2,7 @@
  *   Copyright 2016, Luca Giambonini <almack@chakraos.org>
  *   Copyright 2016, Lisa Vitolo     <shainer@chakraos.org>
  *   Copyright 2017, Kyle Robbertze  <krobbertze@gmail.com>
- *   Copyright 2017, Adriaan de Groot <groot@kde.org>
+ *   Copyright 2017-2018, Adriaan de Groot <groot@kde.org>
  *   Copyright 2017, Gabriel Craciunescu <crazy@frugalware.org>
  *
  *   Calamares is free software: you can redistribute it and/or modify
@@ -24,25 +24,17 @@
 #include "PackageModel.h"
 
 #include "ui_page_netinst.h"
-#include "GlobalStorage.h"
 #include "JobQueue.h"
+
 #include "utils/Logger.h"
 #include "utils/Retranslator.h"
 #include "utils/YamlUtils.h"
-
-#include <QFile>
-#include <QMap>
-#include <QTextStream>
 
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QNetworkReply>
 
 #include <QHeaderView>
-#include <QtDebug>
-#include <QtGlobal>
-#include <QWidget>
-#include <QSignalMapper>
 
 #include <yaml-cpp/yaml.h>
 
@@ -65,7 +57,7 @@ NetInstallPage::readGroups( const QByteArray& yamlData )
         YAML::Node groups = YAML::Load( yamlData.constData() );
 
         if ( !groups.IsSequence() )
-            cDebug() << "WARNING: netinstall groups data does not form a sequence.";
+            cWarning() << "netinstall groups data does not form a sequence.";
         Q_ASSERT( groups.IsSequence() );
         m_groups = new PackageModel( groups );
         CALAMARES_RETRANSLATE(
@@ -88,7 +80,7 @@ NetInstallPage::dataIsHere( QNetworkReply* reply )
     // even if the reply is corrupt or missing.
     if ( reply->error() != QNetworkReply::NoError )
     {
-        cDebug() << "WARNING: unable to fetch netinstall package lists.";
+        cWarning() << "unable to fetch netinstall package lists.";
         cDebug() << "  ..Netinstall reply error: " << reply->error();
         cDebug() << "  ..Request for url: " << reply->url().toString() << " failed with: " << reply->errorString();
         ui->netinst_status->setText( tr( "Network Installation. (Disabled: Unable to fetch package lists, check your network connection)" ) );
@@ -98,7 +90,7 @@ NetInstallPage::dataIsHere( QNetworkReply* reply )
 
     if ( !readGroups( reply->readAll() ) )
     {
-        cDebug() << "WARNING: netinstall groups data was received, but invalid.";
+        cWarning() << "netinstall groups data was received, but invalid.";
         cDebug() << "  ..Url:     " <<  reply->url().toString();
         cDebug() << "  ..Headers: " <<  reply->rawHeaderList();
         ui->netinst_status->setText( tr( "Network Installation. (Disabled: Received invalid groups data)" ) );
@@ -122,18 +114,14 @@ NetInstallPage::selectedPackages() const
         return m_groups->getPackages();
     else
     {
-        cDebug() << "WARNING: no netinstall groups are available.";
+        cWarning() << "no netinstall groups are available.";
         return PackageModel::PackageItemDataList();
     }
 }
 
 void
-NetInstallPage::loadGroupList()
+NetInstallPage::loadGroupList( const QString& confUrl )
 {
-    QString confUrl(
-        Calamares::JobQueue::instance()->globalStorage()->value(
-            "groupsUrl" ).toString() );
-
     QNetworkRequest request;
     request.setUrl( QUrl( confUrl ) );
     // Follows all redirects except unsafe ones (https to http).

@@ -1,6 +1,6 @@
 /* === This file is part of Calamares - <https://github.com/calamares> ===
  *
- *   Copyright 2017, Adriaan de Groot <groot@kde..org>
+ *   Copyright 2017-2018, Adriaan de Groot <groot@kde.org>
  *
  *   Calamares is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -84,7 +84,7 @@ Calamares::JobResult TrackingInstallJob::exec()
 
     if ( !timeout.isActive() )
     {
-        cDebug() << "WARNING: install-tracking request timed out.";
+        cWarning() << "install-tracking request timed out.";
         return Calamares::JobResult::error( tr( "Internal error in install-tracking." ),
                                             tr( "HTTP request timed out." ) );
     }

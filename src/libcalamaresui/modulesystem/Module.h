@@ -107,13 +107,6 @@ public:
     virtual QString instanceKey() const final;
 
     /**
-     * @brief requiredModules a list of names of modules required by this one.
-     * @return the list of names.
-     * The module dependencies system is currently incomplete and unused.
-     */
-    virtual QStringList requiredModules() const;
-
-    /**
      * @brief location returns the full path of this module's directory.
      * @return the path.
      */
@@ -147,13 +140,30 @@ public:
      * @brief isLoaded reports on the loaded status of a module.
      * @return true if the module's loading phase has finished, otherwise false.
      */
-    virtual bool isLoaded() const;
+    bool isLoaded() const
+    {
+        return m_loaded;
+    }
 
     /**
      * @brief loadSelf initialized the module.
      * Subclasses must reimplement this depending on the module type and interface.
      */
     virtual void loadSelf() = 0;
+
+    /**
+     * @brief Is this an emergency module?
+     *
+     * An emergency module is run even if an error occurs
+     * which would terminate Calamares earlier in the same
+     * *exec* block. Emergency modules in later exec blocks
+     * are not run (in the common case where there is only
+     * one exec block, this doesn't really matter).
+     */
+    bool isEmergency() const
+    {
+        return m_emergency;
+    }
 
     /**
      * @brief jobs returns any jobs exposed by this module.
@@ -171,13 +181,16 @@ public:
 protected:
     explicit Module();
     virtual void initFrom( const QVariantMap& moduleDescriptor );
-    bool m_loaded;
     QVariantMap m_configurationMap;
+
+    bool m_loaded = false;
+    bool m_emergency = false;  // Based on module and local config
+    bool m_maybe_emergency = false;  // Based on the module.desc
 
 private:
     void loadConfigurationFile( const QString& configFileName ); //throws YAML::Exception
+
     QString m_name;
-    QStringList m_requiredModules;
     QString m_directory;
     QString m_instanceId;
 

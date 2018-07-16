@@ -3,7 +3,7 @@ Section: utils
 Priority: optional
 Maintainer: Alf Gaida <agaida@siduction.org>
 Build-Depends: cmake,
-               debhelper (>= 10),
+               debhelper (>= 11~),
                extra-cmake-modules,
                gettext,
                kio-dev,
@@ -25,10 +25,10 @@ Build-Depends: cmake,
                qttools5-dev,
                qttools5-dev-tools,
                quilt
-Standards-Version: 4.1.2
-Homepage: https://github.com/calamares/calamares
+Standards-Version: 4.1.4
 Vcs-Git: https://notdecided
 Vcs-Browser: https://notdecided
+Homepage: https://github.com/calamares/calamares
 
 Package: calamares
 Architecture: any

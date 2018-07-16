@@ -1,7 +1,7 @@
 /* === This file is part of Calamares - <https://github.com/calamares> ===
  *
  *   Copyright 2014, Teo Mrnjavac <teo@kde.org>
- *   Copyright 2017, Adriaan de Groot <groot@kde.org>
+ *   Copyright 2017-2018, Adriaan de Groot <groot@kde.org>
  *
  *   Calamares is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -223,7 +223,7 @@ Helper::Helper( QObject* parent )
     }
     else
     {
-        cDebug() << "WARNING: creating PythonHelper more than once. This is very bad.";
+        cWarning() << "creating PythonHelper more than once. This is very bad.";
         return;
     }
 
@@ -231,7 +231,9 @@ Helper::Helper( QObject* parent )
 }
 
 Helper::~Helper()
-{}
+{
+    s_instance = nullptr;
+}
 
 
 boost::python::dict

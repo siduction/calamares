@@ -1,6 +1,7 @@
 /* === This file is part of Calamares - <https://github.com/calamares> ===
  *
  *   Copyright 2015-2016, Teo Mrnjavac <teo@kde.org>
+ *   Copyright 2018, Adriaan de Groot <groot@kde.org>
  *
  *   Calamares is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -22,6 +23,7 @@
 
 #include "core/DeviceModel.h"
 #include "core/KPMHelpers.h"
+#include "core/PartitionInfo.h"
 #include "core/PartitionIterator.h"
 
 #include <kpmcore/backend/corebackend.h>
@@ -138,7 +140,6 @@ canBeResized( PartitionCoreModule* core, const QString& partitionPath )
     if ( partitionWithOs.startsWith( "/dev/" ) )
     {
         cDebug() << partitionWithOs << "seems like a good path";
-        bool canResize = false;
         DeviceModel* dm = core->deviceModel();
         for ( int i = 0; i < dm->rowCount(); ++i )
         {
@@ -281,11 +282,11 @@ runOsprober( PartitionCoreModule* core )
     osprober.start();
     if ( !osprober.waitForStarted() )
     {
-        cDebug() << "ERROR: os-prober cannot start.";
+        cError() << "os-prober cannot start.";
     }
     else if ( !osprober.waitForFinished( 60000 ) )
     {
-        cDebug() << "ERROR: os-prober timed out.";
+        cError() << "os-prober timed out.";
     }
     else
     {
@@ -338,6 +339,36 @@ bool
 isEfiSystem()
 {
     return QDir( "/sys/firmware/efi/efivars" ).exists();
+}
+
+bool
+isEfiBootable( const Partition* candidate )
+{
+    cDebug() << "Check EFI bootable" << candidate->partitionPath() << candidate->devicePath();
+    cDebug() << " .. flags" << candidate->activeFlags();
+
+    auto flags = PartitionInfo::flags( candidate );
+
+    /* If bit 17 is set, old-style Esp flag, it's OK */
+    if ( flags.testFlag( PartitionTable::FlagEsp ) )
+        return true;
+
+    /* Otherwise, if it's a GPT table, Boot (bit 0) is the same as Esp */
+    const PartitionNode* root = candidate;
+    while ( root && !root->isRoot() )
+    {
+        root = root->parent();
+        cDebug() << " .. moved towards root" << (void *)root;
+    }
+
+    // Strange case: no root found, no partition table node?
+    if ( !root )
+        return false;
+
+    const PartitionTable* table = dynamic_cast<const PartitionTable*>( root );
+    cDebug() << "  .. partition table" << (void *)table << "type" << ( table ? table->type() : PartitionTable::TableType::unknownTableType );
+    return table && ( table->type() == PartitionTable::TableType::gpt ) &&
+        flags.testFlag( PartitionTable::FlagBoot );
 }
 
 }  // nmamespace PartUtils

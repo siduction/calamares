@@ -1,6 +1,7 @@
 /* === This file is part of Calamares - <https://github.com/calamares> ===
  *
  *   Copyright 2013-2016, Teo Mrnjavac <teo@kde.org>
+ *   Copyright 2018, Adriaan de Groot <groot@kde.org>
  *
  *   Originally from Tomahawk, portions:
  *   Copyright 2010-2011, Christian Muehlhaeuser <muesli@tomahawk-player.org>
@@ -108,6 +109,16 @@ namespace CalamaresUtils
      * Get a string value from a mapping; returns empty QString if no value.
      */
     DLLEXPORT QString getString( const QVariantMap& map, const QString& key );
+
+    /**
+     * Get an integer value from a mapping; returns @p d if no value.
+     */
+    DLLEXPORT int getInteger( const QVariantMap& map, const QString& key, int d );
+
+    /**
+     * Get a double value from a mapping (integers are converted); returns @p d if no value.
+     */
+    DLLEXPORT double getDouble( const QVariantMap& map, const QString& key, double d );
 
     /**
      * Returns a sub-map (i.e. a nested map) from the given mapping with the

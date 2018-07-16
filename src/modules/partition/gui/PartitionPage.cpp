@@ -2,6 +2,8 @@
  *
  *   Copyright 2014, Aurélien Gâteau <agateau@kde.org>
  *   Copyright 2015-2016, Teo Mrnjavac <teo@kde.org>
+ *   Copyright 2018, Adriaan de Groot <groot@kde.org>
+ *   Copyright 2018, Andrius Štikonas <andrius@stikonas.eu>
  *
  *   Calamares is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -34,6 +36,7 @@
 #include "ui_PartitionPage.h"
 #include "ui_CreatePartitionTableDialog.h"
 
+#include "utils/Logger.h"
 #include "utils/Retranslator.h"
 #include "Branding.h"
 #include "JobQueue.h"
@@ -119,7 +122,7 @@ PartitionPage::~PartitionPage()
 void
 PartitionPage::updateButtons()
 {
-    bool create = false, edit = false, del = false;
+    bool create = false, createTable = false, edit = false, del = false;
 
     QModelIndex index = m_ui->partitionTreeView->currentIndex();
     if ( index.isValid() )
@@ -141,11 +144,18 @@ PartitionPage::updateButtons()
         edit = !isFree && !isExtended;
         del = !isFree;
     }
+
+    if ( m_ui->deviceComboBox->currentIndex() >= 0 )
+    {
+        QModelIndex deviceIndex = m_core->deviceModel()->index( m_ui->deviceComboBox->currentIndex(), 0 );
+        if ( m_core->deviceModel()->deviceForIndex( deviceIndex )->type() != Device::Type::LVM_Device )
+            createTable = true;
+    }
+
     m_ui->createButton->setEnabled( create );
     m_ui->editButton->setEnabled( edit );
     m_ui->deleteButton->setEnabled( del );
-
-    m_ui->newPartitionTableButton->setEnabled( m_ui->deviceComboBox->currentIndex() >= 0 );
+    m_ui->newPartitionTableButton->setEnabled( createTable );
 }
 
 void
@@ -171,6 +181,29 @@ PartitionPage::onNewPartitionTableClicked()
     updateBootLoaderIndex();
 }
 
+bool
+PartitionPage::checkCanCreate( Device* device )
+{
+    auto table = device->partitionTable();
+
+    if ( table->type() == PartitionTable::msdos ||table->type() == PartitionTable::msdos_sectorbased )
+    {
+        cDebug() << "Checking MSDOS partition" << table->numPrimaries() << "primaries, max" << table->maxPrimaries();
+
+        if ( ( table->numPrimaries() >= table->maxPrimaries() ) && !table->hasExtended() )
+        {
+            QMessageBox::warning( this, tr( "Can not create new partition" ),
+                tr( "The partition table on %1 already has %2 primary partitions, and no more can be added. "
+                    "Please remove one primary partition and add an extended partition, instead." ).arg( device->name() ).arg( table->numPrimaries() )
+            );
+            return false;
+        }
+        return true;
+    }
+    else
+        return true;  // GPT is fine
+}
+
 void
 PartitionPage::onCreateClicked()
 {
@@ -181,8 +214,12 @@ PartitionPage::onCreateClicked()
     Partition* partition = model->partitionForIndex( index );
     Q_ASSERT( partition );
 
+    if ( !checkCanCreate( model->device() ) )
+        return;
+
     QPointer< CreatePartitionDialog > dlg = new CreatePartitionDialog( model->device(),
                                                                        partition->parent(),
+                                                                       nullptr,
                                                                        getCurrentUsedMountpoints(),
                                                                        this );
     dlg->initFromFreeSpace( partition );
@@ -278,6 +315,7 @@ PartitionPage::updatePartitionToCreate( Device* device, Partition* partition )
 
     QPointer< CreatePartitionDialog > dlg = new CreatePartitionDialog( device,
                                                                        partition->parent(),
+                                                                       partition,
                                                                        mountPoints,
                                                                        this );
     dlg->initFromPartitionToCreate( partition );

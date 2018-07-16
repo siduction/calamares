@@ -1,7 +1,7 @@
 /* === This file is part of Calamares - <https://github.com/calamares> ===
  *
  *   Copyright 2014, Teo Mrnjavac <teo@kde.org>
- *   Copyright 2017, Adriaan de Groot <groot@kde.org>
+ *   Copyright 2017-2018, Adriaan de Groot <groot@kde.org>
  *
  *   Calamares is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -35,6 +35,45 @@
 #include <QDebug>
 #include <QDir>
 
+static void
+handle_args( CalamaresApplication& a )
+{
+    QCommandLineOption debugOption( QStringList{ "d", "debug"},
+                                    "Also look in current directory for configuration. Implies -D8." );
+    QCommandLineOption debugLevelOption( QStringLiteral("D"),
+                                          "Verbose output for debugging purposes (0-8).", "level" );
+    QCommandLineOption configOption( QStringList{ "c", "config"},
+                                     "Configuration directory to use, for testing purposes.", "config" );
+
+    QCommandLineParser parser;
+    parser.setApplicationDescription( "Distribution-independent installer framework" );
+    parser.addHelpOption();
+    parser.addVersionOption();
+
+    parser.addOption( debugOption );
+    parser.addOption( debugLevelOption );
+    parser.addOption( configOption );
+
+    parser.process( a );
+
+    a.setDebug( parser.isSet( debugOption ) );
+    if ( parser.isSet( debugOption ) )
+        Logger::setupLogLevel( Logger::LOGVERBOSE );
+    else if ( parser.isSet( debugLevelOption ) )
+    {
+        bool ok = true;
+        int l = parser.value( debugLevelOption ).toInt( &ok );
+        unsigned int dlevel = 0;
+        if ( !ok || ( l < 0 ) )
+            dlevel = Logger::LOGVERBOSE;
+        else
+            dlevel = l;
+        Logger::setupLogLevel( dlevel );
+    }
+    if ( parser.isSet( configOption ) )
+        CalamaresUtils::setAppDataDir( QDir( parser.value( configOption ) ) );
+}
+
 int
 main( int argc, char* argv[] )
 {
@@ -59,25 +98,7 @@ main( int argc, char* argv[] )
     a.setApplicationDisplayName( QString() );
 #endif
 
-    QCommandLineParser parser;
-    parser.setApplicationDescription( "Distribution-independent installer framework" );
-    parser.addHelpOption();
-    parser.addVersionOption();
-    QCommandLineOption debugOption( QStringList() << "d" << "debug",
-                                      "Verbose output for debugging purposes." );
-    parser.addOption( debugOption );
-
-    QCommandLineOption configOption( QStringList() << "c" << "config",
-                                     "Configuration directory to use, for testing purposes.", "config" );
-    parser.addOption( configOption );
-
-    parser.process( a );
-
-    a.setDebug( parser.isSet( debugOption ) );
-
-    if ( parser.isSet( configOption ) )
-        CalamaresUtils::setAppDataDir( QDir( parser.value( configOption ) ) );
-
+    handle_args( a );
     KDSingleApplicationGuard guard( KDSingleApplicationGuard::AutoKillOtherInstances );
 
     int returnCode = 0;
@@ -87,7 +108,14 @@ main( int argc, char* argv[] )
         returnCode = a.exec();
     }
     else
+    {
+        auto instancelist = guard.instances();
         qDebug() << "Calamares is already running, shutting down.";
+        if ( instancelist.count() > 0 )
+            qDebug() << "Other running Calamares instances:";
+        for ( const auto& i : instancelist )
+            qDebug() << "  " << i.isValid() << i.pid() << i.arguments();
+    }
 
     return returnCode;
 }

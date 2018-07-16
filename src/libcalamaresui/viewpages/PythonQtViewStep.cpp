@@ -1,6 +1,7 @@
 /* === This file is part of Calamares - <https://github.com/calamares> ===
  *
  *   Copyright 2016, Teo Mrnjavac <teo@kde.org>
+ *   Copyright 2018, Adriaan de Groot <groot@kde.org>
  *
  *   Calamares is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -80,7 +81,7 @@ QWidget*
 PythonQtViewStep::widget()
 {
     if ( m_widget->layout()->count() > 1 )
-        cDebug() << "WARNING: PythonQtViewStep wrapper widget has more than 1 child. "
+        cWarning() << "PythonQtViewStep wrapper widget has more than 1 child. "
                     "This should never happen.";
 
     bool nothingChanged = m_cxt.evalScript(
@@ -156,6 +157,24 @@ PythonQtViewStep::isAtEnd() const
                                           { "isAtEnd",
                                             "isatend",
                                             "is_at_end" } ).toBool();
+}
+
+void
+PythonQtViewStep::onActivate() 
+{
+    CalamaresUtils::lookupAndCall( m_obj,
+                                          { "onActivate",
+                                            "onactivate",
+                                            "on_activate" });
+}
+
+void
+PythonQtViewStep::onLeave()
+{
+    CalamaresUtils::lookupAndCall( m_obj,
+                                          { "onLeave",
+                                            "onleave",
+                                            "on_leave" });
 }
 
 

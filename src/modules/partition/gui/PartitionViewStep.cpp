@@ -2,6 +2,7 @@
  *
  *   Copyright 2014, Aurélien Gâteau <agateau@kde.org>
  *   Copyright 2014-2017, Teo Mrnjavac <teo@kde.org>
+ *   Copyright 2018, Adriaan de Groot <groot@kde.org>
  *
  *   Calamares is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -408,7 +409,7 @@ PartitionViewStep::onLeave()
                               .arg( *Calamares::Branding::ShortProductName )
                               .arg( espMountPoint );
             }
-            else if ( esp && !esp->activeFlags().testFlag( PartitionTable::FlagEsp ) )
+            else if ( esp && !PartUtils::isEfiBootable( esp ) )
             {
                 message = tr( "EFI system partition flag not set" );
                 description = tr( "An EFI system partition is necessary to start %1."
@@ -426,6 +427,7 @@ PartitionViewStep::onLeave()
 
             if ( !message.isEmpty() )
             {
+                cWarning() << message;
                 QMessageBox::warning( m_manualPartitionPage,
                                       message,
                                       description );
@@ -535,7 +537,7 @@ PartitionViewStep::setConfigurationMap( const QVariantMap& configurationMap )
         gs->insert( "defaultFileSystemType", typeString );
         if ( FileSystem::typeForName( typeString ) == FileSystem::Unknown )
         {
-            cDebug() << "WARNING: bad default filesystem configuration for partition module. Reverting to ext4 as default.";
+            cWarning() << "bad default filesystem configuration for partition module. Reverting to ext4 as default.";
             gs->insert( "defaultFileSystemType", "ext4" );
         }
     }

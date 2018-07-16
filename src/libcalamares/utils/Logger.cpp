@@ -2,7 +2,7 @@
  *
  *   Copyright 2010-2011, Christian Muehlhaeuser <muesli@tomahawk-player.org>
  *   Copyright 2014,      Teo Mrnjavac <teo@kde.org>
- *   Copyright 2017, Adriaan de Groot <groot@kde.org>
+ *   Copyright 2017-2018, Adriaan de Groot <groot@kde.org>
  *
  *   Calamares is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -31,39 +31,33 @@
 #include <QVariant>
 
 #include "utils/CalamaresUtils.h"
+#include "CalamaresVersion.h"
 
 #define LOGFILE_SIZE 1024 * 256
 
-#define RELEASE_LEVEL_THRESHOLD 0
-#define DEBUG_LEVEL_THRESHOLD LOGEXTRA
-
-using namespace std;
-
-static ofstream logfile;
-static unsigned int s_threshold = 0;
+static std::ofstream logfile;
+static unsigned int s_threshold =
+#ifdef QT_NO_DEBUG
+            Logger::LOG_DISABLE;
+#else
+            Logger::LOGEXTRA + 1;  // Comparison is < in log() function
+#endif
 static QMutex s_mutex;
 
 namespace Logger
 {
 
+void
+setupLogLevel(unsigned int level)
+{
+    if ( level > LOGVERBOSE )
+        level = LOGVERBOSE;
+    s_threshold = level + 1;  // Comparison is < in log() function
+}
+
 static void
 log( const char* msg, unsigned int debugLevel, bool toDisk = true )
 {
-    if ( !s_threshold )
-    {
-        if ( qApp->arguments().contains( "--debug" ) ||
-             qApp->arguments().contains( "-d" ) )
-            s_threshold = LOGVERBOSE;
-        else
-#ifdef QT_NO_DEBUG
-            s_threshold = RELEASE_LEVEL_THRESHOLD;
-#else
-            s_threshold = DEBUG_LEVEL_THRESHOLD;
-#endif
-        // Comparison is < threshold, below
-        ++s_threshold;
-    }
-
     if ( toDisk || debugLevel < s_threshold )
     {
         QMutexLocker lock( &s_mutex );
@@ -75,7 +69,7 @@ log( const char* msg, unsigned int debugLevel, bool toDisk = true )
                 << " - "
                 << QTime::currentTime().toString().toUtf8().data()
                 << " [" << QString::number( debugLevel ).toUtf8().data() << "]: "
-                << msg << endl;
+                << msg << std::endl;
 
         logfile.flush();
     }
@@ -84,16 +78,15 @@ log( const char* msg, unsigned int debugLevel, bool toDisk = true )
     {
         QMutexLocker lock( &s_mutex );
 
-        cout << QTime::currentTime().toString().toUtf8().data()
+        std::cout << QTime::currentTime().toString().toUtf8().data()
              << " [" << QString::number( debugLevel ).toUtf8().data() << "]: "
-             << msg << endl;
-
-        cout.flush();
+             << msg << std::endl;
+        std::cout.flush();
     }
 }
 
 
-void
+static void
 CalamaresLogHandler( QtMsgType type, const QMessageLogContext& context, const QString& msg )
 {
     static QMutex s_mutex;
@@ -126,7 +119,7 @@ CalamaresLogHandler( QtMsgType type, const QMessageLogContext& context, const QS
 QString
 logFile()
 {
-    return CalamaresUtils::appLogDir().filePath( "Calamares.log" );
+    return CalamaresUtils::appLogDir().filePath( "session.log" );
 }
 
 
@@ -153,15 +146,20 @@ setupLogfile()
         }
     }
 
+    // Since the log isn't open yet, this probably only goes to stdout
     cDebug() << "Using log file:" << logFile();
 
-    logfile.open( logFile().toLocal8Bit(), ios::app );
+    // Lock while (re-)opening the logfile
+    {
+    QMutexLocker lock( &s_mutex );
+    logfile.open( logFile().toLocal8Bit(), std::ios::app );
+    if ( logfile.tellp() )
+        logfile << "\n\n" << std::endl;
+    logfile << "=== START CALAMARES " << CALAMARES_VERSION << std::endl;
+    }
+
     qInstallMessageHandler( CalamaresLogHandler );
 }
-
-}
-
-using namespace Logger;
 
 CLog::CLog( unsigned int debugLevel )
     : QDebug( &m_msg )
@@ -175,6 +173,26 @@ CLog::~CLog()
     log( m_msg.toUtf8().data(), m_debugLevel );
 }
 
-Logger::CDebug::~CDebug()
+CDebug::~CDebug()
 {
 }
+
+const char* continuation = "\n    ";
+
+QString toString( const QVariant& v )
+{
+    auto t = v.type();
+
+    if ( t == QVariant::List )
+    {
+        QStringList s;
+        auto l = v.toList();
+        for ( auto lit = l.constBegin(); lit != l.constEnd(); ++lit )
+            s << lit->toString();
+        return s.join(", ");
+    }
+    else
+        return v.toString();
+}
+
+}  // namespace

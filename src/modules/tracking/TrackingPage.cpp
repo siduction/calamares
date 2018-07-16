@@ -1,6 +1,6 @@
 /* === This file is part of Calamares - <https://github.com/calamares> ===
  *
- *   Copyright 2017, Adriaan de Groot <groot@kde.org>
+ *   Copyright 2017-2018, Adriaan de Groot <groot@kde.org>
  *
  *   Calamares is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -81,7 +81,7 @@ void TrackingPage::enableTrackingOption(TrackingType t, bool enabled)
             group->hide();
     }
     else
-        cDebug() << "WARNING: unknown tracking option" << int(t);
+        cWarning() << "unknown tracking option" << int(t);
 }
 
 bool TrackingPage::getTrackingOption(TrackingType t)
@@ -90,17 +90,20 @@ bool TrackingPage::getTrackingOption(TrackingType t)
 
     // A tracking type is enabled if it is checked, or
     // any higher level is checked.
+#define ch(x) ui->x->isChecked()
     switch ( t )
     {
         case TrackingType::InstallTracking:
-            enabled |= ui->installRadio->isChecked();
-            // FALLTHRU
+            enabled = ch(installRadio) || ch(machineRadio) || ch(userRadio);
+            break;
         case TrackingType::MachineTracking:
-            enabled |= ui->machineRadio->isChecked();
-            // FALLTHRU
+            enabled = ch(machineRadio) || ch(userRadio);
+            break;
         case TrackingType::UserTracking:
-            enabled |= ui->userRadio->isChecked();
+            enabled = ch(userRadio);
+            break;
     }
+#undef ch
     return enabled;
 }
 
@@ -129,7 +132,7 @@ void TrackingPage::setTrackingPolicy(TrackingType t, QString url)
             cDebug() << "Tracking policy" << int(t) << "set to" << url;
         }
     else
-        cDebug() << "WARNING: unknown tracking option" << int(t);
+        cWarning() << "unknown tracking option" << int(t);
 }
 
 void TrackingPage::setGeneralPolicy( QString url )
@@ -162,5 +165,5 @@ void TrackingPage::setTrackingLevel(const QString& l)
     if ( button != nullptr )
         button->setChecked( true );
     else
-        cDebug() << "WARNING: unknown default tracking level" << l;
+        cWarning() << "unknown default tracking level" << l;
 }

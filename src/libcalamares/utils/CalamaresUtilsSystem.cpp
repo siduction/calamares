@@ -1,7 +1,7 @@
 /* === This file is part of Calamares - <https://github.com/calamares> ===
  *
  *   Copyright 2014, Teo Mrnjavac <teo@kde.org>
- *   Copyright 2017, Adriaan de Groot <groot@kde.org>
+ *   Copyright 2017-2018, Adriaan de Groot <groot@kde.org>
  *
  *   Calamares is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -20,9 +20,11 @@
 #include "CalamaresUtilsSystem.h"
 
 #include "utils/Logger.h"
-#include "JobQueue.h"
 #include "GlobalStorage.h"
+#include "JobQueue.h"
+#include "Settings.h"
 
+#include <QCoreApplication>
 #include <QDir>
 #include <QProcess>
 #include <QRegularExpression>
@@ -57,8 +59,15 @@ System::~System()
 {}
 
 
-System*System::instance()
+System*
+System::instance()
 {
+    if ( !s_instance )
+    {
+        cError() << "No Calamares system-object has been created.";
+        cError() << " .. using a bogus instance instead.";
+        return new System( true, nullptr );
+    }
     return s_instance;
 }
 
@@ -93,7 +102,8 @@ System::mount( const QString& devicePath,
 }
 
 ProcessResult
-System::targetEnvCommand(
+System::runCommand(
+    System::RunLocation location,
     const QStringList& args,
     const QString& workingPath,
     const QString& stdInput,
@@ -105,10 +115,10 @@ System::targetEnvCommand(
         return -3;
 
     Calamares::GlobalStorage* gs = Calamares::JobQueue::instance()->globalStorage();
-    if ( !gs ||
-         ( m_doChroot && !gs->contains( "rootMountPoint" ) ) )
+    if ( ( location == System::RunLocation::RunInTarget ) &&
+         ( !gs || !gs->contains( "rootMountPoint" ) ) )
     {
-        cLog() << "No rootMountPoint in global storage";
+        cWarning() << "No rootMountPoint in global storage";
         return -3;
     }
 
@@ -116,12 +126,12 @@ System::targetEnvCommand(
     QString program;
     QStringList arguments;
 
-    if ( m_doChroot )
+    if ( location == System::RunLocation::RunInTarget )
     {
         QString destDir = gs->value( "rootMountPoint" ).toString();
         if ( !QDir( destDir ).exists() )
         {
-            cLog() << "rootMountPoint points to a dir which does not exist";
+            cWarning() << "rootMountPoint points to a dir which does not exist";
             return -3;
         }
 
@@ -144,15 +154,15 @@ System::targetEnvCommand(
         if ( QDir( workingPath ).exists() )
             process.setWorkingDirectory( QDir( workingPath ).absolutePath() );
         else
-            cLog() << "Invalid working directory:" << workingPath;
+            cWarning() << "Invalid working directory:" << workingPath;
             return -3;
     }
 
-    cLog() << "Running" << program << arguments;
+    cDebug() << "Running" << program << arguments;
     process.start();
     if ( !process.waitForStarted() )
     {
-        cLog() << "Process failed to start" << process.error();
+        cWarning() << "Process failed to start" << process.error();
         return -2;
     }
 
@@ -164,8 +174,8 @@ System::targetEnvCommand(
 
     if ( !process.waitForFinished( timeoutSec ? ( timeoutSec * 1000 ) : -1 ) )
     {
-        cLog() << "Timed out. output so far:";
-        cLog() << process.readAllStandardOutput();
+        cWarning().noquote().nospace() << "Timed out. Output so far:\n" <<
+            process.readAllStandardOutput();
         return -4;
     }
 
@@ -173,16 +183,16 @@ System::targetEnvCommand(
 
     if ( process.exitStatus() == QProcess::CrashExit )
     {
-        cLog() << "Process crashed";
+        cWarning().noquote().nospace() << "Process crashed. Output so far:\n" << output;
         return -1;
     }
 
     auto r = process.exitCode();
-    cLog() << "Finished. Exit code:" << r;
-    if ( r != 0 )
+    cDebug() << "Finished. Exit code:" << r;
+    if ( ( r != 0 ) || Calamares::Settings::instance()->debugMode() )
     {
-        cLog() << "Target cmd:" << args;
-        cLog().noquote() << "Target output:\n" << output;
+        cDebug() << "Target cmd:" << args;
+        cDebug().noquote().nospace() << "Target output:\n" << output;
     }
     return ProcessResult(r, output);
 }
@@ -247,6 +257,48 @@ bool
 System::doChroot() const
 {
     return m_doChroot;
+}
+
+Calamares::JobResult
+ProcessResult::explainProcess( int ec, const QString& command, const QString& output, int timeout )
+{
+    using Calamares::JobResult;
+
+    if ( ec == 0 )
+        return JobResult::ok();
+
+    QString outputMessage = output.isEmpty()
+        ? QCoreApplication::translate( "ProcessResult", "\nThere was no output from the command.")
+        : (QCoreApplication::translate( "ProcessResult", "\nOutput:\n") + output);
+
+    if ( ec == -1 ) //Crash!
+        return JobResult::error( QCoreApplication::translate( "ProcessResult", "External command crashed." ),
+                                 QCoreApplication::translate( "ProcessResult", "Command <i>%1</i> crashed." )
+                                        .arg( command )
+                                        + outputMessage );
+
+    if ( ec == -2 )
+        return JobResult::error( QCoreApplication::translate( "ProcessResult", "External command failed to start." ),
+                                 QCoreApplication::translate( "ProcessResult", "Command <i>%1</i> failed to start." )
+                                    .arg( command ) );
+
+    if ( ec == -3 )
+        return JobResult::error( QCoreApplication::translate( "ProcessResult", "Internal error when starting command." ),
+                                 QCoreApplication::translate( "ProcessResult", "Bad parameters for process job call." ) );
+
+    if ( ec == -4 )
+        return JobResult::error( QCoreApplication::translate( "ProcessResult", "External command failed to finish." ),
+                                 QCoreApplication::translate( "ProcessResult", "Command <i>%1</i> failed to finish in %2 seconds." )
+                                    .arg( command )
+                                    .arg( timeout )
+                                    + outputMessage );
+
+    //Any other exit code
+    return JobResult::error( QCoreApplication::translate( "ProcessResult", "External command finished with errors." ),
+                             QCoreApplication::translate( "ProcessResult", "Command <i>%1</i> finished with exit code %2." )
+                                .arg( command )
+                                .arg( ec )
+                                + outputMessage );
 }
 
 }  // namespace

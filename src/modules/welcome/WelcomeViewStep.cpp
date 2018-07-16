@@ -1,6 +1,7 @@
 /* === This file is part of Calamares - <https://github.com/calamares> ===
  *
  *   Copyright 2014-2015, Teo Mrnjavac <teo@kde.org>
+ *   Copyright 2018, Adriaan de Groot <groot@kde.org>
  *
  *   Calamares is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -130,7 +131,7 @@ WelcomeViewStep::setConfigurationMap( const QVariantMap& configurationMap )
          configurationMap.value( "requirements" ).type() == QVariant::Map )
         m_requirementsChecker->setConfigurationMap( configurationMap.value( "requirements" ).toMap() );
     else
-        cDebug() << "WARNING: no valid requirements map found in welcome "
+        cWarning() << "no valid requirements map found in welcome "
                     "module configuration.";
 }
 

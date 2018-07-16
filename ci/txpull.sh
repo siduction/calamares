@@ -29,6 +29,25 @@ test -f "calamares.desktop" || { echo "! Not at Calamares top-level" ; exit 1 ; 
 export QT_SELECT=5
 tx pull --force --source --all
 
+### CLEANUP TRANSLATIONS
+#
+# Some languages have been deprecated. They may still exist in Transifex,
+# so clean them up after pulling.
+#
+drop_language() {
+  rm -rf lang/python/"$1" src/modules/dummypythonqt/lang/"$1" lang/calamares_"$1".ts
+  grep -v "\\[$1]" calamares.desktop > calamares.desktop.new
+  mv calamares.desktop.new calamares.desktop
+}
+
+drop_language es_ES
+drop_language pl_PL
+
+# Also fix the .desktop file, which has some fields removed by Transifex.
+#
+{ cat calamares.desktop.in ; grep "\\[[a-zA-Z_@]*]=" calamares.desktop ; } > calamares.desktop.new
+mv calamares.desktop.new calamares.desktop
+
 ### COMMIT TRANSLATIONS
 #
 # Produce multiple commits (for the various parts of the i18n
@@ -41,7 +60,7 @@ AUTHOR="--author='Calamares CI <groot@kde.org>'"
 BOILERPLATE="Automatic merge of Transifex translations"
 
 git add --verbose lang/calamares*.ts
-git commit "$AUTHOR" --message="[core] $BOILERPLATE" | true
+git commit "$AUTHOR" --message="i18n: [calamares] $BOILERPLATE" | true
 
 rm -f lang/desktop*.desktop
 awk '
@@ -52,7 +71,7 @@ awk '
 	}}' < calamares.desktop > calamares.desktop.new
 mv calamares.desktop.new calamares.desktop
 git add --verbose calamares.desktop
-git commit "$AUTHOR" --message="[desktop] $BOILERPLATE" | true
+git commit "$AUTHOR" --message="i18n: [desktop] $BOILERPLATE" | true
 
 # Transifex updates the PO-Created timestamp also when nothing interesting
 # has happened, so drop the files which have just 1 line changed (the
@@ -72,7 +91,7 @@ for MODULE_DIR in $(find src/modules -maxdepth 1 -mindepth 1 -type d) ; do
         msgfmt -o ${POFILE%.po}.mo $POFILE
       done
       git add --verbose ${MODULE_DIR}/lang/*
-      git commit "$AUTHOR" --message="[${MODULE_NAME}] $BOILERPLATE" | true
+      git commit "$AUTHOR" --message="i18n: [${MODULE_NAME}] $BOILERPLATE" | true
     fi
   fi
 done
@@ -82,6 +101,6 @@ for POFILE in $(find lang -name "python.po") ; do
   msgfmt -o ${POFILE%.po}.mo $POFILE
 done
 git add --verbose lang/python*
-git commit "$AUTHOR" --message="[python] $BOILERPLATE" | true
+git commit "$AUTHOR" --message="i18n: [python] $BOILERPLATE" | true
 
 # git push --set-upstream origin master

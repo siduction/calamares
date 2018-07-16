@@ -1,6 +1,7 @@
 /* === This file is part of Calamares - <https://github.com/calamares> ===
  *
  *   Copyright 2014-2015, Teo Mrnjavac <teo@kde.org>
+ *   Copyright 2018, Adriaan de Groot <groot@kde.org>
  *
  *   Calamares is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -82,7 +83,7 @@ ProcessJob::exec()
                          QString(),
                          m_timeoutSec );
 
-    return explainProcess( ec, m_command, output, m_timeoutSec );
+    return CalamaresUtils::ProcessResult::explainProcess( ec, m_command, output, m_timeoutSec );
 }
 
 
@@ -106,16 +107,16 @@ ProcessJob::callOutput( const QString& command,
             process.setWorkingDirectory( QDir( workingPath ).absolutePath() );
         else
         {
-            cLog() << "Invalid working directory:" << workingPath;
+            cWarning() << "Invalid working directory:" << workingPath;
             return -3;
         }
     }
 
-    cLog() << "Running" << command;
+    cDebug() << "Running" << command;
     process.start();
     if ( !process.waitForStarted() )
     {
-        cLog() << "Process failed to start" << process.error();
+        cWarning() << "Process failed to start" << process.error();
         return -2;
     }
 
@@ -127,8 +128,9 @@ ProcessJob::callOutput( const QString& command,
 
     if ( !process.waitForFinished( timeoutSec ? ( timeoutSec * 1000 ) : -1 ) )
     {
-        cLog() << "Timed out. output so far:";
-        cLog() << process.readAllStandardOutput();
+        cWarning() << "Timed out. output so far:";
+        output.append( QString::fromLocal8Bit( process.readAllStandardOutput() ).trimmed() );
+        cWarning() << output;
         return -4;
     }
 
@@ -136,49 +138,12 @@ ProcessJob::callOutput( const QString& command,
 
     if ( process.exitStatus() == QProcess::CrashExit )
     {
-        cLog() << "Process crashed";
+        cWarning() << "Process crashed";
         return -1;
     }
 
-    cLog() << "Finished. Exit code:" << process.exitCode();
+    cDebug() << "Finished. Exit code:" << process.exitCode();
     return process.exitCode();
-}
-
-
-JobResult
-ProcessJob::explainProcess( int ec, const QString& command, const QString& output, int timeout )
-{
-    if ( ec == 0 )
-        return JobResult::ok();
-
-    if ( ec == -1 ) //Crash!
-        return JobResult::error( tr( "External command crashed" ),
-                                 tr( "Command %1 crashed.\nOutput:\n%2" )
-                                        .arg( command )
-                                        .arg( output ) );
-
-    if ( ec == -2 )
-        return JobResult::error( tr( "External command failed to start" ),
-                                 tr( "Command %1 failed to start." )
-                                    .arg( command ) );
-
-    if ( ec == -3 )
-        return JobResult::error( tr( "Internal error when starting command" ),
-                                 tr( "Bad parameters for process job call." ) );
-
-    if ( ec == -4 )
-        return JobResult::error( tr( "External command failed to finish" ),
-                                 tr( "Command %1 failed to finish in %2s.\nOutput:\n%3" )
-                                    .arg( command )
-                                    .arg( timeout )
-                                    .arg( output ) );
-
-    //Any other exit code
-    return JobResult::error( tr( "External command finished with errors" ),
-                             tr( "Command %1 finished with exit code %2.\nOutput:\n%3" )
-                                .arg( command )
-                                .arg( ec )
-                                .arg( output ) );
 }
 
 } // namespace Calamares
