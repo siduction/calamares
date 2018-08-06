@@ -16,7 +16,7 @@
 # cleanup ()
 
 baseversion=3.2.2~
-distribution=experimental-snapshots
+distribution=unstable
 uploadrepo=extra
 
 repository="https://github.com/calamares/calamares"
