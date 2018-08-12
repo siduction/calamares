@@ -1,3 +1,9 @@
+calamares (3.2.2~80-g8dc95f3e7-2) unstable; urgency=medium
+
+  * Applied patch 1011
+
+ -- Alf Gaida <agaida@siduction.org>  Sun, 12 Aug 2018 15:34:57 +0200
+
 calamares (3.2.2~80-g8dc95f3e7-1) unstable; urgency=medium
 
   * New snapshot: v3.2.1-80-g8dc95f3e7
