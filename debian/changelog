@@ -1,3 +1,9 @@
+calamares (3.2.2~111-ge7947bd53-1) unstable; urgency=medium
+
+  * New snapshot: v3.2.1-111-ge7947bd53
+
+ -- Alf Gaida <agaida@siduction.org>  Wed, 22 Aug 2018 21:37:13 +0200
+
 calamares (3.2.2~84-gc3cef4d91-1) unstable; urgency=medium
 
   * New snapshot: v3.2.1-84-gc3cef4d91
