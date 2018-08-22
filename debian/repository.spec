@@ -21,6 +21,14 @@ uploadrepo=snapshot
 
 repository="https://github.com/calamares/calamares"
 
+build="yes"
+clean="yes"
+gitcommit="yes"
+push="yes"
+upload="yes"
+dryrun="no"
+
+
 # cleanup function definiton
 cleanup() {
     echo ""
