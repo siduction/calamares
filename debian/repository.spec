@@ -15,7 +15,7 @@
 # =========
 # cleanup ()
 
-baseversion=3.2.2~
+baseversion=3.2.2
 distribution=unstable
 uploadrepo=extra
 
