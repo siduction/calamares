@@ -1,3 +1,21 @@
+calamares (3.2.3~1-g3b6cb7397-1) experimental-snapshots; urgency=medium
+
+  * New snapshot: v3.2.2-1-g3b6cb7397
+
+ -- Alf Gaida <agaida@siduction.org>  Sat, 08 Sep 2018 02:06:26 +0200
+
+calamares (3.2.2~112-ge3ca2dd85-3) experimental-snapshots; urgency=medium
+
+  * Fixed rules, removed some fugly whitespaces
+
+ -- Alf Gaida <agaida@siduction.org>  Thu, 06 Sep 2018 17:56:24 +0200
+
+calamares (3.2.2~112-ge3ca2dd85-2) experimental-snapshots; urgency=medium
+
+  * Rebuild
+
+ -- Alf Gaida <agaida@siduction.org>  Thu, 06 Sep 2018 17:47:24 +0200
+
 calamares (3.2.2~112-ge3ca2dd85-1) experimental-snapshots; urgency=medium
 
   * New snapshot: v3.2.1-112-ge3ca2dd85

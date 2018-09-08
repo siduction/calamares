@@ -15,7 +15,7 @@
 # =========
 # cleanup ()
 
-baseversion=3.2.2~
+baseversion=3.2.3~
 distribution=experimental-snapshots
 uploadrepo=snapshot
 
@@ -27,7 +27,6 @@ gitcommit="yes"
 push="yes"
 upload="yes"
 dryrun="no"
-
 
 # cleanup function definiton
 cleanup() {

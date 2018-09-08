@@ -13,14 +13,23 @@ override_dh_auto_configure:
 		-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 		-DINSTALL_CONFIG=ON \
 		-DINSTALL_POLKIT=ON \
-                -DWEBVIEW_FORCE_WEBKIT=ON \
-		-DWITH_KF5Crash=OFF \
-                -DWITH_PYTHON=ON \
 		-DBUILD_TESTING=OFF \
-                -DSKIP_MODULES="dracut dracutlukscfg dummycpp dummyprocess \
-                                dummypython dummypythonqt initcpio initcpiocfg \
-                                luksbootkeyfile luksopenswaphookcfg openrcdmcryptcfg \
-                                plasmalnf plymouthcfg"
+                -DWITH_PYTHON=ON \
+		-DWITH_PYTHONQT=OFF \
+		-DWITH_KF5Crash=OFF \
+                -DWEBVIEW_FORCE_WEBKIT=ON \
+                -DSKIP_MODULES="dracut \
+				dracutlukscfg \
+				dummycpp \
+				dummyprocess \
+				dummypython \
+				dummypythonqt \
+				initcpio \
+				initcpiocfg \
+				luksbootkeyfile \
+				luksopenswaphookcfg openrcdmcryptcfg \
+				plasmalnf \
+				plymouthcfg"
 
 override_dh_fixperms:
 	dh_fixperms
@@ -29,6 +38,3 @@ override_dh_fixperms:
 
 override_dh_auto_test:
 	dh_auto_test | true
-
-override_dh_missing:
-	dh_missing --fail-missing

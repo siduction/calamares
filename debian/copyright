@@ -50,8 +50,8 @@ License: LGPL-2
 
 Files: debian/*
 Copyright: 2017-2018, Alf Gaida <agaida@siduction.org>
-           2014,      Rohan Garg <rohan@kde.org>
            2016,      Jonathan Carter <jcarter@linux.com>
+           2014,      Rohan Garg <rohan@kde.org>
 License: GPL-3.0+
 
 License: GPL-3.0+

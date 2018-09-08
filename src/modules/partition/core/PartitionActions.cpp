@@ -160,12 +160,12 @@ doAutopartition( PartitionCoreModule* core, Device* dev, const QString& luksPass
             FileSystem::Fat32,
             firstFreeSector,
             lastSector,
-            PartitionTable::FlagEsp
+            PartitionTable::FlagNone
         );
         PartitionInfo::setFormat( efiPartition, true );
         PartitionInfo::setMountPoint( efiPartition, gs->value( "efiSystemPartition" )
                                                         .toString() );
-        core->createPartition( dev, efiPartition, PartitionTable::FlagEsp | PartitionTable::FlagBoot );
+        core->createPartition( dev, efiPartition, PartitionTable::FlagEsp );
         firstFreeSector = lastSector + 1;
     }
     else
