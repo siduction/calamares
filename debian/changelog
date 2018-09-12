@@ -1,10 +1,4 @@
-calamares (3.2.28-g94c244eef-1) unstable; urgency=medium
-
-  * New snapshot: v3.2.2-8-g94c244eef
-
- -- Alf Gaida <agaida@siduction.org>  Thu, 13 Sep 2018 00:44:07 +0200
-
-calamares (3.2.2-1) unstable; urgency=medium
+calamares (3.2.1111-1) unstable; urgency=medium
 
   * New upstream release: v3.2.2
 

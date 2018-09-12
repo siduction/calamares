@@ -20,7 +20,7 @@ distribution=unstable
 uploadrepo=extra
 
 repository="https://github.com/calamares/calamares"
-
+branch="-b 'v3.2.2' --single-branch --depth=1"
 build="yes"
 clean="yes"
 gitcommit="yes"
