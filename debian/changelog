@@ -1,13 +1,14 @@
+calamares (3.2.2-2) UNRELEASED; urgency=medium
+
+  *
+
+ -- Alf Gaida <agaida@siduction.org>  Thu, 13 Sep 2018 17:00:08 +0200
+
 calamares (3.2.2-1) unstable; urgency=medium
 
-  * New snapshot:
+  * New upstream release_ 3.2.2
 
  -- Alf Gaida <agaida@siduction.org>  Thu, 13 Sep 2018 00:57:30 +0200
-
-calamares (3.2.1-1) unstable; urgency=medium
-
-
- -- Alf Gaida <agaida@siduction.org>  Thu, 13 Sep 2018 00:56:28 +0200
 
 calamares (3.2.2~112-ge3ca2dd85-1) unstable; urgency=medium
 
