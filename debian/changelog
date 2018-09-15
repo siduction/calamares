@@ -1,3 +1,15 @@
+calamares (3.2.3~12-g4b87bb6f2-1) experimental-snapshots; urgency=medium
+
+  * New snapshot: v3.2.2-12-g4b87bb6f2
+
+ -- Alf Gaida <agaida@siduction.org>  Sat, 15 Sep 2018 11:19:28 +0200
+
+calamares (3.2.3~1-g3b6cb7397-2) experimental-snapshots; urgency=medium
+
+  * fix grub-install
+
+ -- Alf Gaida <agaida@siduction.org>  Sat, 08 Sep 2018 02:14:54 +0200
+
 calamares (3.2.3~1-g3b6cb7397-1) experimental-snapshots; urgency=medium
 
   * New snapshot: v3.2.2-1-g3b6cb7397
