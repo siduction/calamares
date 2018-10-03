@@ -48,6 +48,9 @@
 
 #include <kpmcore/core/device.h>
 #include <kpmcore/core/partition.h>
+#ifdef WITH_KPMCOREGT33
+#include <kpmcore/core/softwareraid.h>
+#endif
 
 #include <QBoxLayout>
 #include <QButtonGroup>
@@ -1171,6 +1174,9 @@ ChoicePage::setupActions()
     OsproberEntryList osproberEntriesForCurrentDevice =
             getOsproberEntriesForDevice( currentDevice );
 
+    cDebug() << "Setting up actions for" << currentDevice->deviceNode()
+        << "with" << osproberEntriesForCurrentDevice.count() << "entries.";
+            
     if ( currentDevice->partitionTable() )
         m_deviceInfoWidget->setPartitionTableType( currentDevice->partitionTable()->type() );
     else
@@ -1182,16 +1188,35 @@ ChoicePage::setupActions()
     bool atLeastOneCanBeResized = false;
     bool atLeastOneCanBeReplaced = false;
     bool atLeastOneIsMounted = false;  // Suppress 'erase' if so
+    bool isInactiveRAID = false;
+
+#ifdef WITH_KPMCOREGT33
+    if ( currentDevice->type() == Device::Type::SoftwareRAID_Device &&
+         static_cast< SoftwareRAID* >(currentDevice)->status() == SoftwareRAID::Status::Inactive )
+    {
+        cDebug() << ".. part of an inactive RAID device";
+        isInactiveRAID = true;
+    }
+#endif
 
     for ( auto it = PartitionIterator::begin( currentDevice );
           it != PartitionIterator::end( currentDevice ); ++it )
     {
         if ( PartUtils::canBeResized( *it ) )
+        {
+            cDebug() << ".. contains resizable" << it;
             atLeastOneCanBeResized = true;
+        }
         if ( PartUtils::canBeReplaced( *it ) )
+        {
+            cDebug() << ".. contains replacable" << it;
             atLeastOneCanBeReplaced = true;
+        }
         if ( (*it)->isMounted() )
+        {
+            cDebug() << ".. contains mounted" << it;
             atLeastOneIsMounted = true;
+        }
     }
 
     if ( osproberEntriesForCurrentDevice.count() == 0 )
@@ -1305,10 +1330,15 @@ ChoicePage::setupActions()
     else
         force_uncheck( m_grp, m_alongsideButton );
 
-    if ( !atLeastOneIsMounted )
+    if ( !atLeastOneIsMounted && !isInactiveRAID )
         m_eraseButton->show();  // None mounted
     else
+    {
+        cDebug() << "Erase button suppressed"
+            << "mount?" << atLeastOneIsMounted
+            << "raid?" << isInactiveRAID;
         force_uncheck( m_grp, m_eraseButton );
+    }
 
     bool isEfi = PartUtils::isEfiSystem();
     bool efiSystemPartitionFound = !m_core->efiSystemPartitions().isEmpty();
