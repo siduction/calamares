@@ -34,5 +34,12 @@ cleanup() {
     echo "┌───────────────────────┐"
     echo "│ Cleanup calamares ... │"
     echo "└───────────────────────┘"
+    rm -f  .editorconfig
     rm -rf .git*
+    rm -f  .travis.yml
+    rm -rf .tx
+    rm -rf hacking
+    rm -f  HACKING.md
+    rm -f  src/modules/testmodule.py
+    rm -f  src/modules/globalStorage.yml
 }

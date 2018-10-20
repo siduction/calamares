@@ -11,7 +11,7 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 override_dh_auto_configure:
 	dh_auto_configure -- \
 		-DCMAKE_BUILD_TYPE=RelWithDebInfo \
-		-DINSTALL_CONFIG=ON \
+		-DINSTALL_CONFIG=OFF \
 		-DINSTALL_POLKIT=ON \
 		-DBUILD_TESTING=OFF \
                 -DWITH_PYTHON=ON \
@@ -27,7 +27,8 @@ override_dh_auto_configure:
 				initcpio \
 				initcpiocfg \
 				luksbootkeyfile \
-				luksopenswaphookcfg openrcdmcryptcfg \
+				luksopenswaphookcfg\
+                                openrcdmcryptcfg \
 				plasmalnf \
 				plymouthcfg"
 

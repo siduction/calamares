@@ -1,3 +1,9 @@
+calamares (3.2.3~98-g594618f2c-1) experimental-snapshots; urgency=medium
+
+  * New snapshot: v3.2.2-98-g594618f2c
+
+ -- Alf Gaida <agaida@siduction.org>  Sat, 20 Oct 2018 02:58:11 +0200
+
 calamares (3.2.3~78-gb38316365-1) experimental-snapshots; urgency=medium
 
   * New snapshot: v3.2.2-78-gb38316365
