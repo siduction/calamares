@@ -1,10 +1,16 @@
-calamares (3.2.2v3.2.2-1) unstable; urgency=medium
+calamares (3.2.4v3.2.4-1) unstable; urgency=medium
 
-  * New snapshot: v3.2.2
+  * New snapshot: v3.2.4
 
- -- Alf Gaida <agaida@siduction.org>  Thu, 13 Sep 2018 18:06:01 +0200
+ -- Alf Gaida <agaida@siduction.org>  Thu, 21 Feb 2019 23:29:59 +0100
 
-calamares (3.2.2-0) unstable; urgency=medium
+calamares (3.2.2-2) unstable; urgency=medium
+
+  * fixed repository spec
+
+ -- Alf Gaida <agaida@siduction.org>  Thu, 13 Sep 2018 18:21:04 +0200
+
+calamares (3.2.2-1) unstable; urgency=medium
 
   * New upstream release 3.2.2
 
