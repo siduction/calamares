@@ -55,16 +55,10 @@ CalamaresApplication::CalamaresApplication( int& argc, char* argv[] )
     setApplicationName( QStringLiteral( CALAMARES_APPLICATION_NAME ) );
     setApplicationVersion( QStringLiteral( CALAMARES_VERSION ) );
 
-    cDebug() << "Calamares version:" << CALAMARES_VERSION;
-
     CalamaresUtils::installTranslator( QLocale::system(), QString(), this );
 
     QFont f = font();
-
-    cDebug() << "Default font size" << f.pointSize() << ';' << f.pixelSize() << "px";
     CalamaresUtils::setDefaultFontSize( f.pointSize() );
-
-    cDebug() << "Available languages:" << QString( CALAMARES_TRANSLATION_LANGUAGES ).split( ';' );
 }
 
 
@@ -72,6 +66,8 @@ void
 CalamaresApplication::init()
 {
     Logger::setupLogfile();
+    cDebug() << "Calamares version:" << CALAMARES_VERSION;
+    cDebug() << "        languages:" << QString( CALAMARES_TRANSLATION_LANGUAGES ).replace( ";", ", " );
 
     setQuitOnLastWindowClosed( false );
 
@@ -263,7 +259,12 @@ CalamaresApplication::initSettings()
         ::exit( EXIT_FAILURE );
     }
 
-    new Calamares::Settings( settingsFile.absoluteFilePath(), isDebug(), this );
+    auto* settings = new Calamares::Settings( settingsFile.absoluteFilePath(), isDebug(), this );  // Creates singleton
+    if ( settings->modulesSequence().count() < 1 )
+    {
+        cError() << "FATAL: no sequence set.";
+        ::exit( EXIT_FAILURE );
+    }
 }
 
 
@@ -348,6 +349,7 @@ void
 CalamaresApplication::initViewSteps()
 {
     cDebug() << "STARTUP: loadModules for all modules done";
+    m_moduleManager->checkRequirements();
     if ( Calamares::Branding::instance()->windowMaximize() )
     {
         m_mainwindow->setWindowFlag( Qt::FramelessWindowHint );
@@ -355,6 +357,7 @@ CalamaresApplication::initViewSteps()
     }
     else
         m_mainwindow->show();
+
     ProgressTreeModel* m = new ProgressTreeModel( nullptr );
     ProgressTreeView::instance()->setModel( m );
     cDebug() << "STARTUP: Window now visible and ProgressTreeView populated";

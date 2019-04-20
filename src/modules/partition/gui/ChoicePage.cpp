@@ -51,7 +51,7 @@
 
 #include <kpmcore/core/device.h>
 #include <kpmcore/core/partition.h>
-#ifdef WITH_KPMCOREGT33
+#ifdef WITH_KPMCORE4API
 #include <kpmcore/core/softwareraid.h>
 #endif
 
@@ -882,11 +882,6 @@ ChoicePage::updateDeviceStatePreview()
     PartitionModel* model = new PartitionModel( m_beforePartitionBarsView );
     model->init( deviceBefore, m_core->osproberEntries() );
 
-    // The QObject parents tree is meaningful for memory management here,
-    // see qDeleteAll above.
-    deviceBefore->setParent( model );  // Can't reparent across threads
-    model->setParent( m_beforePartitionBarsView );
-
     m_beforePartitionBarsView->setModel( model );
     m_beforePartitionLabelsView->setModel( model );
 
@@ -1229,11 +1224,11 @@ ChoicePage::setupActions()
     bool atLeastOneIsMounted = false;  // Suppress 'erase' if so
     bool isInactiveRAID = false;
 
-#ifdef WITH_KPMCOREGT33
+#ifdef WITH_KPMCORE4API
     if ( currentDevice->type() == Device::Type::SoftwareRAID_Device &&
          static_cast< SoftwareRAID* >(currentDevice)->status() == SoftwareRAID::Status::Inactive )
     {
-        cDebug() << ".. part of an inactive RAID device";
+        cDebug() << Logger::SubEntry() << "part of an inactive RAID device";
         isInactiveRAID = true;
     }
 #endif
@@ -1243,17 +1238,16 @@ ChoicePage::setupActions()
     {
         if ( PartUtils::canBeResized( *it ) )
         {
-            cDebug() << ".. contains resizable" << it;
+            cDebug() << Logger::SubEntry << "contains resizable" << it;
             atLeastOneCanBeResized = true;
         }
         if ( PartUtils::canBeReplaced( *it ) )
         {
-            cDebug() << ".. contains replacable" << it;
+            cDebug() << Logger::SubEntry << "contains replaceable" << it;
             atLeastOneCanBeReplaced = true;
         }
         if ( (*it)->isMounted() )
         {
-            cDebug() << ".. contains mounted" << it;
             atLeastOneIsMounted = true;
         }
     }
@@ -1364,15 +1358,31 @@ ChoicePage::setupActions()
         )
     }
 
+#ifdef DEBUG_PARTITION_UNSAFE
+#ifdef DEBUG_PARTITION_LAME
+    // If things can't be broken, allow all the buttons
+    atLeastOneCanBeReplaced = true;
+    atLeastOneCanBeResized = true;
+    atLeastOneIsMounted = false;
+    isInactiveRAID = false;
+#endif
+#endif
+
     if ( atLeastOneCanBeReplaced )
         m_replaceButton->show();
     else
+    {
+        cDebug() << "Replace button suppressed because none can be replaced.";
         force_uncheck( m_grp, m_replaceButton );
+    }
 
     if ( atLeastOneCanBeResized )
         m_alongsideButton->show();
     else
+    {
+        cDebug() << "Alongside button suppressed because none can be resized.";
         force_uncheck( m_grp, m_alongsideButton );
+    }
 
     if ( !atLeastOneIsMounted && !isInactiveRAID )
         m_eraseButton->show();  // None mounted

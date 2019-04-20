@@ -1,10 +1,10 @@
-project( libcalamaresui CXX )
-
 set( calamaresui_SOURCES
     modulesystem/CppJobModule.cpp
     modulesystem/Module.cpp
     modulesystem/ModuleManager.cpp
     modulesystem/ProcessJobModule.cpp
+    modulesystem/Requirement.cpp
+    modulesystem/RequirementsChecker.cpp
     modulesystem/ViewModule.cpp
 
     utils/CalamaresUtilsGui.cpp
@@ -14,7 +14,6 @@ set( calamaresui_SOURCES
     utils/qjsonmodel.cpp
     utils/qjsonitem.cpp
 
-    viewpages/AbstractPage.cpp
     viewpages/BlankViewStep.cpp
     viewpages/ViewStep.cpp
 

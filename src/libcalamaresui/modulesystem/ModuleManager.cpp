@@ -21,10 +21,12 @@
 
 #include "ExecutionViewStep.h"
 #include "Module.h"
-#include "utils/Logger.h"
-#include "utils/YamlUtils.h"
+#include "RequirementsChecker.h"
 #include "Settings.h"
 #include "ViewManager.h"
+
+#include "utils/Logger.h"
+#include "utils/YamlUtils.h"
 
 #include <yaml-cpp/yaml.h>
 
@@ -32,14 +34,9 @@
 #include <QDir>
 #include <QTimer>
 
-#define MODULE_CONFIG_FILENAME "module.desc"
-
 namespace Calamares
 {
-
-
 ModuleManager* ModuleManager::s_instance = nullptr;
-
 
 ModuleManager*
 ModuleManager::instance()
@@ -94,7 +91,7 @@ ModuleManager::doInit()
                 bool success = currentDir.cd( subdir );
                 if ( success )
                 {
-                    QFileInfo descriptorFileInfo( currentDir.absoluteFilePath( MODULE_CONFIG_FILENAME ) );
+                    QFileInfo descriptorFileInfo( currentDir.absoluteFilePath( QLatin1Literal( "module.desc") ) );
                     if ( ! ( descriptorFileInfo.exists() && descriptorFileInfo.isReadable() ) )
                     {
                         cDebug() << Q_FUNC_INFO << "unreadable file: "
@@ -307,39 +304,68 @@ ModuleManager::loadModules()
     } );
 }
 
+void
+ModuleManager::checkRequirements()
+{
+    cDebug() << "Checking module requirements ..";
+
+    QVector< Module* > modules( m_loadedModulesByInstanceKey.count() );
+    int count = 0;
+    for (const auto& module : m_loadedModulesByInstanceKey )
+    {
+        modules[count++] = module;
+    }
+
+    RequirementsChecker *rq = new RequirementsChecker( modules, this );
+    connect( rq, &RequirementsChecker::requirementsResult, this, &ModuleManager::requirementsResult );
+    connect( rq, &RequirementsChecker::requirementsComplete, this, &ModuleManager::requirementsComplete );
+    connect( rq, &RequirementsChecker::requirementsProgress, this, &ModuleManager::requirementsProgress );
+    connect( rq, &RequirementsChecker::done, rq, &RequirementsChecker::deleteLater );
+
+    QTimer::singleShot( 0, rq, &RequirementsChecker::run );
+}
+
+static QStringList
+missingRequiredModules( const QStringList& required, const QMap< QString, QVariantMap >& available )
+{
+    QStringList l;
+    for( const QString& depName : required )
+    {
+        if ( !available.contains( depName ) )
+            l.append( depName );
+    }
+
+    return l;
+}
 
 QStringList
 ModuleManager::checkDependencies()
 {
     QStringList failed;
+    bool somethingWasRemovedBecauseOfUnmetDependencies = false;
 
     // This goes through the map of available modules, and deletes those whose
     // dependencies are not met, if any.
-    forever
+    do
     {
-        bool somethingWasRemovedBecauseOfUnmetDependencies = false;
+        somethingWasRemovedBecauseOfUnmetDependencies = false;
         for ( auto it = m_availableDescriptorsByModuleName.begin();
                 it != m_availableDescriptorsByModuleName.end(); ++it )
         {
-            foreach ( const QString& depName,
-                      it->value( "requiredModules" ).toStringList() )
+            QStringList unmet = missingRequiredModules( it->value( "requiredModules" ).toStringList(), m_availableDescriptorsByModuleName );
+
+            if ( unmet.count() > 0 )
             {
-                if ( !m_availableDescriptorsByModuleName.contains( depName ) )
-                {
-                    QString moduleName = it->value( "name" ).toString();
-                    somethingWasRemovedBecauseOfUnmetDependencies = true;
-                    m_availableDescriptorsByModuleName.erase( it );
-                    failed << moduleName;
-                    cWarning() << "Module" << moduleName << "has unknown requirement" << depName;
-                    break;
-                }
-            }
-            if ( somethingWasRemovedBecauseOfUnmetDependencies )
+                QString moduleName = it->value( "name" ).toString();
+                somethingWasRemovedBecauseOfUnmetDependencies = true;
+                m_availableDescriptorsByModuleName.erase( it );
+                failed << moduleName;
+                cWarning() << "Module" << moduleName << "has unknown requirements" << Logger::DebugList( unmet );
                 break;
+            }
         }
-        if ( !somethingWasRemovedBecauseOfUnmetDependencies )
-            break;
     }
+    while( somethingWasRemovedBecauseOfUnmetDependencies );
 
     return failed;
 }
@@ -369,4 +395,4 @@ ModuleManager::checkDependencies( const Module& m )
     return allRequirementsFound;
 }
 
-}
+}  // namespace

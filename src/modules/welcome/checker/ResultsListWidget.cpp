@@ -1,7 +1,7 @@
 /* === This file is part of Calamares - <https://github.com/calamares> ===
  *
  *   Copyright 2014-2015, Teo Mrnjavac <teo@kde.org>
- *   Copyright 2017, Adriaan de Groot <groot@kde.org>
+ *   Copyright 2017, 2019, Adriaan de Groot <groot@kde.org>
  *
  *   Calamares is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -17,11 +17,12 @@
  *   along with Calamares. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "CheckerWidget.h"
+#include "ResultsListWidget.h"
 
-#include "CheckItemWidget.h"
+#include "ResultWidget.h"
 
 #include "Branding.h"
+#include "Settings.h"
 #include "utils/CalamaresUtilsGui.h"
 #include "utils/Retranslator.h"
 #include "widgets/FixedAspectRatioLabel.h"
@@ -33,7 +34,7 @@
 #include <QLabel>
 
 
-CheckerWidget::CheckerWidget( QWidget* parent )
+ResultsListWidget::ResultsListWidget( QWidget* parent )
     : QWidget( parent )
 {
     setSizePolicy( QSizePolicy::Expanding, QSizePolicy::Expanding );
@@ -53,25 +54,23 @@ CheckerWidget::CheckerWidget( QWidget* parent )
 
 
 void
-CheckerWidget::init( const QList< PrepareEntry >& checkEntries )
+ResultsListWidget::init( const Calamares::RequirementsList& checkEntries )
 {
     bool allChecked = true;
     bool requirementsSatisfied = true;
 
-    for ( const PrepareEntry& entry : checkEntries )
+    for ( const auto& entry : checkEntries )
     {
-        if ( !entry.checked )
+        if ( !entry.satisfied )
         {
-            CheckItemWidget* ciw = new CheckItemWidget( entry.checked, entry.required );
+            ResultWidget* ciw = new ResultWidget( entry.satisfied, entry.mandatory );
             CALAMARES_RETRANSLATE( ciw->setText( entry.negatedText() ); )
             m_entriesLayout->addWidget( ciw );
             ciw->setSizePolicy( QSizePolicy::Expanding, QSizePolicy::Preferred );
 
             allChecked = false;
-            if ( entry.required )
-            {
+            if ( entry.mandatory )
                 requirementsSatisfied = false;
-            }
             ciw->setAutoFillBackground( true );
             QPalette pal( ciw->palette() );
             pal.setColor( QPalette::Background, Qt::white );
@@ -93,11 +92,16 @@ CheckerWidget::init( const QList< PrepareEntry >& checkEntries )
         if ( !requirementsSatisfied )
         {
             CALAMARES_RETRANSLATE(
-                textLabel->setText( tr( "This computer does not satisfy the minimum "
-                                        "requirements for installing %1.<br/>"
-                                        "Installation cannot continue. "
-                                        "<a href=\"#details\">Details...</a>" )
-                                        .arg( *Calamares::Branding::ShortVersionedName ) );
+                QString message = Calamares::Settings::instance()->isSetupMode()
+                    ? tr( "This computer does not satisfy the minimum "
+                          "requirements for setting up %1.<br/>"
+                          "Setup cannot continue. "
+                          "<a href=\"#details\">Details...</a>" )
+                    : tr( "This computer does not satisfy the minimum "
+                          "requirements for installing %1.<br/>"
+                          "Installation cannot continue. "
+                          "<a href=\"#details\">Details...</a>" );
+                textLabel->setText( message.arg( *Calamares::Branding::ShortVersionedName ) );
             )
             textLabel->setOpenExternalLinks( false );
             connect( textLabel, &QLabel::linkActivated,
@@ -110,11 +114,16 @@ CheckerWidget::init( const QList< PrepareEntry >& checkEntries )
         else
         {
             CALAMARES_RETRANSLATE(
-                textLabel->setText( tr( "This computer does not satisfy some of the "
-                                        "recommended requirements for installing %1.<br/>"
-                                        "Installation can continue, but some features "
-                                        "might be disabled." )
-                                        .arg( *Calamares::Branding::ShortVersionedName ) );
+                QString message = Calamares::Settings::instance()->isSetupMode()
+                    ? tr( "This computer does not satisfy some of the "
+                          "recommended requirements for setting up %1.<br/>"
+                          "Setup can continue, but some features "
+                          "might be disabled." )
+                    : tr( "This computer does not satisfy some of the "
+                          "recommended requirements for installing %1.<br/>"
+                          "Installation can continue, but some features "
+                          "might be disabled." );
+                textLabel->setText( message.arg( *Calamares::Branding::ShortVersionedName ) );
             )
         }
     }
@@ -122,16 +131,16 @@ CheckerWidget::init( const QList< PrepareEntry >& checkEntries )
     if ( allChecked && requirementsSatisfied )
     {
         if ( !Calamares::Branding::instance()->
-             imagePath( Calamares::Branding::ProductWelcome ).isEmpty() )
+                imagePath( Calamares::Branding::ProductWelcome ).isEmpty() )
         {
             QPixmap theImage = QPixmap( Calamares::Branding::instance()->
-                               imagePath( Calamares::Branding::ProductWelcome ) );
+                                        imagePath( Calamares::Branding::ProductWelcome ) );
             if ( !theImage.isNull() )
             {
                 QLabel* imageLabel;
                 if ( Calamares::Branding::instance()->welcomeExpandingLogo() )
                 {
-                    FixedAspectRatioLabel *p = new FixedAspectRatioLabel;
+                    FixedAspectRatioLabel* p = new FixedAspectRatioLabel;
                     p->setPixmap( theImage );
                     imageLabel = p;
                 }
@@ -155,14 +164,12 @@ CheckerWidget::init( const QList< PrepareEntry >& checkEntries )
         )
     }
     else
-    {
         m_mainLayout->addStretch();
-    }
 }
 
 
 void
-CheckerWidget::showDetailsDialog( const QList< PrepareEntry >& checkEntries )
+ResultsListWidget::showDetailsDialog( const Calamares::RequirementsList& checkEntries )
 {
     QDialog* detailsDialog = new QDialog( this );
     QBoxLayout* mainLayout = new QVBoxLayout;
@@ -177,12 +184,12 @@ CheckerWidget::showDetailsDialog( const QList< PrepareEntry >& checkEntries )
     CalamaresUtils::unmarginLayout( entriesLayout );
     mainLayout->addLayout( entriesLayout );
 
-    for ( const PrepareEntry& entry : checkEntries )
+    for ( const auto& entry : checkEntries )
     {
-        if ( entry.enumerationText().isEmpty() )
+        if ( !entry.hasDetails() )
             continue;
 
-        CheckItemWidget* ciw = new CheckItemWidget( entry.checked, entry.required );
+        ResultWidget* ciw = new ResultWidget( entry.satisfied, entry.mandatory );
         CALAMARES_RETRANSLATE( ciw->setText( entry.enumerationText() ); )
         entriesLayout->addWidget( ciw );
         ciw->setSizePolicy( QSizePolicy::Expanding, QSizePolicy::Preferred );
@@ -194,8 +201,8 @@ CheckerWidget::showDetailsDialog( const QList< PrepareEntry >& checkEntries )
     }
 
     QDialogButtonBox* buttonBox = new QDialogButtonBox( QDialogButtonBox::Close,
-                                                        Qt::Horizontal,
-                                                        this );
+            Qt::Horizontal,
+            this );
     mainLayout->addWidget( buttonBox );
 
     detailsDialog->setModal( true );

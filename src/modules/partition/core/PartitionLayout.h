@@ -20,10 +20,13 @@
 #ifndef PARTITIONLAYOUT_H
 #define PARTITIONLAYOUT_H
 
+#include "core/PartUtils.h"
+
 #include "Typedefs.h"
 
 // KPMcore
 #include <kpmcore/core/partitiontable.h>
+#include <kpmcore/fs/filesystem.h>
 
 // Qt
 #include <QList>
@@ -35,29 +38,22 @@ class PartitionLayout
 {
 public:
 
-    enum SizeUnit
-    {
-        Percent = 0,
-        Byte,
-        KiB,
-        MiB,
-        GiB
-    };
-
     struct PartitionEntry
     {
         QString partLabel;
         QString partMountPoint;
-        int partFileSystem = 0;
+        FileSystem::Type partFileSystem = FileSystem::Unknown;
         double partSize = 0.0L;
-        SizeUnit partSizeUnit = Percent;
+        PartUtils::SizeUnit partSizeUnit = PartUtils::SizeUnit::Percent;
         double partMinSize = 0.0L;
-        SizeUnit partMinSizeUnit = Percent;
+        PartUtils::SizeUnit partMinSizeUnit = PartUtils::SizeUnit::Percent;
+        double partMaxSize = 100.0L;
+        PartUtils::SizeUnit partMaxSizeUnit = PartUtils::SizeUnit::Percent;
 
         /// @brief All-zeroes PartitionEntry
-        PartitionEntry() {};
-        /// @brief Parse @p size and @p min to their respective member variables
-        PartitionEntry( const QString& size, const QString& min );
+        PartitionEntry() {}
+        /// @brief Parse @p size, @p min and @p max to their respective member variables
+        PartitionEntry( const QString& size, const QString& min, const QString& max );
     };
 
     PartitionLayout();
@@ -66,8 +62,8 @@ public:
     ~PartitionLayout();
 
     void addEntry( PartitionEntry entry );
-    void addEntry( const QString& mountPoint, const QString& size, const QString& min = QString() );
-    void addEntry( const QString& label, const QString& mountPoint, const QString& fs, const QString& size, const QString& min = QString() );
+    void addEntry( const QString& mountPoint, const QString& size, const QString& min = QString(), const QString& max = QString() );
+    void addEntry( const QString& label, const QString& mountPoint, const QString& fs, const QString& size, const QString& min = QString(), const QString& max = QString() );
 
     /**
      * @brief Apply the current partition layout to the selected drive space.
@@ -76,7 +72,8 @@ public:
     QList< Partition* > execute( Device *dev, qint64 firstSector, qint64 lastSector, QString luksPassphrase, PartitionNode* parent, const PartitionRole& role );
 
 private:
-    QList< PartitionEntry > partLayout;
+    FileSystem::Type m_defaultFsType;
+    QList< PartitionEntry > m_partLayout;
 };
 
 #endif /* PARTITIONLAYOUT_H */

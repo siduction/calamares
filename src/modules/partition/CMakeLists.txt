@@ -1,3 +1,18 @@
+# When debugging the partitioning widget, or experimenting, you may
+# want to allow unsafe partitioning choices (e.g. doing things to the
+# current disk). Set DEBUG_PARTITION_UNSAFE to allow that (it turns off
+# some filtering of devices).
+option( DEBUG_PARTITION_UNSAFE "Allow unsafe partitioning choices." OFF )
+option( DEBUG_PARTITION_LAME   "Unsafe partitioning will error out on exec." ON )
+
+set( _partition_defs )
+if( DEBUG_PARTITION_UNSAFE )
+    if( DEBUG_PARTITION_LAME )
+        list( APPEND _partition_defs DEBUG_PARTITION_LAME )
+    endif()
+    list( APPEND _partition_defs DEBUG_PARTITION_UNSAFE )
+endif()
+
 find_package(ECM ${ECM_VERSION} REQUIRED NO_MODULE)
 
 include(KDEInstallDirs)
@@ -13,7 +28,10 @@ set_package_properties(
 
 if ( KPMcore_FOUND )
     if ( KPMcore_VERSION VERSION_GREATER "3.3.0")
-        add_definitions(-DWITH_KPMCOREGT33) # kpmcore greater than 3.3
+        list( APPEND _partition_defs WITH_KPMCORE331API) # kpmcore > 3.3.0 with deprecations
+    endif()
+    if ( KPMcore_VERSION VERSION_GREATER "3.90")
+        list( APPEND _partition_defs WITH_KPMCORE4API) # kpmcore 4 with new API
     endif()
 
     include_directories( ${KPMCORE_INCLUDE_DIR} )
@@ -84,6 +102,7 @@ if ( KPMcore_FOUND )
             kpmcore
             calamaresui
             KF5::CoreAddons
+        COMPILE_DEFINITIONS ${_partition_defs}
         SHARED_LIB
     )
 else()

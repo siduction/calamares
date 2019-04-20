@@ -51,7 +51,7 @@ struct NamedEnumTable
      *
      * static const NamedEnumTable<Colors> c{ {"red", Colors::Red } };
      */
-    NamedEnumTable( const std::initializer_list< pair_t >& v ) : table( v ) { /* static_assert( v.size() > 0 ); */ };
+    NamedEnumTable( const std::initializer_list< pair_t >& v ) : table( v ) { /* static_assert( v.size() > 0 ); */ }
 
     /** @brief Find a name @p s in the table.
      *
@@ -66,7 +66,7 @@ struct NamedEnumTable
     {
         ok = false;
 
-        for ( const auto p : table )
+        for ( const auto& p : table )
             if ( 0 == QString::compare( s, p.first, Qt::CaseInsensitive ) )
             {
                 ok = true;
@@ -87,7 +87,7 @@ struct NamedEnumTable
     {
         ok = false;
 
-        for ( const auto p : table )
+        for ( const auto &p : table )
             if ( s == p.second)
             {
                 ok = true;

@@ -1,6 +1,6 @@
 /* === This file is part of Calamares - <https://github.com/calamares> ===
  *
- *   Copyright 2014, Teo Mrnjavac <teo@kde.org>
+ *   Copyright 2019, Adriaan de Groot <groot.org>
  *
  *   Calamares is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -16,14 +16,27 @@
  *   along with Calamares. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "AbstractPage.h"
+#include "JobExample.h"
 
 namespace Calamares
 {
 
-AbstractPage::AbstractPage( QWidget* parent )
-    : QWidget( parent )
+QString
+NamedJob::prettyName() const
 {
+    return tr( "Example job (%1)" ).arg( m_name );
 }
 
+JobResult
+GoodJob::exec()
+{
+    return JobResult::ok();
 }
+
+JobResult
+FailJob::exec()
+{
+    return JobResult::error( tr( "Job failed (%1)" ).arg( m_name ), tr( "Programmed job failure was explicitly requested." ) );
+}
+
+}  // namespace

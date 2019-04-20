@@ -1,5 +1,3 @@
-project( libcalamares CXX )
-
 add_definitions(
     ${QT_DEFINITIONS}
     -DQT_SHARED
@@ -16,6 +14,7 @@ set( libSources
     CppJob.cpp
     GlobalStorage.cpp
     Job.cpp
+    JobExample.cpp
     JobQueue.cpp
     ProcessJob.cpp
     Settings.cpp

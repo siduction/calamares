@@ -1,6 +1,7 @@
 /* === This file is part of Calamares - <https://github.com/calamares> ===
  *
- *   Copyright 2014, Teo Mrnjavac <teo@kde.org>
+ *   Copyright 2014-2015, Teo Mrnjavac <teo@kde.org>
+ *   Copyright 2019, Adriaan de Groot <groot@kde.org>
  *
  *   Calamares is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -16,26 +17,28 @@
  *   along with Calamares. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef ABSTRACTPAGE_H
-#define ABSTRACTPAGE_H
+#ifndef CHECKER_RESULTSLISTWIDGET_H
+#define CHECKER_RESULTSLISTWIDGET_H
 
+#include "modulesystem/Requirement.h"
+
+#include <QBoxLayout>
 #include <QWidget>
 
-#include "../UiDllMacro.h"
-
-namespace Calamares
-{
-
-class UIDLLEXPORT AbstractPage : public QWidget
+class ResultsListWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit AbstractPage(QWidget* parent = nullptr);
-    virtual ~AbstractPage() {}
+    explicit ResultsListWidget( QWidget* parent = nullptr );
 
+    void init( const Calamares::RequirementsList& checkEntries );
 
+private:
+    void showDetailsDialog( const Calamares::RequirementsList& checkEntries );
+
+    QBoxLayout* m_mainLayout;
+    QBoxLayout* m_entriesLayout;
+    int m_paddingSize;
 };
 
-}
-
-#endif // ABSTRACTPAGE_H
+#endif // CHECKER_RESULTSLISTWIDGET_H

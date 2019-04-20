@@ -22,10 +22,13 @@
 
 #include "ui_WelcomePage.h"
 #include "CalamaresVersion.h"
-#include "checker/RequirementsChecker.h"
+#include "checker/CheckerContainer.h"
 #include "utils/Logger.h"
 #include "utils/CalamaresUtilsGui.h"
 #include "utils/Retranslator.h"
+
+#include "modulesystem/ModuleManager.h"
+#include "Settings.h"
 #include "ViewManager.h"
 
 #include <QApplication>
@@ -39,11 +42,14 @@
 #include "Branding.h"
 
 
-WelcomePage::WelcomePage( RequirementsChecker* requirementsChecker, QWidget* parent )
+WelcomePage::WelcomePage( QWidget* parent )
     : QWidget( parent )
     , ui( new Ui::WelcomePage )
-    , m_requirementsChecker( requirementsChecker )
+    , m_checkingWidget( new CheckerContainer( this ) )
 {
+    connect( Calamares::ModuleManager::instance(), &Calamares::ModuleManager::requirementsResult, m_checkingWidget, &CheckerContainer::requirementsChecked );
+    connect( Calamares::ModuleManager::instance(), &Calamares::ModuleManager::requirementsComplete, m_checkingWidget, &CheckerContainer::requirementsComplete );
+    connect( Calamares::ModuleManager::instance(), &Calamares::ModuleManager::requirementsProgress, m_checkingWidget, &CheckerContainer::requirementsProgress );
     ui->setupUi( this );
 
     ui->verticalLayout->insertSpacing( 1, CalamaresUtils::defaultFontHeight() * 2 );
@@ -57,8 +63,18 @@ WelcomePage::WelcomePage( RequirementsChecker* requirementsChecker, QWidget* par
         << *Calamares::Branding::VersionedName;
 
     CALAMARES_RETRANSLATE(
-        ui->mainText->setText( (Calamares::Branding::instance()->welcomeStyleCalamares() ? tr( "<h1>Welcome to the Calamares installer for %1.</h1>" ) : tr( "<h1>Welcome to the %1 installer.</h1>" ))
-                                .arg( *Calamares::Branding::VersionedName ) );
+        QString message;
+
+        if ( Calamares::Settings::instance()->isSetupMode() )
+            message = Calamares::Branding::instance()->welcomeStyleCalamares()
+                ? tr( "<h1>Welcome to the Calamares setup program for %1.</h1>" )
+                : tr( "<h1>Welcome to %1 setup.</h1>" );
+        else
+            message = Calamares::Branding::instance()->welcomeStyleCalamares()
+                ? tr( "<h1>Welcome to the Calamares installer for %1.</h1>" )
+                : tr( "<h1>Welcome to the %1 installer.</h1>" );
+
+        ui->mainText->setText( message.arg( *Calamares::Branding::VersionedName ) );
         ui->retranslateUi( this );
     )
 
@@ -69,18 +85,19 @@ WelcomePage::WelcomePage( RequirementsChecker* requirementsChecker, QWidget* par
     connect( ui->aboutButton, &QPushButton::clicked,
              this, [ this ]
     {
+        QString title = Calamares::Settings::instance()->isSetupMode()
+            ? tr( "About %1 setup" )
+            : tr( "About %1 installer" );
         QMessageBox mb( QMessageBox::Information,
-                        tr( "About %1 installer" )
-                            .arg( CALAMARES_APPLICATION_NAME ),
+                        title.arg( CALAMARES_APPLICATION_NAME ),
                         tr(
                             "<h1>%1</h1><br/>"
                             "<strong>%2<br/>"
                             "for %3</strong><br/><br/>"
                             "Copyright 2014-2017 Teo Mrnjavac &lt;teo@kde.org&gt;<br/>"
-                            "Copyright 2017 Adriaan de Groot &lt;groot@kde.org&gt;<br/>"
-                            "Thanks to: Anke Boersma, Aurélien Gâteau, Kevin Kofler, Lisa Vitolo,"
-                            " Philip Müller, Pier Luigi Fiorini, Rohan Garg and the <a "
-                            "href=\"https://www.transifex.com/calamares/calamares/\">Calamares "
+                            "Copyright 2017-2019 Adriaan de Groot &lt;groot@kde.org&gt;<br/>"
+                            "Thanks to <a href=\"https://calamares.io/team/\">the Calamares team</a> "
+                            "and the <a href=\"https://www.transifex.com/calamares/calamares/\">Calamares "
                             "translators team</a>.<br/><br/>"
                             "<a href=\"https://calamares.io/\">Calamares</a> "
                             "development is sponsored by <br/>"
@@ -102,7 +119,7 @@ WelcomePage::WelcomePage( RequirementsChecker* requirementsChecker, QWidget* par
         mb.exec();
     } );
 
-    ui->verticalLayout->insertWidget( 3, m_requirementsChecker->widget() );
+    ui->verticalLayout->insertWidget( 3, m_checkingWidget);
 }
 
 
@@ -123,7 +140,7 @@ bool matchLocale( QComboBox& list, QLocale& matchFound, std::function<bool(const
         if ( predicate(thisLocale) )
         {
             list.setCurrentIndex( i );
-            cDebug() << " .. Matched locale " << thisLocale.name();
+            cDebug() << Logger::SubEntry << "Matched locale " << thisLocale.name();
             matchFound = thisLocale;
             return true;
         }
@@ -276,4 +293,9 @@ WelcomePage::focusInEvent( QFocusEvent* e )
     if ( ui->languageWidget )
         ui->languageWidget->setFocus();
     e->accept();
+}
+
+bool WelcomePage::verdict() const
+{
+    return m_checkingWidget->verdict();
 }

@@ -228,11 +228,11 @@ PartitionJobTests::newCreatePartitionJob( Partition* freeSpacePartition, Partiti
         role,
         fs, firstSector, lastSector,
         QString() /* path */,
-        PartitionTable::FlagNone /* availableFlags */,
+        KPM_PARTITION_FLAG(None) /* availableFlags */,
         QString() /* mountPoint */,
         false /* mounted */,
-        PartitionTable::FlagNone /* activeFlags */,
-        Partition::StateNew
+        KPM_PARTITION_FLAG(None) /* activeFlags */,
+        KPM_PARTITION_STATE(New)
     );
     return new CreatePartitionJob( m_device.data(), partition );
 }
@@ -349,7 +349,8 @@ PartitionJobTests::testResizePartition()
 
     // Make the test data file smaller than the full size of the partition to
     // accomodate for the file system overhead
-    const QByteArray testData = generateTestData( CalamaresUtils::MiBtoBytes( qMin( oldSizeMB, newSizeMB ) ) * 3 / 4 );
+    const unsigned long long minSizeMB = qMin( oldSizeMB, newSizeMB );
+    const QByteArray testData = generateTestData( CalamaresUtils::MiBtoBytes( minSizeMB ) * 3 / 4 );
     const QString testName = "test.data";
 
     // Setup: create the test partition
@@ -365,7 +366,7 @@ PartitionJobTests::testResizePartition()
             FileSystem::Ext4,
             oldFirst,
             oldLast,
-            PartitionTable::FlagNone
+            KPM_PARTITION_FLAG(None)
         );
         CreatePartitionJob* job = new CreatePartitionJob( m_device.data(), partition );
         job->updatePreview();

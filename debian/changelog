@@ -1,4 +1,10 @@
-calamares (3.2.4v3.2.4-1) unstable; urgency=medium
+calamares (3.2.5-1) unstable; urgency=medium
+
+  * New snapshot: v3.2.5
+
+ -- Alf Gaida <agaida@siduction.org>  Sat, 20 Apr 2019 04:19:02 +0200
+
+calamares (3.2.4-1) unstable; urgency=medium
 
   * New snapshot: v3.2.4
 

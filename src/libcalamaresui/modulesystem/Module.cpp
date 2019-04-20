@@ -169,7 +169,8 @@ moduleConfigurationCandidates( bool assumeBuildDir, const QString& moduleName, c
 void
 Module::loadConfigurationFile( const QString& configFileName ) //throws YAML::Exception
 {
-    foreach ( const QString& path, moduleConfigurationCandidates( Settings::instance()->debugMode(), m_name, configFileName ) )
+    QStringList configCandidates = moduleConfigurationCandidates( Settings::instance()->debugMode(), m_name, configFileName );
+    for ( const QString& path : configCandidates )
     {
         QFile configFile( path );
         if ( configFile.exists() && configFile.open( QFile::ReadOnly | QFile::Text ) )
@@ -198,6 +199,7 @@ Module::loadConfigurationFile( const QString& configFileName ) //throws YAML::Ex
             return;
         }
     }
+    cDebug() << "No config file found in" << Logger::DebugList( configCandidates );
 }
 
 
@@ -279,6 +281,12 @@ Module::initFrom( const QVariantMap& moduleDescriptor )
     m_name = moduleDescriptor.value( "name" ).toString();
     if ( moduleDescriptor.contains( EMERGENCY ) )
         m_maybe_emergency = moduleDescriptor[ EMERGENCY ].toBool();
+}
+
+RequirementsList
+Module::checkRequirements()
+{
+    return RequirementsList();
 }
 
 } //ns
