@@ -13,6 +13,7 @@ override_dh_auto_configure:
 		-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 		-DINSTALL_CONFIG=OFF \
 		-DINSTALL_POLKIT=ON \
+		-DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
 		-DBUILD_TESTING=OFF \
                 -DWITH_PYTHON=ON \
 		-DWITH_PYTHONQT=OFF \
@@ -37,5 +38,5 @@ override_dh_fixperms:
 	chmod 755 ./debian/calamares/usr/lib/*/calamares/modules/initramfscfg/encrypt_hook
 	chmod 755 ./debian/calamares/usr/lib/*/calamares/modules/initramfscfg/encrypt_hook_nokey
 
+# Some test don't work well, we don't need to run them at package build time.
 override_dh_auto_test:
-	dh_auto_test | true

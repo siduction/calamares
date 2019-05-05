@@ -1,5 +1,13 @@
-# not a bug - this is the license module configuration
-calamares: extra-license-file usr/share/calamares/modules/license.conf
+# These are hooks that is incorperated in initramfs and does not need to be executable by itself.
+calamares: script-not-executable
 
+# Private libraries, so no -dev packages or symbol files
+calamares: non-dev-pkg-with-shlib-symlink
+calamares: no-symbols-control-file
+calamares: package-name-doesnt-match-sonames
 
+# Debian live media relies on pkexec so this message isn't needed
+calamares: desktop-command-not-in-package usr/share/applications/calamares.desktop pkexec
 
+# For the initramfs module this is really the best place for its readme file
+calamares: package-contains-documentation-outside-usr-share-doc
