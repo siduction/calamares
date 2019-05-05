@@ -540,7 +540,7 @@ void
 ChoicePage::doAlongsideSetupSplitter( const QModelIndex& current,
                                       const QModelIndex& previous )
 {
-    Q_UNUSED( previous );
+    Q_UNUSED( previous )
     if ( !current.isValid() )
         return;
 
@@ -718,7 +718,7 @@ void
 ChoicePage::onPartitionToReplaceSelected( const QModelIndex& current,
                                           const QModelIndex& previous )
 {
-    Q_UNUSED( previous );
+    Q_UNUSED( previous )
     if ( !current.isValid() )
         return;
 
@@ -1228,7 +1228,7 @@ ChoicePage::setupActions()
     if ( currentDevice->type() == Device::Type::SoftwareRAID_Device &&
          static_cast< SoftwareRAID* >(currentDevice)->status() == SoftwareRAID::Status::Inactive )
     {
-        cDebug() << Logger::SubEntry() << "part of an inactive RAID device";
+        cDebug() << Logger::SubEntry << "part of an inactive RAID device";
         isInactiveRAID = true;
     }
 #endif

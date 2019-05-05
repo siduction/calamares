@@ -2,7 +2,7 @@
  *
  *   Copyright 2014, Aurélien Gâteau <agateau@kde.org>
  *   Copyright 2015-2016, Teo Mrnjavac <teo@kde.org>
- *   Copyright 2018, Adriaan de Groot <groot@kde.org>
+ *   Copyright 2018-2019, Adriaan de Groot <groot@kde.org>
  *   Copyright 2018, Andrius Štikonas <andrius@stikonas.eu>
  *   Copyright 2018, Caio Jordão Carvalho <caiojcarvalho@gmail.com>
  *   Copyright 2019, Collabora Ltd
@@ -207,6 +207,11 @@ PartitionPage::onNewPartitionTableClicked()
     Ui_CreatePartitionTableDialog ui;
     ui.setupUi( dlg.data() );
     QString areYouSure = tr( "Are you sure you want to create a new partition table on %1?" ).arg( device->name() );
+    if ( PartUtils::isEfiSystem() )
+        ui.gptRadioButton->setChecked( true );
+    else
+        ui.mbrRadioButton->setChecked( true );
+
     ui.areYouSureLabel->setText( areYouSure );
     if ( dlg->exec() == QDialog::Accepted )
     {
@@ -512,7 +517,8 @@ findBootloader( const QAbstractItemModel* model, const QString& path )
     for ( int i = 0; i < model->rowCount(); ++i)
     {
         const auto index = model->index( i, 0, QModelIndex() );
-        cDebug() << i << model->itemData( index );
+        if ( !index.isValid() )
+            continue;
         QVariant var = model->data( index, BootLoaderModel::BootLoaderPathRole );
         if ( var.isValid() && var.toString() == path )
             return i;

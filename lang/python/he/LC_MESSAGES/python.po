@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-15 07:27-0400\n"
+"POT-Creation-Date: 2019-04-24 12:03-0400\n"
 "PO-Revision-Date: 2017-08-09 10:34+0000\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>, 2019\n"
 "Language-Team: Hebrew (https://www.transifex.com/calamares/teams/20061/he/)\n"
@@ -21,6 +21,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: he\n"
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
+
+#: src/modules/grubcfg/main.py:37
+msgid "Configure GRUB."
+msgstr "הגדרת GRUB."
+
+#: src/modules/mount/main.py:36
+msgid "Mounting partitions."
+msgstr "מחיצות מעוגנות."
 
 #: src/modules/services-systemd/main.py:35
 msgid "Configure systemd services"
@@ -68,7 +76,7 @@ msgstr "ניתוק עיגון מערכות קבצים."
 
 #: src/modules/unpackfs/main.py:40
 msgid "Filling up filesystems."
-msgstr ""
+msgstr "מערכות הקבצים מתמלאות."
 
 #: src/modules/unpackfs/main.py:158
 msgid "rsync failed with error code {}."
@@ -117,51 +125,51 @@ msgstr "מערכת הקבצים במקור „{}” אינה קיימת"
 msgid "The destination \"{}\" in the target system is not a directory"
 msgstr "היעד „{}” במערכת הקבצים המיועדת אינו תיקייה"
 
-#: src/modules/displaymanager/main.py:380
+#: src/modules/displaymanager/main.py:381
 msgid "Cannot write KDM configuration file"
 msgstr "לא ניתן לכתוב את קובץ התצורה של KDM"
 
-#: src/modules/displaymanager/main.py:381
+#: src/modules/displaymanager/main.py:382
 msgid "KDM config file {!s} does not exist"
 msgstr "קובץ התצורה של KDM ‏{!s} אינו קיים"
 
-#: src/modules/displaymanager/main.py:442
+#: src/modules/displaymanager/main.py:443
 msgid "Cannot write LXDM configuration file"
 msgstr "לא ניתן לכתוב את קובץ התצורה של LXDM"
 
-#: src/modules/displaymanager/main.py:443
+#: src/modules/displaymanager/main.py:444
 msgid "LXDM config file {!s} does not exist"
 msgstr "קובץ התצורה של LXDM ‏{!s} אינו קיים"
 
-#: src/modules/displaymanager/main.py:517
+#: src/modules/displaymanager/main.py:527
 msgid "Cannot write LightDM configuration file"
 msgstr "לא ניתן לכתוב את קובץ התצורה של LightDM"
 
-#: src/modules/displaymanager/main.py:518
+#: src/modules/displaymanager/main.py:528
 msgid "LightDM config file {!s} does not exist"
 msgstr "קובץ התצורה של LightDM ‏{!s} אינו קיים"
 
-#: src/modules/displaymanager/main.py:592
+#: src/modules/displaymanager/main.py:602
 msgid "Cannot configure LightDM"
 msgstr "לא ניתן להגדיר את LightDM"
 
-#: src/modules/displaymanager/main.py:593
+#: src/modules/displaymanager/main.py:603
 msgid "No LightDM greeter installed."
 msgstr "לא מותקן מקבל פנים מסוג LightDM."
 
-#: src/modules/displaymanager/main.py:624
+#: src/modules/displaymanager/main.py:634
 msgid "Cannot write SLIM configuration file"
 msgstr "לא ניתן לכתוב קובץ תצורה של SLIM."
 
-#: src/modules/displaymanager/main.py:625
+#: src/modules/displaymanager/main.py:635
 msgid "SLIM config file {!s} does not exist"
 msgstr "קובץ התצורה {!s} של SLIM אינו קיים"
 
-#: src/modules/displaymanager/main.py:740
+#: src/modules/displaymanager/main.py:750
 msgid "No display managers selected for the displaymanager module."
 msgstr "לא נבחרו מנהלי תצוגה למודול displaymanager."
 
-#: src/modules/displaymanager/main.py:741
+#: src/modules/displaymanager/main.py:751
 msgid ""
 "The displaymanagers list is empty or undefined in bothglobalstorage and "
 "displaymanager.conf."
@@ -169,9 +177,21 @@ msgstr ""
 "הרשימה של מנהלי התצוגה ריקה או שאינה מוגדרת תחת bothglobalstorage "
 "ו־displaymanager.conf."
 
-#: src/modules/displaymanager/main.py:821
+#: src/modules/displaymanager/main.py:831
 msgid "Display manager configuration was incomplete"
 msgstr "תצורת מנהל התצוגה אינה שלמה"
+
+#: src/modules/initcpiocfg/main.py:36
+msgid "Configuring mkinitcpio."
+msgstr "mkinitcpio מותקן."
+
+#: src/modules/initcpio/main.py:33
+msgid "Creating initramfs with mkinitcpio."
+msgstr "נוצר initramfs עם mkinitcpio."
+
+#: src/modules/luksopenswaphookcfg/main.py:35
+msgid "Configuring encrypted swap."
+msgstr "מוגדר שטח החלפה מוצפן."
 
 #: src/modules/rawfs/main.py:35
 msgid "Installing data."
@@ -260,9 +280,61 @@ msgstr[1] "מתבצעת הסרה של %(num)d חבילות."
 msgstr[2] "מתבצעת הסרה של %(num)d חבילות."
 msgstr[3] "מתבצעת הסרה של %(num)d חבילות."
 
+#: src/modules/bootloader/main.py:48
+msgid "Install bootloader."
+msgstr "התקנת מנהל אתחול."
+
 #: src/modules/removeuser/main.py:34
 msgid "Remove live user from target system"
 msgstr "הסרת משתמש חי ממערכת היעד"
+
+#: src/modules/initramfs/main.py:35
+msgid "Creating initramfs."
+msgstr "נוצר initramfs."
+
+#: src/modules/initramfs/main.py:49
+msgid "Failed to run update-initramfs on the target"
+msgstr "הרצת update-initramfs על היעד נכשלה"
+
+#: src/modules/initramfs/main.py:50 src/modules/dracut/main.py:59
+msgid "The exit code was {}"
+msgstr "קוד היציאה היה {}"
+
+#: src/modules/hwclock/main.py:35
+msgid "Setting hardware clock."
+msgstr "שעון החומרה מוגדר."
+
+#: src/modules/dracut/main.py:36
+msgid "Creating initramfs with dracut."
+msgstr "נוצר initramfs עם dracut."
+
+#: src/modules/dracut/main.py:58
+msgid "Failed to run dracut on the target"
+msgstr "הרצת dracut על היעד נכשלה"
+
+#: src/modules/initramfscfg/main.py:41
+msgid "Configuring initramfs."
+msgstr "initramfs מוגדר."
+
+#: src/modules/openrcdmcryptcfg/main.py:34
+msgid "Configuring OpenRC dmcrypt service."
+msgstr "שירות dmcrypt ל־OpenRC מוגדר."
+
+#: src/modules/luksbootkeyfile/main.py:35
+msgid "Configuring LUKS key file."
+msgstr "קובץ מפתח ה־LUKS מוגדר."
+
+#: src/modules/luksbootkeyfile/main.py:69
+msgid "Encrypted rootfs setup error"
+msgstr "שגיאת התקנת מחיצת שורש מוצפנת"
+
+#: src/modules/luksbootkeyfile/main.py:70
+msgid "Rootfs partition {!s} is LUKS but no passphrase found."
+msgstr "מחיצת השורש {!s} היא מסוג LUKS אך לא נמצאה מילת צופן."
+
+#: src/modules/fstab/main.py:38
+msgid "Writing fstab."
+msgstr "fstab נכתב."
 
 #: src/modules/dummypython/main.py:44
 msgid "Dummy python job."
@@ -271,3 +343,11 @@ msgstr "משימת דמה של Python."
 #: src/modules/dummypython/main.py:97
 msgid "Dummy python step {}"
 msgstr "צעד דמה של Python {}"
+
+#: src/modules/localecfg/main.py:37
+msgid "Configuring locales."
+msgstr "השפות מוגדרות."
+
+#: src/modules/networkcfg/main.py:37
+msgid "Saving network configuration."
+msgstr "הגדרות הרשת נשמרות."

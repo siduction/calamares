@@ -1,5 +1,7 @@
 /* === This file is part of Calamares - <https://github.com/calamares> ===
  *
+ *   Copyright 2019, Dominic Hayes <ferenosdev@outlook.com>
+ *   Copyright 2019, Gabriel Craciunescu <crazy@frugalware.org>
  *   Copyright 2014-2015, Teo Mrnjavac <teo@kde.org>
  *   Copyright 2017-2018, Adriaan de Groot <groot@kde.org>
  *
@@ -26,8 +28,6 @@
 #include <QDir>
 #include <QFile>
 #include <QPair>
-
-#include <yaml-cpp/yaml.h>
 
 static bool
 hasValue( const YAML::Node& v )
@@ -185,6 +185,7 @@ Settings::Settings( const QString& settingsFilePath,
     , m_doChroot( true )
     , m_promptInstall( false )
     , m_disableCancel( false )
+    , m_dontCancel( false )
 {
     cDebug() << "Using Calamares settings file at" << settingsFilePath;
     QFile file( settingsFilePath );
@@ -206,6 +207,7 @@ Settings::Settings( const QString& settingsFilePath,
             m_doChroot = !requireBool( config, "dont-chroot", false );
             m_isSetupMode = requireBool( config, "oem-setup", !m_doChroot );
             m_disableCancel = requireBool( config, "disable-cancel", false );
+            m_dontCancel = requireBool( config, "disable-cancel-during-exec", false );
         }
         catch ( YAML::Exception& e )
         {
@@ -272,6 +274,12 @@ bool
 Settings::disableCancel() const
 {
     return m_disableCancel;
+}
+    
+bool
+Settings::dontCancel() const
+{
+    return m_dontCancel;
 }
 
 

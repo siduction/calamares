@@ -1,5 +1,7 @@
 /* === This file is part of Calamares - <https://github.com/calamares> ===
  *
+ *   Copyright 2019, Dominic Hayes <ferenosdev@outlook.com>
+ *   Copyright 2019, Gabriel Craciunescu <crazy@frugalware.org>
  *   Copyright 2014-2015, Teo Mrnjavac <teo@kde.org>
  *   Copyright 2017-2018, Adriaan de Groot <groot@kde.org>
  *
@@ -67,7 +69,10 @@ public:
      */
     bool isSetupMode() const { return m_isSetupMode; }
 
+    /** @brief Global setting of disable-cancel: can't cancel ever. */
     bool disableCancel() const;
+    /** @brief Temporary setting of disable-cancel: can't cancel during exec. */
+    bool dontCancel() const;
 
 private:
     static Settings* s_instance;
@@ -84,6 +89,7 @@ private:
     bool m_isSetupMode;
     bool m_promptInstall;
     bool m_disableCancel;
+    bool m_dontCancel;
 };
 
 }

@@ -71,9 +71,15 @@ function( calamares_add_module_subdirectory )
         elseif ( MODULE_INTERFACE MATCHES "python" )
             set( _mod_enabled ${WITH_PYTHON} )
             set( _mod_reason "No Python support" )
-        else()
+        elseif ( MODULE_INTERFACE MATCHES "qtplugin" )
+            set( _mod_enabled OFF )
+            set( _mod_reason "C++ modules must have a CMakeLists.txt instead" )
+        elseif ( MODULE_INTERFACE MATCHES "process" )
             set( _mod_enabled ON )
             set( _mod_reason "" )
+        else()
+            set( _mod_enabled OFF )
+            set( _mod_reason "Unknown module interface '${MODULE_INTERFACE}'" )
         endif()
 
         if ( _mod_enabled )
@@ -142,4 +148,16 @@ function( calamares_add_module_subdirectory )
             math( EXPR _count "${_count} + 1" )
         endforeach()
     endif()
+
+    # Check that the module can be loaded. Since this calls exec(), the module
+    # may try to do things to the running system. Needs work to make that a
+    # safe thing to do.
+    #
+    # if ( BUILD_TESTING )
+    #     add_test(
+    #         NAME load-${SUBDIRECTORY}
+    #         COMMAND loadmodule ${SUBDIRECTORY}
+    #         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+    #         )
+    # endif()
 endfunction()

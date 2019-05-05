@@ -37,7 +37,7 @@
 
 cmake_minimum_required( VERSION 3.2 FATAL_ERROR )
 project( CALAMARES
-    VERSION 3.2.5
+    VERSION 3.2.7
     LANGUAGES C CXX )
 
 set( CALAMARES_VERSION_RC 0 )  # Set to 0 during release cycle, 1 during development
@@ -208,6 +208,8 @@ if( CMAKE_CXX_COMPILER_ID MATCHES "Clang" )
     set( CMAKE_TOOLCHAIN_PREFIX "llvm-" )
 
     set( CMAKE_SHARED_LINKER_FLAGS "-Wl,--no-undefined" )
+
+    set( CALAMARES_AUTOMOC_OPTIONS "-butils/moc-warnings.h" )
 else()
     set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wl,--no-undefined" )
     set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wl,--fatal-warnings -Wnon-virtual-dtor -Woverloaded-virtual -Werror=return-type" )
@@ -509,6 +511,7 @@ install(
         "CMakeModules/CalamaresAddLibrary.cmake"
         "CMakeModules/CalamaresAddBrandingSubdirectory.cmake"
         "CMakeModules/CalamaresAddTranslations.cmake"
+        "CMakeModules/CalamaresAutomoc.cmake"
         "CMakeModules/CMakeColors.cmake"
     DESTINATION
         "${CMAKE_INSTALL_CMAKEDIR}"

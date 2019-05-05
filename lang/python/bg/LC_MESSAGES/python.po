@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-15 07:27-0400\n"
+"POT-Creation-Date: 2019-04-24 12:03-0400\n"
 "PO-Revision-Date: 2017-08-09 10:34+0000\n"
 "Last-Translator: Georgi Georgiev <georgiev_1994@abv.bg>, 2018\n"
 "Language-Team: Bulgarian (https://www.transifex.com/calamares/teams/20061/bg/)\n"
@@ -20,6 +20,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: bg\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/modules/grubcfg/main.py:37
+msgid "Configure GRUB."
+msgstr ""
+
+#: src/modules/mount/main.py:36
+msgid "Mounting partitions."
+msgstr ""
 
 #: src/modules/services-systemd/main.py:35
 msgid "Configure systemd services"
@@ -113,58 +121,70 @@ msgstr ""
 msgid "The destination \"{}\" in the target system is not a directory"
 msgstr ""
 
-#: src/modules/displaymanager/main.py:380
+#: src/modules/displaymanager/main.py:381
 msgid "Cannot write KDM configuration file"
 msgstr ""
 
-#: src/modules/displaymanager/main.py:381
+#: src/modules/displaymanager/main.py:382
 msgid "KDM config file {!s} does not exist"
 msgstr ""
 
-#: src/modules/displaymanager/main.py:442
+#: src/modules/displaymanager/main.py:443
 msgid "Cannot write LXDM configuration file"
 msgstr ""
 
-#: src/modules/displaymanager/main.py:443
+#: src/modules/displaymanager/main.py:444
 msgid "LXDM config file {!s} does not exist"
 msgstr ""
 
-#: src/modules/displaymanager/main.py:517
+#: src/modules/displaymanager/main.py:527
 msgid "Cannot write LightDM configuration file"
 msgstr ""
 
-#: src/modules/displaymanager/main.py:518
+#: src/modules/displaymanager/main.py:528
 msgid "LightDM config file {!s} does not exist"
 msgstr ""
 
-#: src/modules/displaymanager/main.py:592
+#: src/modules/displaymanager/main.py:602
 msgid "Cannot configure LightDM"
 msgstr ""
 
-#: src/modules/displaymanager/main.py:593
+#: src/modules/displaymanager/main.py:603
 msgid "No LightDM greeter installed."
 msgstr ""
 
-#: src/modules/displaymanager/main.py:624
+#: src/modules/displaymanager/main.py:634
 msgid "Cannot write SLIM configuration file"
 msgstr ""
 
-#: src/modules/displaymanager/main.py:625
+#: src/modules/displaymanager/main.py:635
 msgid "SLIM config file {!s} does not exist"
 msgstr ""
 
-#: src/modules/displaymanager/main.py:740
+#: src/modules/displaymanager/main.py:750
 msgid "No display managers selected for the displaymanager module."
 msgstr ""
 
-#: src/modules/displaymanager/main.py:741
+#: src/modules/displaymanager/main.py:751
 msgid ""
 "The displaymanagers list is empty or undefined in bothglobalstorage and "
 "displaymanager.conf."
 msgstr ""
 
-#: src/modules/displaymanager/main.py:821
+#: src/modules/displaymanager/main.py:831
 msgid "Display manager configuration was incomplete"
+msgstr ""
+
+#: src/modules/initcpiocfg/main.py:36
+msgid "Configuring mkinitcpio."
+msgstr ""
+
+#: src/modules/initcpio/main.py:33
+msgid "Creating initramfs with mkinitcpio."
+msgstr ""
+
+#: src/modules/luksopenswaphookcfg/main.py:35
+msgid "Configuring encrypted swap."
 msgstr ""
 
 #: src/modules/rawfs/main.py:35
@@ -245,8 +265,60 @@ msgid_plural "Removing %(num)d packages."
 msgstr[0] "Премахване на един пакет."
 msgstr[1] "Премахване на %(num)d пакети."
 
+#: src/modules/bootloader/main.py:48
+msgid "Install bootloader."
+msgstr ""
+
 #: src/modules/removeuser/main.py:34
 msgid "Remove live user from target system"
+msgstr ""
+
+#: src/modules/initramfs/main.py:35
+msgid "Creating initramfs."
+msgstr ""
+
+#: src/modules/initramfs/main.py:49
+msgid "Failed to run update-initramfs on the target"
+msgstr ""
+
+#: src/modules/initramfs/main.py:50 src/modules/dracut/main.py:59
+msgid "The exit code was {}"
+msgstr ""
+
+#: src/modules/hwclock/main.py:35
+msgid "Setting hardware clock."
+msgstr ""
+
+#: src/modules/dracut/main.py:36
+msgid "Creating initramfs with dracut."
+msgstr ""
+
+#: src/modules/dracut/main.py:58
+msgid "Failed to run dracut on the target"
+msgstr ""
+
+#: src/modules/initramfscfg/main.py:41
+msgid "Configuring initramfs."
+msgstr ""
+
+#: src/modules/openrcdmcryptcfg/main.py:34
+msgid "Configuring OpenRC dmcrypt service."
+msgstr ""
+
+#: src/modules/luksbootkeyfile/main.py:35
+msgid "Configuring LUKS key file."
+msgstr ""
+
+#: src/modules/luksbootkeyfile/main.py:69
+msgid "Encrypted rootfs setup error"
+msgstr ""
+
+#: src/modules/luksbootkeyfile/main.py:70
+msgid "Rootfs partition {!s} is LUKS but no passphrase found."
+msgstr ""
+
+#: src/modules/fstab/main.py:38
+msgid "Writing fstab."
 msgstr ""
 
 #: src/modules/dummypython/main.py:44
@@ -256,3 +328,11 @@ msgstr "Фиктивна задача python."
 #: src/modules/dummypython/main.py:97
 msgid "Dummy python step {}"
 msgstr "Фиктивна стъпка на python {}"
+
+#: src/modules/localecfg/main.py:37
+msgid "Configuring locales."
+msgstr ""
+
+#: src/modules/networkcfg/main.py:37
+msgid "Saving network configuration."
+msgstr ""
