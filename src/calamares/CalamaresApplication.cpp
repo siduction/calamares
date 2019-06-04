@@ -28,7 +28,9 @@
 #include "modulesystem/ModuleManager.h"
 #include "utils/CalamaresUtilsGui.h"
 #include "utils/CalamaresUtilsSystem.h"
+#include "utils/Dirs.h"
 #include "utils/Logger.h"
+#include "utils/Retranslator.h"
 #include "JobQueue.h"
 #include "Branding.h"
 #include "Settings.h"
@@ -361,6 +363,12 @@ CalamaresApplication::initViewSteps()
     ProgressTreeModel* m = new ProgressTreeModel( nullptr );
     ProgressTreeView::instance()->setModel( m );
     cDebug() << "STARTUP: Window now visible and ProgressTreeView populated";
+
+    const auto steps = Calamares::ViewManager::instance()->viewSteps();
+    cDebug() << Logger::SubEntry << steps.count() << "view steps loaded.";
+    // Tell the first view that it's been shown.
+    if ( steps.count() > 0 )
+        steps[0]->onActivate();
 }
 
 void

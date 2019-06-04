@@ -39,7 +39,7 @@
 FinishedPage::FinishedPage( QWidget* parent )
     : QWidget( parent )
     , ui( new Ui::FinishedPage )
-    , m_restartSetUp( false )
+    , m_mode( FinishedViewStep::RestartMode::UserUnchecked )
 {
     ui->setupUi( this );
 
@@ -79,16 +79,15 @@ FinishedPage::FinishedPage( QWidget* parent )
 
 
 void
-FinishedPage::setRestartNowEnabled( bool enabled )
+FinishedPage::setRestart( FinishedViewStep::RestartMode mode )
 {
-    ui->restartCheckBox->setVisible( enabled );
-}
+    using Mode = FinishedViewStep::RestartMode;
 
+    m_mode = mode;
 
-void
-FinishedPage::setRestartNowChecked( bool checked )
-{
-    ui->restartCheckBox->setChecked( checked );
+    ui->restartCheckBox->setVisible( mode != Mode::Never );
+    ui->restartCheckBox->setEnabled( mode != Mode::Always );
+    ui->restartCheckBox->setChecked( ( mode == Mode::Always ) || ( mode == Mode::UserChecked ) );
 }
 
 
@@ -102,17 +101,21 @@ FinishedPage::setRestartNowCommand( const QString& command )
 void
 FinishedPage::setUpRestart()
 {
-    cDebug() << "FinishedPage::setUpRestart()";
-    if ( !m_restartSetUp )
-    {
-        connect( qApp, &QApplication::aboutToQuit,
-                 this, [this]
-        {
-            if ( ui->restartCheckBox->isVisible() &&
-                    ui->restartCheckBox->isChecked() )
-                QProcess::execute( "/bin/sh", { "-c", m_restartNowCommand } );
-        } );
-    }
+    cDebug() << "FinishedPage::setUpRestart(), Quit button"
+        << "setup=" << FinishedViewStep::modeName( m_mode )
+        << "command=" << m_restartNowCommand;
+
+    connect( qApp, &QApplication::aboutToQuit,
+            [this]()
+            {
+                if ( ui->restartCheckBox->isVisible() &&
+                        ui->restartCheckBox->isChecked() )
+                {
+                    cDebug() << "Running restart command" << m_restartNowCommand;
+                    QProcess::execute( "/bin/sh", { "-c", m_restartNowCommand } );
+                }
+            }
+           );
 }
 
 
@@ -138,5 +141,5 @@ FinishedPage::onInstallationFailed( const QString& message, const QString& detai
                                    "The error message was: %2." )
                                .arg( *Calamares::Branding::VersionedName )
                                .arg( message ) );
-    setRestartNowEnabled( false );
+    setRestart( FinishedViewStep::RestartMode::Never );
 }

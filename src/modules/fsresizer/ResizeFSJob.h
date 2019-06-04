@@ -24,7 +24,7 @@
 
 #include <CppJob.h>
 
-#include "utils/NamedSuffix.h"
+#include "partition/PartitionSize.h"
 #include "utils/PluginFactory.h"
 
 #include <PluginDllMacro.h>
@@ -33,53 +33,13 @@ class CoreBackend;  // From KPMCore
 class Device;  // From KPMCore
 class Partition;
 
+using PartitionSize = CalamaresUtils::Partition::PartitionSize;
+
 class PLUGINDLLEXPORT ResizeFSJob : public Calamares::CppJob
 {
     Q_OBJECT
 
 public:
-    enum class RelativeUnit
-    {
-        None,
-        Percent,
-        Absolute
-    };
-
-    /** @brief Size expressions
-     *
-     * Sizes can be specified in MiB or percent (of the device they
-     * are on). This class handles parsing of such strings from the
-     * config file.
-     */
-    class RelativeSize : public NamedSuffix<RelativeUnit, RelativeUnit::None>
-    {
-    public:
-        RelativeSize() : NamedSuffix() { };
-        RelativeSize( const QString& );
-
-        bool isValid() const
-        {
-            return ( unit() != RelativeUnit::None ) && ( value() > 0 );
-        }
-
-        /** @brief Apply this size to the number of sectors @p totalSectors .
-         *
-         * Each sector has size @p sectorSize , for converting absolute
-         * sizes in MiB to sector counts.
-         *
-         * For invalid sizes, returns -1.
-         * For absolute sizes, returns the number of sectors needed.
-         * For percent sizes, returns that percent of the number of sectors.
-         */
-        qint64 apply( qint64 totalSectors, qint64 sectorSize );
-
-        /** @brief Apply this size to the given device.
-         *
-         * Equivalent to apply( d->totalLogical(), d->logicalSize() )
-         */
-        qint64 apply( Device* d );
-    } ;
-
     explicit ResizeFSJob( QObject* parent = nullptr );
     virtual ~ResizeFSJob() override;
 
@@ -96,9 +56,24 @@ public:
                m_size.isValid();
     }
 
+    QString name() const
+    {
+        return m_fsname.isEmpty() ? m_devicename : m_fsname;
+    }
+
+    PartitionSize size() const
+    {
+        return m_size;
+    }
+
+    PartitionSize minimumSize() const
+    {
+        return m_atleast;
+    }
+
 private:
-    RelativeSize m_size;
-    RelativeSize m_atleast;
+    PartitionSize m_size;
+    PartitionSize m_atleast;
     QString m_fsname;  // Either this, or devicename, is set, not both
     QString m_devicename;
     bool m_required;

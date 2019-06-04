@@ -23,7 +23,7 @@
  */
 
 #include "utils/Logger.h"
-#include "utils/YamlUtils.h"
+#include "utils/Yaml.h"
 #include "modulesystem/Module.h"
 
 #include "GlobalStorage.h"
@@ -227,7 +227,8 @@ main( int argc, char* argv[] )
             cError() << "Job #" << count << "failed"
                 << TR( "summary", r.message() )
                 << TR( "details", r.details() );
-            ++failure_count;
+            if ( r.errorCode() > 0 )
+                ++failure_count;
         }
         ++count;
     }

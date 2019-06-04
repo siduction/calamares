@@ -22,8 +22,8 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
-#include "UiDllMacro.h"
-#include "Typedefs.h"
+#include "DllMacro.h"
+#include "modulesystem/Actions.h"
 
 #include <QObject>
 #include <QStringList>
@@ -32,7 +32,7 @@
 namespace Calamares
 {
 
-class UIDLLEXPORT Settings : public QObject
+class DLLEXPORT Settings : public QObject
 {
     Q_OBJECT
 public:
@@ -41,7 +41,6 @@ public:
                        QObject* parent = nullptr );
 
     static Settings* instance();
-    //TODO: load from YAML then emit ready
 
     QStringList modulesSearchPaths() const;
 
@@ -63,16 +62,13 @@ public:
      *
      * This influences user-visible strings, for instance using the
      * word "setup" instead of "install" where relevant.
-     *
-     * NOTE: it's a synonym for !doChroot() for now, but may become
-     *       an independent setting.
      */
     bool isSetupMode() const { return m_isSetupMode; }
 
     /** @brief Global setting of disable-cancel: can't cancel ever. */
     bool disableCancel() const;
     /** @brief Temporary setting of disable-cancel: can't cancel during exec. */
-    bool dontCancel() const;
+    bool disableCancelDuringExec() const;
 
 private:
     static Settings* s_instance;
@@ -89,7 +85,7 @@ private:
     bool m_isSetupMode;
     bool m_promptInstall;
     bool m_disableCancel;
-    bool m_dontCancel;
+    bool m_disableCancelDuringExec;
 };
 
 }

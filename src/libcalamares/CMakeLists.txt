@@ -1,3 +1,6 @@
+# libcalamares is the non-GUI part of Calamares, which includes handling
+# translations, configurations, logging, utilities, global storage, and (non-GUI) jobs.
+
 add_definitions(
     ${QT_DEFINITIONS}
     -DQT_SHARED
@@ -10,6 +13,9 @@ configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/CalamaresConfig.h.in
 configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/../calamares/CalamaresVersion.h.in
                 ${CMAKE_CURRENT_BINARY_DIR}/CalamaresVersion.h )
 
+set( OPTIONAL_PRIVATE_LIBRARIES "" )
+set( OPTIONAL_PUBLIC_LIBRARIES "" )
+
 set( libSources
     CppJob.cpp
     GlobalStorage.cpp
@@ -18,16 +24,30 @@ set( libSources
     JobQueue.cpp
     ProcessJob.cpp
     Settings.cpp
-)
-set( utilsSources
-    utils/CalamaresUtils.cpp
+
+    # GeoIP services
+    geoip/Interface.cpp
+    geoip/GeoIPJSON.cpp
+    geoip/Handler.cpp
+
+    # Locale-data service
+    locale/Label.cpp
+    locale/LabelModel.cpp
+    locale/Lookup.cpp
+
+    # Partition service
+    partition/PartitionSize.cpp
+
+    # Utility service
     utils/CalamaresUtilsSystem.cpp
     utils/CommandList.cpp
-    utils/LocaleLabel.cpp
+    utils/Dirs.cpp
     utils/Logger.cpp
     utils/PluginFactory.cpp
     utils/Retranslator.cpp
-    utils/YamlUtils.cpp
+    utils/String.cpp
+    utils/Variant.cpp
+    utils/Yaml.cpp
 )
 set( kdsagSources
     kdsingleapplicationguard/kdsingleapplicationguard.cpp
@@ -43,9 +63,11 @@ include_directories(
     ${YAMLCPP_INCLUDE_DIR}
 )
 
+### OPTIONAL Python support
+#
+#
 if( WITH_PYTHON )
-    set( libSources
-        ${libSources}
+    list( APPEND libSources
         PythonHelper.cpp
         PythonJob.cpp
         PythonJobApi.cpp
@@ -60,29 +82,25 @@ if( WITH_PYTHON )
     include_directories(${Boost_INCLUDE_DIRS})
     link_directories(${Boost_LIBRARY_DIRS})
 
-    set( OPTIONAL_PRIVATE_LIBRARIES
-        ${OPTIONAL_PRIVATE_LIBRARIES}
+    list( APPEND OPTIONAL_PRIVATE_LIBRARIES
         ${PYTHON_LIBRARIES}
         ${Boost_LIBRARIES}
     )
 endif()
 
-if( WITH_PYTHONQT )
-    include_directories(${PYTHON_INCLUDE_DIRS})
-    link_directories(${PYTHON_LIBRARIES})
-
-    include_directories(${PYTHONQT_INCLUDE_DIR})
-    link_directories(${PYTHONQT_LIBRARY})
-
-    set( OPTIONAL_PRIVATE_LIBRARIES
-        ${OPTIONAL_PRIVATE_LIBRARIES}
-        ${PYTHON_LIBRARIES}
-        ${PYTHONQT_LIBRARY}
-    )
+### OPTIONAL GeoIP XML support
+#
+#
+find_package(Qt5 COMPONENTS Xml)
+if( Qt5Xml_FOUND )
+    list( APPEND libSources geoip/GeoIPXML.cpp )
+    list( APPEND OPTIONAL_PUBLIC_LIBRARIES Qt5::Network Qt5::Xml )
 endif()
 
-
-add_library( calamares SHARED ${libSources} ${kdsagSources} ${utilsSources} )
+### LIBRARY
+#
+#
+add_library( calamares SHARED ${libSources} ${kdsagSources} )
 set_target_properties( calamares
     PROPERTIES
         VERSION ${CALAMARES_VERSION_SHORT}
@@ -96,6 +114,7 @@ target_link_libraries( calamares
     LINK_PUBLIC
         ${YAMLCPP_LIBRARY}
         Qt5::Core
+        ${OPTIONAL_PUBLIC_LIBRARIES}
 )
 
 install( TARGETS calamares
@@ -104,19 +123,6 @@ install( TARGETS calamares
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
-
-if ( ECM_FOUND AND BUILD_TESTING )
-    ecm_add_test(
-            Tests.cpp
-        TEST_NAME
-            libcalamarestest
-        LINK_LIBRARIES
-            calamares
-            Qt5::Core
-            Qt5::Test
-    )
-    calamares_automoc( libcalamarestest )
-endif()
 
 # Make symlink lib/calamares/libcalamares.so to lib/libcalamares.so.VERSION so
 # lib/calamares can be used as module path for the Python interpreter.
@@ -134,3 +140,47 @@ install( FILES ${CMAKE_CURRENT_BINARY_DIR}/CalamaresConfig.h DESTINATION include
 install( FILES ${rootHeaders}                       DESTINATION include/libcalamares )
 install( FILES ${kdsingleapplicationguardHeaders}   DESTINATION include/libcalamares/kdsingleapplicationguard )
 install( FILES ${utilsHeaders}                      DESTINATION include/libcalamares/utils )
+
+### TESTING
+#
+#
+if ( ECM_FOUND AND BUILD_TESTING )
+    ecm_add_test(
+            Tests.cpp
+        TEST_NAME
+            libcalamarestest
+        LINK_LIBRARIES
+            calamares
+            Qt5::Core
+            Qt5::Test
+    )
+    calamares_automoc( libcalamarestest )
+
+    ecm_add_test(
+            geoip/GeoIPTests.cpp
+            ${geoip_src}
+        TEST_NAME
+            geoiptest
+        LINK_LIBRARIES
+            calamares
+            Qt5::Test
+            ${YAMLCPP_LIBRARY}
+    )
+    calamares_automoc( geoiptest )
+    
+    ecm_add_test(
+            partition/Tests.cpp
+        TEST_NAME
+            libcalamarespartitiontest
+        LINK_LIBRARIES
+            calamares  
+            Qt5::Test
+    )
+    calamares_automoc( libcalamarespartitiontest )
+endif()
+
+if( BUILD_TESTING )
+    add_executable( test_geoip geoip/test_geoip.cpp ${geoip_src} )
+    target_link_libraries( test_geoip calamares Qt5::Network ${YAMLCPP_LIBRARY} )
+    calamares_automoc( test_geoip )
+endif()

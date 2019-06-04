@@ -19,14 +19,15 @@
 
 #include "Module.h"
 
-#include "ProcessJobModule.h"
-#include "CppJobModule.h"
-#include "ViewModule.h"
-#include "utils/CalamaresUtils.h"
-#include "utils/YamlUtils.h"
-#include "utils/Logger.h"
-#include "Settings.h"
 #include "CalamaresConfig.h"
+#include "CppJobModule.h"
+#include "ProcessJobModule.h"
+#include "Settings.h"
+#include "ViewModule.h"
+
+#include "utils/Dirs.h"
+#include "utils/Logger.h"
+#include "utils/Yaml.h"
 
 #ifdef WITH_PYTHON
 #include "PythonJobModule.h"
@@ -234,9 +235,9 @@ Module::typeString() const
 {
     switch ( type() )
     {
-    case Job:
+        case Type::Job:
         return "Job Module";
-    case View:
+    case Type::View:
         return "View Module";
     }
     return QString();
@@ -248,13 +249,13 @@ Module::interfaceString() const
 {
     switch ( interface() )
     {
-    case ProcessInterface:
+        case Interface::Process:
         return "External process";
-    case PythonInterface:
+    case Interface::Python:
         return "Python (Boost.Python)";
-    case PythonQtInterface:
+    case Interface::PythonQt:
         return "Python (experimental)";
-    case QtPluginInterface:
+    case Interface::QtPlugin:
         return "Qt Plugin";
     }
     return QString();

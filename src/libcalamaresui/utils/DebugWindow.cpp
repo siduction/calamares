@@ -1,6 +1,7 @@
 /* === This file is part of Calamares - <https://github.com/calamares> ===
  *
  *   Copyright 2015-2016, Teo Mrnjavac <teo@kde.org>
+ *   Copyright 2019, Adriaan de Groot <groot@kde.org>
  *
  *   Calamares is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -17,14 +18,19 @@
  */
 
 #include "DebugWindow.h"
-#include "utils/CalamaresUtils.h"
-#include "utils/Retranslator.h"
-#include "utils/qjsonmodel.h"
-#include "JobQueue.h"
-#include "Job.h"
-#include "GlobalStorage.h"
-#include "modulesystem/ModuleManager.h"
+#include "ui_DebugWindow.h"
+
+#include "Branding.h"
 #include "modulesystem/Module.h"
+#include "modulesystem/ModuleManager.h"
+#include "utils/qjsonmodel.h"
+
+#include "GlobalStorage.h"
+#include "Job.h"
+#include "JobQueue.h"
+#include "utils/Logger.h"
+#include "utils/Retranslator.h"
+
 
 #ifdef WITH_PYTHONQT
 #include <gui/PythonQtScriptingConsole.h>
@@ -37,30 +43,56 @@
 #include <QStringListModel>
 #include <QTreeView>
 
+/**
+ * @brief crash makes Calamares crash immediately.
+ */
+static void
+crash()
+{
+    volatile int* a = nullptr;
+    *a = 1;
+}
+
+/// @brief Print out the widget tree (names) in indented form.
+static void dumpWidgetTree( QDebug& deb, const QWidget* widget, int depth )
+{
+    if ( !widget )
+        return;
+
+    deb << Logger::Continuation;
+    for (int i = 0; i < depth; ++i )
+        deb << ' ';
+    deb << widget->objectName();
+
+    for ( const auto* w : widget->findChildren<QWidget*>( QString(), Qt::FindDirectChildrenOnly ) )
+        dumpWidgetTree( deb, w, depth+1 );
+}
+
 namespace Calamares {
 
 DebugWindow::DebugWindow()
     : QWidget( nullptr )
+    , m_ui( new Ui::DebugWindow )
 {
-    setupUi( this );
+    m_ui->setupUi( this );
 
     // GlobalStorage page
     QJsonModel* jsonModel = new QJsonModel( this );
 
-    globalStorageView->setModel( jsonModel );
+    m_ui->globalStorageView->setModel( jsonModel );
     GlobalStorage* gs = JobQueue::instance()->globalStorage();
 
     connect( gs, &GlobalStorage::changed,
              this, [ = ]
     {
         jsonModel->loadJson( QJsonDocument::fromVariant( gs->m ).toJson() );
-        globalStorageView->expandAll();
+        m_ui->globalStorageView->expandAll();
     } );
     jsonModel->loadJson( QJsonDocument::fromVariant( gs->m ).toJson() );
-    globalStorageView->expandAll();
+    m_ui->globalStorageView->expandAll();
 
     // JobQueue page
-    jobQueueText->setReadOnly( true );
+    m_ui->jobQueueText->setReadOnly( true );
     connect( JobQueue::instance(), &JobQueue::queueChanged,
              this, [ this ]( const JobList& jobs )
     {
@@ -70,30 +102,30 @@ DebugWindow::DebugWindow()
             text.append( job->prettyName() );
         }
 
-        jobQueueText->setText( text.join( '\n' ) );
+        m_ui->jobQueueText->setText( text.join( '\n' ) );
     } );
 
     // Modules page
     QStringListModel* modulesModel = new QStringListModel( ModuleManager::instance()->loadedInstanceKeys() );
-    modulesListView->setModel( modulesModel );
-    modulesListView->setSelectionMode( QAbstractItemView::SingleSelection );
+    m_ui->modulesListView->setModel( modulesModel );
+    m_ui->modulesListView->setSelectionMode( QAbstractItemView::SingleSelection );
 
     QJsonModel* moduleConfigModel = new QJsonModel( this );
-    moduleConfigView->setModel( moduleConfigModel );
+    m_ui->moduleConfigView->setModel( moduleConfigModel );
 
 #ifdef WITH_PYTHONQT
     QPushButton* pythonConsoleButton = new QPushButton;
     pythonConsoleButton->setText( "Attach Python console" );
-    modulesVerticalLayout->insertWidget( 1, pythonConsoleButton );
+    m_ui->modulesVerticalLayout->insertWidget( 1, pythonConsoleButton );
     pythonConsoleButton->hide();
 
     QObject::connect( pythonConsoleButton, &QPushButton::clicked,
                       this, [ this, moduleConfigModel ]
     {
-        QString moduleName = modulesListView->currentIndex().data().toString();
+        QString moduleName = m_ui->modulesListView->currentIndex().data().toString();
         Module* module = ModuleManager::instance()->moduleInstance( moduleName );
-        if ( module->interface() != Module::PythonQtInterface ||
-             module->type() != Module::View )
+        if ( module->interface() != Module::Interface::PythonQt ||
+             module->type() != Module::Type::View )
             return;
 
         for ( ViewStep* step : ViewManager::instance()->viewSteps() )
@@ -149,36 +181,55 @@ DebugWindow::DebugWindow()
 
 #endif
 
-    connect( modulesListView->selectionModel(), &QItemSelectionModel::selectionChanged,
+    connect( m_ui->modulesListView->selectionModel(), &QItemSelectionModel::selectionChanged,
              this, [ this, moduleConfigModel
 #ifdef WITH_PYTHONQT
              , pythonConsoleButton
 #endif
              ]
     {
-        QString moduleName = modulesListView->currentIndex().data().toString();
+        QString moduleName = m_ui->modulesListView->currentIndex().data().toString();
         Module* module = ModuleManager::instance()->moduleInstance( moduleName );
         if ( module )
         {
             moduleConfigModel->loadJson( QJsonDocument::fromVariant( module->configurationMap() ).toJson() );
-            moduleConfigView->expandAll();
-            moduleTypeLabel->setText( module->typeString() );
-            moduleInterfaceLabel->setText( module->interfaceString() );
+            m_ui->moduleConfigView->expandAll();
+            m_ui->moduleTypeLabel->setText( module->typeString() );
+            m_ui->moduleInterfaceLabel->setText( module->interfaceString() );
 #ifdef WITH_PYTHONQT
             pythonConsoleButton->setVisible(
-                        module->interface() == Module::PythonQtInterface &&
-                        module->type() == Module::View );
+                        module->interface() == Module::Interface::PythonQt &&
+                        module->type() == Module::Type::View );
 #endif
         }
     } );
 
-    connect( crashButton, &QPushButton::clicked,
-             this, [] {
-        CalamaresUtils::crash();
-    } );
+    // Tools page
+    connect( m_ui->crashButton, &QPushButton::clicked, this, [] { ::crash(); } );
+    connect( m_ui->reloadStylesheetButton, &QPushButton::clicked,
+             []()
+             {
+                 for ( auto* w : qApp->topLevelWidgets() )
+                 {
+                     // Needs to match what's set in CalamaresWindow
+                     if ( w->objectName() == QStringLiteral( "mainApp" ) )
+                     {
+                         w->setStyleSheet( Calamares::Branding::instance()->stylesheet() );
+                     }
+                 }
+             });
+    connect( m_ui->widgetTreeButton, &QPushButton::clicked,
+             []()
+             {
+                 for ( auto* w : qApp->topLevelWidgets() )
+                 {
+                     auto deb = cDebug();
+                     dumpWidgetTree( deb, w, 0 );
+                 }
+             });
 
     CALAMARES_RETRANSLATE(
-        retranslateUi( this );
+        m_ui->retranslateUi( this );
         setWindowTitle( tr( "Debug information" ) );
     )
 }

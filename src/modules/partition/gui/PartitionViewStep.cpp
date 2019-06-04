@@ -33,16 +33,19 @@
 #include "gui/PartitionBarsView.h"
 #include "gui/PartitionLabelsView.h"
 
+#include "Branding.h"
 #include "CalamaresVersion.h"
+#include "GlobalStorage.h"
+#include "Job.h"
+#include "JobQueue.h"
+
 #include "utils/CalamaresUtilsGui.h"
 #include "utils/Logger.h"
 #include "utils/NamedEnum.h"
 #include "utils/Retranslator.h"
+#include "utils/Variant.h"
 #include "widgets/WaitingWidget.h"
-#include "GlobalStorage.h"
-#include "JobQueue.h"
-#include "Job.h"
-#include "Branding.h"
+
 
 #include <kpmcore/core/device.h>
 #include <kpmcore/core/partition.h>
@@ -616,7 +619,7 @@ PartitionViewStep::setConfigurationMap( const QVariantMap& configurationMap )
 }
 
 
-QList< Calamares::job_ptr >
+Calamares::JobList
 PartitionViewStep::jobs() const
 {
     return m_core->jobs();
@@ -635,7 +638,11 @@ PartitionViewStep::checkRequirements()
         []{ return tr( "has at least one disk device available." ); },
         []{ return tr( "There are no partitons to install on." ); },
         m_core->deviceModel()->rowCount() > 0,  // satisfied
-        true    // required
+#ifdef DEBUG_PARTITION_UNSAFE
+             false  // optional
+#else
+             true   // required
+#endif
     } );
 
     return l;

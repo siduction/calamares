@@ -17,8 +17,8 @@
  *   along with Calamares. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBCALAMARES_UTILS_UNITS_H
-#define LIBCALAMARES_UTILS_UNITS_H
+#ifndef UTILS_UNITS_H
+#define UTILS_UNITS_H
 
 #include <QtCore/QIntegerForSize>
 
@@ -76,6 +76,20 @@ constexpr qint64 GiBtoBytes( double m )
 constexpr int BytesToMiB( qint64 b )
 {
     return int( b / 1024 / 1024 );
+}
+
+constexpr qint64 alignBytesToBlockSize( qint64 bytes, qint64 blocksize )
+{
+    qint64 blocks = bytes / blocksize;
+
+    if ( blocks * blocksize != bytes )
+        ++blocks;
+    return blocks * blocksize;
+}
+
+constexpr qint64 bytesToSectors( qint64 bytes, qint64 blocksize )
+{
+    return alignBytesToBlockSize( alignBytesToBlockSize( bytes, blocksize), MiBtoBytes(1ULL) ) / blocksize;
 }
 
 }  // namespace

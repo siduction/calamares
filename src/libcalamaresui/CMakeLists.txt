@@ -1,3 +1,9 @@
+# libcalamaresui is the GUI part of Calamares, which includes handling
+# view modules, view steps, widgets, and branding.
+
+# The UI libs use the non-UI library
+include_directories( ${CMAKE_SOURCE_DIR}/src/libcalamares ${CMAKE_BINARY_DIR}/src/libcalamares )
+
 set( calamaresui_SOURCES
     modulesystem/CppJobModule.cpp
     modulesystem/Module.cpp
@@ -58,8 +64,7 @@ if( WITH_PYTHONQT )
         viewpages/PythonQtGlobalStorageWrapper.cpp
         viewpages/PythonQtUtilsWrapper.cpp
     )
-    set( OPTIONAL_PRIVATE_LIBRARIES
-        ${OPTIONAL_PRIVATE_LIBRARIES}
+    set( OPTIONAL_PYTHON_LIBRARIES
         ${PYTHON_LIBRARIES}
         ${PYTHONQT_LIBRARIES}
     )
@@ -70,7 +75,7 @@ calamares_add_library( calamaresui
     UI ${calamaresui_UI}
     EXPORT_MACRO UIDLLEXPORT_PRO
     LINK_PRIVATE_LIBRARIES
-        ${OPTIONAL_PRIVATE_LIBRARIES}
+        ${OPTIONAL_PYTHON_LIBRARIES}
     LINK_LIBRARIES
         Qt5::Svg
         Qt5::QuickWidgets
@@ -78,3 +83,9 @@ calamares_add_library( calamaresui
     EXPORT CalamaresLibraryDepends
     VERSION ${CALAMARES_VERSION_SHORT}
 )
+
+find_package( KF5CoreAddons 5.58 QUIET )  # If it's really new
+if ( KF5CoreAddons_FOUND )
+    target_compile_definitions( calamaresui PRIVATE WITH_KOSRelease )
+    target_link_libraries( calamaresui PRIVATE KF5::CoreAddons )
+endif()

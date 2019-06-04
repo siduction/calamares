@@ -44,12 +44,12 @@
 #include "jobs/ResizePartitionJob.h"
 #include "jobs/ResizeVolumeGroupJob.h"
 #include "jobs/SetPartitionFlagsJob.h"
-#include "utils/CalamaresUtils.h"
+
+#include "utils/Variant.h"
 
 #ifdef DEBUG_PARTITION_LAME
 #include "JobExample.h"
 #endif
-#include "Typedefs.h"
 #include "utils/Logger.h"
 
 // KPMcore
@@ -402,7 +402,7 @@ PartitionCoreModule::deletePartition( Device* device, Partition* partition )
             deletePartition( device, childPartition );
     }
 
-    QList< Calamares::job_ptr >& jobs = deviceInfo->jobs;
+    Calamares::JobList& jobs = deviceInfo->jobs;
     if ( partition->state() == KPM_PARTITION_STATE(New) )
     {
         // First remove matching SetPartFlagsJobs
@@ -496,10 +496,10 @@ PartitionCoreModule::setPartitionFlags( Device* device,
     PartitionInfo::setFlags( partition, flags );
 }
 
-QList< Calamares::job_ptr >
+Calamares::JobList
 PartitionCoreModule::jobs() const
 {
-    QList< Calamares::job_ptr > lst;
+    Calamares::JobList lst;
     QList< Device* > devices;
 
 #ifdef DEBUG_PARTITION_UNSAFE
@@ -945,11 +945,9 @@ PartitionCoreModule::revertDevice( Device* dev, bool individualRevert )
     m_deviceModel->swapDevice( dev, newDev );
 
     QList< Device* > devices;
-    for ( auto info : m_deviceInfos )
+    for ( DeviceInfo* const info : m_deviceInfos )
     {
-        if ( info->device.data()->type() != Device::Type::Disk_Device )
-            continue;
-        else
+        if ( info && !info->device.isNull() && info->device->type() == Device::Type::Disk_Device )
             devices.append( info->device.data() );
     }
 

@@ -26,10 +26,12 @@
 #include "modulesystem/Module.h"
 #include "modulesystem/ModuleManager.h"
 #include "Settings.h"
+#include "ViewManager.h"
+
 #include "utils/CalamaresUtilsGui.h"
+#include "utils/Dirs.h"
 #include "utils/Logger.h"
 #include "utils/Retranslator.h"
-#include "ViewManager.h"
 
 #include <QDir>
 #include <QLabel>
@@ -76,7 +78,9 @@ ExecutionViewStep::ExecutionViewStep( QObject* parent )
 QString
 ExecutionViewStep::prettyName() const
 {
-    return tr( "Install" );
+    return Calamares::Settings::instance()->isSetupMode()
+        ? tr( "Set up" )
+        : tr( "Install" );
 }
 
 

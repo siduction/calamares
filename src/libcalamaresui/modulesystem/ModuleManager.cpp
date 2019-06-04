@@ -26,7 +26,7 @@
 #include "ViewManager.h"
 
 #include "utils/Logger.h"
-#include "utils/YamlUtils.h"
+#include "utils/Yaml.h"
 
 #include <QApplication>
 #include <QDir>
@@ -277,7 +277,7 @@ ModuleManager::loadModules()
 
                 // At this point we most certainly have a pointer to a loaded module in
                 // thisModule. We now need to enqueue jobs info into an EVS.
-                if ( currentAction == Calamares::Exec )
+                if ( currentAction == ModuleAction::Exec )
                 {
                     ExecutionViewStep* evs =
                         qobject_cast< ExecutionViewStep* >(
@@ -358,7 +358,8 @@ ModuleManager::checkDependencies()
                 somethingWasRemovedBecauseOfUnmetDependencies = true;
                 m_availableDescriptorsByModuleName.erase( it );
                 failed << moduleName;
-                cWarning() << "Module" << moduleName << "has unknown requirements" << Logger::DebugList( unmet );
+                cWarning() << "Module" << moduleName << "requires modules" << Logger::DebugList( unmet );
+                cWarning() << Logger::SubEntry << "but these are not available (listed in settings, or installed)."; 
                 break;
             }
         }

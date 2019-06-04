@@ -1,7 +1,7 @@
 /* === This file is part of Calamares - <https://github.com/calamares> ===
  *
  *   Copyright 2014-2015, Teo Mrnjavac <teo@kde.org>
- *   Copyright 2017-2018, Adriaan de Groot <groot@kde.org>
+ *   Copyright 2017-2019, Adriaan de Groot <groot@kde.org>
  *
  *   Calamares is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -17,13 +17,15 @@
  *   along with Calamares. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBCALAMARES_LOCALELABEL_H
-#define LIBCALAMARES_LOCALELABEL_H
+#ifndef LOCALE_LABEL_H
+#define LOCALE_LABEL_H
 
 #include <QLocale>
 #include <QString>
 
-namespace CalamaresUtils
+namespace CalamaresUtils 
+{
+namespace Locale
 {
 
 /**
@@ -33,28 +35,28 @@ namespace CalamaresUtils
  * translation system) into QLocales, and also into consistent
  * human-readable text labels.
  */
-class LocaleLabel
+class Label
 {
 public:
     /** @brief Formatting option for label -- add (country) to label. */
     enum class LabelFormat { AlwaysWithCountry, IfNeededWithCountry } ;
 
     /** @brief Empty locale. This uses the system-default locale. */
-    LocaleLabel();
-    
+    Label();
+
     /** @brief Construct from a locale name.
      *
      * The @p localeName should be one that Qt recognizes, e.g. en_US or ar_EY.
      * The @p format determines whether the country name is always present
      * in the label (human-readable form) or only if needed for disambiguation.
      */
-    LocaleLabel( const QString& localeName, LabelFormat format = LabelFormat::IfNeededWithCountry );
+    Label( const QString& localeName, LabelFormat format = LabelFormat::IfNeededWithCountry );
 
     /** @brief Define a sorting order.
      *
      * English (@see isEnglish() -- it means en_US) is sorted at the top.
      */
-    bool operator <( const LocaleLabel& other ) const
+    bool operator <( const Label& other ) const
     {
         return m_localeId < other.m_localeId;
     }
@@ -91,6 +93,18 @@ public:
         return m_locale.name();
     }
 
+    /// @brief Convenience accessor to the language part of the locale
+    QLocale::Language language() const
+    {
+        return m_locale.language();
+    }
+
+    /// @brief Convenience accessor to the country part (if any) of the locale
+    QLocale::Country country() const
+    {
+        return m_locale.country();
+    }
+
     /** @brief Get a Qt locale for the given @p localeName
      *
      * This special-cases `sr@latin`, which is used as a translation
@@ -100,14 +114,14 @@ public:
 
 protected:
     void setLabels( const QString& name, LabelFormat format );
-    
+
     QLocale m_locale;
     QString m_localeId;  // the locale identifier, e.g. "en_GB"
     QString m_label;  // the native name of the locale
     QString m_englishLabel;
 } ;
 
+}
+}  // namespace
 
-}  // namespace CalamaresUtils
-
-#endif // LIBCALAMARES_LOCALELABEL_H
+#endif
