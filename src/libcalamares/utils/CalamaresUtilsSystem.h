@@ -32,8 +32,16 @@ namespace CalamaresUtils
 class ProcessResult : public QPair< int, QString >
 {
 public:
+    enum class Code : int
+    {
+        Crashed = -1,        // Must match special return values from QProcess
+        FailedToStart = -2,  // Must match special return values from QProcess
+        NoWorkingDirectory = -3,
+        TimedOut = -4
+    } ;
+
     /** @brief Implicit one-argument constructor has no output, only a return code */
-    ProcessResult( int r ) : QPair< int, QString >( r, QString() ) {}
+    ProcessResult( Code r ) : QPair< int, QString >( static_cast<int>(r), QString() ) {}
     ProcessResult( int r, QString s ) : QPair< int, QString >( r, s ) {}
 
     int getExitCode() const { return first; }
@@ -93,9 +101,9 @@ public:
       * @param filesystemName the name of the filesystem (optional).
       * @param options any additional options as passed to mount -o (optional).
       * @returns the program's exit code, or:
-      *             -1 = QProcess crash
-      *             -2 = QProcess cannot start
-      *             -3 = bad arguments
+      *             Crashed = QProcess crash
+      *             FailedToStart = QProcess cannot start
+      *             NoWorkingDirectory = bad arguments
       */
     DLLEXPORT int mount( const QString& devicePath,
                          const QString& mountPoint,
@@ -120,10 +128,10 @@ public:
       *
       * @returns the program's exit code and its output (if any). Special
       *     exit codes (which will never have any output) are:
-      *             -1 = QProcess crash
-      *             -2 = QProcess cannot start
-      *             -3 = bad arguments
-      *             -4 = QProcess timeout
+      *             Crashed = QProcess crash
+      *             FailedToStart = QProcess cannot start
+      *             NoWorkingDirectory = bad arguments
+      *             TimedOut = QProcess timeout
       */
     static DLLEXPORT ProcessResult runCommand(
         RunLocation location,
@@ -197,6 +205,40 @@ public:
         return targetEnvOutput( QStringList{ command }, output, workingPath, stdInput, timeoutSec );
     }
 
+    
+    /** @brief Gets a path to a file in the target system, from the host.
+     * 
+     * @param path Path to the file; this is interpreted
+     *      from the root of the target system (whatever that may be,
+     *      but / in the chroot, or / in OEM modes).
+     * 
+     * @return The complete path to the target file, from
+     *      the root of the host system, or empty on failure.
+     * 
+     * For instance, during installation where the target root is
+     * mounted on /tmp/calamares-something, asking for targetPath("/etc/passwd")
+     * will give you /tmp/calamares-something/etc/passwd.
+     * 
+     * No attempt is made to canonicalize anything, since paths might not exist.
+     */ 
+    DLLEXPORT QString targetPath( const QString& path ) const;
+    
+    /** @brief Create a (small-ish) file in the target system.
+     * 
+     * @param path Path to the file; this is interpreted
+     *      from the root of the target system (whatever that may be,
+     *      but / in the chroot, or / in OEM modes).
+     * @param contents Actual content of the file.
+     * 
+     * Will not overwrite files. Returns an empty string if the
+     * target file already exists.
+     * 
+     * @return The complete canonical path to the target file from the
+     *      root of the host system, or empty on failure. (Here, it is
+     *      possible to be canonical because the file exists).
+     */
+    DLLEXPORT QString createTargetFile( const QString& path, const QByteArray& contents ) const;
+    
     /**
      * @brief getTotalMemoryB returns the total main memory, in bytes.
      *
