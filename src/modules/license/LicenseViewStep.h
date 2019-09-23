@@ -20,9 +20,9 @@
 #ifndef LICENSEPAGEPLUGIN_H
 #define LICENSEPAGEPLUGIN_H
 
+#include <PluginDllMacro.h>
 #include <utils/PluginFactory.h>
 #include <viewpages/ViewStep.h>
-#include <PluginDllMacro.h>
 
 #include <QObject>
 #include <QUrl>
@@ -42,9 +42,6 @@ public:
 
     QWidget* widget() override;
 
-    void next() override;
-    void back() override;
-
     bool isNextEnabled() const override;
     bool isBackEnabled() const override;
 
@@ -61,4 +58,4 @@ private:
 
 CALAMARES_PLUGIN_FACTORY_DECLARATION( LicenseViewStepFactory )
 
-#endif // LICENSEPAGEPLUGIN_H
+#endif  // LICENSEPAGEPLUGIN_H

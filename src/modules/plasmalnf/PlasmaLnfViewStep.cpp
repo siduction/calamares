@@ -21,8 +21,8 @@
 #include "PlasmaLnfPage.h"
 #include "ThemeInfo.h"
 
-#include "utils/CalamaresUtils.h"
 #include "utils/Logger.h"
+#include "utils/Variant.h"
 
 #include <QProcess>
 #include <QVariantMap>
@@ -74,18 +74,6 @@ PlasmaLnfViewStep::widget()
 {
     return m_widget;
 }
-
-
-void
-PlasmaLnfViewStep::next()
-{
-    emit done();
-}
-
-
-void
-PlasmaLnfViewStep::back()
-{}
 
 
 bool

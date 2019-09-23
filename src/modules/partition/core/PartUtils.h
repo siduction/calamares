@@ -1,7 +1,8 @@
 /* === This file is part of Calamares - <https://github.com/calamares> ===
  *
  *   Copyright 2015-2016, Teo Mrnjavac <teo@kde.org>
- *   Copyright 2018, Adriaan de Groot <groot@kde.org>
+ *   Copyright 2018-2019 Adriaan de Groot <groot@kde.org>
+ *   Copyright 2019, Collabora Ltd <arnaud.ferraris@collabora.com>
  *
  *   Calamares is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -21,7 +22,13 @@
 #define PARTUTILS_H
 
 #include "OsproberEntry.h"
+#include "utils/Units.h"
+#include "utils/NamedSuffix.h"
 
+// KPMcore
+#include <kpmcore/fs/filesystem.h>
+
+// Qt
 #include <QString>
 
 class PartitionCoreModule;
@@ -29,6 +36,15 @@ class Partition;
 
 namespace PartUtils
 {
+
+/**
+ * @brief Provides a nice human-readable name for @p candidate
+ *
+ * The most-specific human-readable name for the partition @p candidate
+ * is returned (e.g. device name, or partition path). In the worst
+ * case, a string representation of (void *)candidate is returned.
+ */
+QString convenienceName( const Partition* const candidate );
 
 /**
  * @brief canBeReplaced checks whether the given Partition satisfies the criteria
@@ -73,6 +89,16 @@ bool isEfiSystem();
  * the partition table layout, this may mean different flags.
  */
 bool isEfiBootable( const Partition* candidate );
+
+/** @brief translate @p fsName into a recognized name and type
+ *
+ * Makes several attempts to translate the string into a
+ * name that KPMCore will recognize.
+ * The corresponding filesystem type is stored in @p fsType, and
+ * its value is FileSystem::Unknown if @p fsName is not recognized.
+ */
+QString findFS( QString fsName, FileSystem::Type* fsType );
+
 }
 
 #endif // PARTUTILS_H

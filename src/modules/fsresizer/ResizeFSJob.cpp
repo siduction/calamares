@@ -33,84 +33,13 @@
 #include "JobQueue.h"
 #include "GlobalStorage.h"
 
-#include "utils/CalamaresUtils.h"
 #include "utils/Logger.h"
 #include "utils/Units.h"
+#include "utils/Variant.h"
 
-#include "modules/partition/core/PartitionIterator.h"
+// From partition module
+#include "core/PartitionIterator.h"
 
-ResizeFSJob::RelativeSize::RelativeSize()
-    : m_value( 0 )
-    , m_unit( None )
-{
-}
-
-
-template<int N>
-void matchUnitSuffix(
-    const QString& s,
-    const char ( &suffix )[N],
-    ResizeFSJob::RelativeSize::Unit matchedUnit,
-    int& value,
-    ResizeFSJob::RelativeSize::Unit& unit
-)
-{
-    if ( s.endsWith( suffix ) )
-    {
-        value = s.left( s.length() - N + 1 ).toInt();
-        unit = matchedUnit;
-    }
-}
-
-
-ResizeFSJob::RelativeSize::RelativeSize( const QString& s )
-    : m_value( 0 )
-    , m_unit( None )
-{
-    matchUnitSuffix( s, "%", Percent, m_value, m_unit );
-    matchUnitSuffix( s, "MiB", Absolute, m_value, m_unit );
-
-    if ( ( unit() == Percent ) && ( value() > 100 ) )
-    {
-        cDebug() << "Percent value" << value() << "is not valid.";
-        m_value = 0;
-        m_unit = None;
-    }
-
-    if ( !m_value )
-        m_unit = None;
-}
-
-qint64
-ResizeFSJob::RelativeSize::apply( qint64 totalSectors, qint64 sectorSize )
-{
-    if ( !isValid() )
-        return -1;
-    if ( sectorSize < 1 )
-        return -1;
-
-    switch ( m_unit )
-    {
-    case None:
-        return -1;
-    case Absolute:
-        return CalamaresUtils::MiBtoBytes( value() ) / sectorSize;
-    case Percent:
-        if ( value() == 100 )
-            return totalSectors;  // Common-case, avoid futzing around
-        else
-            return totalSectors * value() / 100;
-    }
-
-    // notreached
-    return -1;
-}
-
-qint64
-ResizeFSJob::RelativeSize::apply( Device* d )
-{
-    return apply( d->totalLogical(), d->logicalSize() );
-}
 
 ResizeFSJob::ResizeFSJob( QObject* parent )
     : Calamares::CppJob( parent )
@@ -134,7 +63,12 @@ ResizeFSJob::PartitionMatch
 ResizeFSJob::findPartition( CoreBackend* backend )
 {
     using DeviceList = QList< Device* >;
-    DeviceList devices = backend->scanDevices( false );
+#ifdef WITH_KPMCORE331API
+    DeviceList devices = backend->scanDevices( /* not includeReadOnly, not includeLoopback */ ScanFlag(0) );
+#else
+    DeviceList devices = backend->scanDevices( /* excludeReadOnly */ true );
+#endif
+
     cDebug() << "ResizeFSJob found" << devices.count() << "devices.";
     for ( DeviceList::iterator dev_it = devices.begin(); dev_it != devices.end(); ++dev_it )
     {
@@ -143,11 +77,11 @@ ResizeFSJob::findPartition( CoreBackend* backend )
         cDebug() << "ResizeFSJob found" << ( *dev_it )->deviceNode();
         for ( auto part_it = PartitionIterator::begin( *dev_it ); part_it != PartitionIterator::end( *dev_it ); ++part_it )
         {
-            cDebug() << ".." << ( *part_it )->mountPoint() << "on" << ( *part_it )->deviceNode();
+            cDebug() << Logger::SubEntry <<  ( *part_it )->mountPoint() << "on" << ( *part_it )->deviceNode();
             if ( ( !m_fsname.isEmpty() && ( *part_it )->mountPoint() == m_fsname ) ||
                     ( !m_devicename.isEmpty() && ( *part_it )->deviceNode() == m_devicename ) )
             {
-                cDebug() << ".. matched configuration dev=" << m_devicename << "fs=" << m_fsname;
+                cDebug() << Logger::SubEntry << "matched configuration dev=" << m_devicename << "fs=" << m_fsname;
                 return PartitionMatch( *dev_it, *part_it );
             }
         }
@@ -191,13 +125,13 @@ ResizeFSJob::findGrownEnd( ResizeFSJob::PartitionMatch m )
         }
         if ( ( *part_it )->roles().has( PartitionRole::Unallocated ) )
         {
-            cDebug() << ".. ignoring unallocated" << next_start << '-' << next_end;
+            cDebug() << Logger::SubEntry << "ignoring unallocated" << next_start << '-' << next_end;
             continue;
         }
-        cDebug() << ".. comparing" << next_start << '-' << next_end;
+        cDebug() << Logger::SubEntry << "comparing" << next_start << '-' << next_end;
         if ( ( next_start > last_currently ) && ( next_start < last_available ) )
         {
-            cDebug() << "  .. shrunk last available to" << next_start;
+            cDebug() << Logger::SubEntry << "shrunk last available to" << next_start;
             last_available = next_start - 1;  // Before that one starts
         }
     }
@@ -211,18 +145,18 @@ ResizeFSJob::findGrownEnd( ResizeFSJob::PartitionMatch m )
     qint64 expand = last_available - last_currently;  // number of sectors
     if ( m_atleast.isValid() )
     {
-        qint64 required = m_atleast.apply( m.first );
+        qint64 required = m_atleast.toSectors( m.first->totalLogical(), m.first->logicalSize() );
         if ( expand < required )
         {
-            cDebug() << ".. need to expand by" << required << "but only" << expand << "is available.";
+            cDebug() << Logger::SubEntry << "need to expand by" << required << "but only" << expand << "is available.";
             return 0;
         }
     }
 
-    qint64 wanted = m_size.apply( expand, m.first->logicalSize() );
+    qint64 wanted = m_size.toSectors( expand, m.first->logicalSize() );
     if ( wanted < expand )
     {
-        cDebug() << ".. only growing by" << wanted << "instead of full" << expand;
+        cDebug() << Logger::SubEntry << "only growing by" << wanted << "instead of full" << expand;
         last_available -= ( expand - wanted );
     }
 
@@ -338,8 +272,8 @@ ResizeFSJob::setConfigurationMap( const QVariantMap& configurationMap )
         return;
     }
 
-    m_size = RelativeSize( configurationMap["size"].toString() );
-    m_atleast = RelativeSize( configurationMap["atleast"].toString() );
+    m_size = PartitionSize( configurationMap["size"].toString() );
+    m_atleast = PartitionSize( configurationMap["atleast"].toString() );
 
     m_required = CalamaresUtils::getBool( configurationMap, "required", false );
 }

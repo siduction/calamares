@@ -2,6 +2,7 @@
  *
  *   Copyright 2014, Aurélien Gâteau <agateau@kde.org>
  *   Copyright 2014-2016, Teo Mrnjavac <teo@kde.org>
+ *   Copyright 2019, Adriaan de Groot <groot@kde.org>
  *
  *   Calamares is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -20,8 +21,11 @@
 #ifndef PARTITIONCOREMODULE_H
 #define PARTITIONCOREMODULE_H
 
+#include "core/KPMHelpers.h"
+#include "core/PartitionLayout.h"
 #include "core/PartitionModel.h"
-#include "Typedefs.h"
+
+#include "Job.h"
 
 // KPMcore
 #include <kpmcore/core/lvmdevice.h>
@@ -128,8 +132,14 @@ public:
 
     void createPartitionTable( Device* device, PartitionTable::TableType type );
 
+    /**
+     * @brief Add a job to do the actual partition-creation.
+     *
+     * If @p flags is not FlagNone, then the given flags are
+     * applied to the newly-created partition.
+     */
     void createPartition( Device* device, Partition* partition,
-                          PartitionTable::Flags flags = PartitionTable::FlagNone );
+                          PartitionTable::Flags flags = KPM_PARTITION_FLAG(None) );
 
     void createVolumeGroup( QString &vgName, QVector< const Partition* > pvList, qint32 peSize );
 
@@ -147,14 +157,23 @@ public:
 
     void setPartitionFlags( Device* device, Partition* partition, PartitionTable::Flags flags );
 
+    /// @brief Retrieve the path where the bootloader will be installed
+    QString bootLoaderInstallPath() const { return m_bootLoaderInstallPath; }
+    /// @brief Set the path where the bootloader will be installed
     void setBootLoaderInstallPath( const QString& path );
+
+    void initLayout();
+    void initLayout( const QVariantList& config );
+
+    void layoutApply( Device *dev, qint64 firstSector, qint64 lastSector, QString luksPassphrase );
+    void layoutApply( Device *dev, qint64 firstSector, qint64 lastSector, QString luksPassphrase, PartitionNode* parent, const PartitionRole& role );
 
     /**
      * @brief jobs creates and returns a list of jobs which can then apply the changes
      * requested by the user.
      * @return a list of jobs.
      */
-    QList< Calamares::job_ptr > jobs() const;
+    Calamares::JobList jobs() const;
 
     bool hasRootMountPoint() const;
 
@@ -178,7 +197,12 @@ public:
 
     void revert();                      // full revert, thread safe, calls doInit
     void revertAllDevices();            // convenience function, calls revertDevice
-    void revertDevice( Device* dev );   // rescans a single Device and updates DeviceInfo
+    /** @brief rescans a single Device and updates DeviceInfo
+     *
+     * When @p individualRevert is true, calls refreshAfterModelChange(),
+     * used to reduce number of refreshes when calling revertAllDevices().
+     */
+    void revertDevice( Device* dev, bool individualRevert=true );
     void asyncRevertDevice( Device* dev, std::function< void() > callback ); //like revertDevice, but asynchronous
 
     void clearJobs();   // only clear jobs, the Device* states are preserved
@@ -223,7 +247,7 @@ private:
         QScopedPointer< Device > device;
         QScopedPointer< PartitionModel > partitionModel;
         const QScopedPointer< Device > immutableDevice;
-        QList< Calamares::job_ptr > jobs;
+        Calamares::JobList jobs;
 
         // To check if LVM VGs are deactivated
         bool isAvailable;
@@ -240,6 +264,7 @@ private:
     bool m_hasRootMountPoint = false;
     bool m_isDirty = false;
     QString m_bootLoaderInstallPath;
+    PartitionLayout* m_partLayout;
 
     void doInit();
     void updateHasRootMountPoint();

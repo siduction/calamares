@@ -35,7 +35,6 @@ class ProgressTreeModel : public QAbstractItemModel
 public:
     enum Role
     {
-        ProgressTreeItemRole        = Qt::UserRole + 10,
         ProgressTreeItemCurrentRole = Qt::UserRole + 11
     };
 
@@ -58,4 +57,4 @@ private:
     ProgressTreeRoot* m_rootItem;
 };
 
-#endif // PROGRESSTREEMODEL_H
+#endif  // PROGRESSTREEMODEL_H

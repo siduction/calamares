@@ -20,6 +20,8 @@
 
 #include "InteractiveTerminalPage.h"
 
+#include "utils/Logger.h"
+
 #include <QVariant>
 
 CALAMARES_PLUGIN_FACTORY_DEFINITION( InteractiveTerminalViewStepFactory, registerPlugin<InteractiveTerminalViewStep>(); )
@@ -53,18 +55,6 @@ InteractiveTerminalViewStep::widget()
 }
 
 
-void
-InteractiveTerminalViewStep::next()
-{
-    emit done();
-}
-
-
-void
-InteractiveTerminalViewStep::back()
-{}
-
-
 bool
 InteractiveTerminalViewStep::isNextEnabled() const
 {
@@ -96,6 +86,7 @@ InteractiveTerminalViewStep::isAtEnd() const
 QList< Calamares::job_ptr >
 InteractiveTerminalViewStep::jobs() const
 {
+    cDebug() << "InteractiveTerminal" << prettyName() << "asked for jobs(), this is probably wrong.";
     return QList< Calamares::job_ptr >();
 }
 
@@ -103,6 +94,7 @@ InteractiveTerminalViewStep::jobs() const
 void
 InteractiveTerminalViewStep::onActivate()
 {
+    cDebug() << "InteractiveTerminal" << prettyName() << "activated.";
     m_widget->onActivate();
 }
 

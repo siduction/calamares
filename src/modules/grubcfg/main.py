@@ -6,7 +6,7 @@
 #   Copyright 2014-2015, Philip Müller <philm@manjaro.org>
 #   Copyright 2015-2017, Teo Mrnjavac <teo@kde.org>
 #   Copyright 2017, Alf Gaida <agaida@siduction.org>
-#   Copyright 2017, Adriaan de Groot <groot@kde.org>
+#   Copyright 2017, 2019, Adriaan de Groot <groot@kde.org>
 #   Copyright 2017-2018, Gabriel Craciunescu <crazy@frugalware.org>
 #
 #   Calamares is free software: you can redistribute it and/or modify
@@ -25,6 +25,16 @@
 import libcalamares
 import os
 import re
+
+import gettext
+_ = gettext.translation("calamares-python",
+                        localedir=libcalamares.utils.gettext_path(),
+                        languages=libcalamares.utils.gettext_languages(),
+                        fallback=True).gettext
+
+
+def pretty_name():
+    return _("Configure GRUB.")
 
 
 def modify_grub_default(partitions, root_mount_point, distributor):
@@ -62,12 +72,6 @@ def modify_grub_default(partitions, root_mount_point, distributor):
 
     cryptdevice_params = []
 
-    # GRUB needs to decrypt the partition that /boot is on, which may be / or /boot
-    boot_mountpoint = "/"
-    for partition in partitions:
-        if partition["mountPoint"] == "/boot":
-            boot_mountpoint = "/boot"
-
     if have_dracut:
         for partition in partitions:
             has_luks = "luksMapperName" in partition
@@ -78,7 +82,7 @@ def modify_grub_default(partitions, root_mount_point, distributor):
                 swap_outer_uuid = partition["luksUuid"]
                 swap_outer_mappername = partition["luksMapperName"]
 
-            if (partition["mountPoint"] == boot_mountpoint and has_luks):
+            if (partition["mountPoint"] == "/" and has_luks):
                 cryptdevice_params = [
                     "rd.luks.uuid={!s}".format(partition["luksUuid"])
                     ]
@@ -88,7 +92,7 @@ def modify_grub_default(partitions, root_mount_point, distributor):
             if partition["fs"] == "linuxswap" and not has_luks:
                 swap_uuid = partition["uuid"]
 
-            if (partition["mountPoint"] == boot_mountpoint and has_luks):
+            if (partition["mountPoint"] == "/" and has_luks):
                 cryptdevice_params = [
                     "cryptdevice=UUID={!s}:{!s}".format(
                         partition["luksUuid"], partition["luksMapperName"]

@@ -20,15 +20,32 @@
 #define CALAMARES_JOB_H
 
 #include "DllMacro.h"
-#include "Typedefs.h"
 
+#include <QList>
 #include <QObject>
+#include <QSharedPointer>
 
-namespace Calamares {
+namespace Calamares
+{
 
 class DLLEXPORT JobResult
 {
 public:
+    /** @brief Distinguish classes of errors
+     *
+     * All "ok result" have errorCode 0 (NoError).
+     * Errors returned from job execution have values < 0.
+     * Errors before job execution, or not returned by the job execution
+     * itself, have values > 0.
+     */
+    enum
+    {
+        NoError = 0,
+        GenericError = -1,
+        PythonUncaughtException = 1,
+        InvalidConfiguration = 2
+    };
+
     JobResult( const JobResult& rhs ) = delete;
     JobResult( JobResult&& rhs );
 
@@ -42,17 +59,22 @@ public:
     virtual QString details() const;
     virtual void setDetails( const QString& details );
 
-    static JobResult ok();
+    int errorCode() const { return m_number; }
 
+    /// @brief an "ok status" result
+    static JobResult ok();
+    /// @brief an "error" result resulting from the execution of the job
     static JobResult error( const QString& message, const QString& details = QString() );
+    /// @brief an "internal error" meaning the job itself has a problem (usually for python)
+    static JobResult internalError( const QString&, const QString& details, int errorCode );
 
 protected:
-    explicit JobResult( bool ok, const QString& message, const QString& details );
+    explicit JobResult( const QString& message, const QString& details, int errorCode );
 
 private:
-    bool m_ok;
     QString m_message;
     QString m_details;
+    int m_number;
 };
 
 class DLLEXPORT Job : public QObject
@@ -62,6 +84,7 @@ public:
     explicit Job( QObject* parent = nullptr );
     virtual ~Job();
 
+    virtual qreal getJobWeight() const;
     virtual QString prettyName() const = 0;
     virtual QString prettyDescription() const;
     virtual QString prettyStatusMessage() const;
@@ -77,6 +100,9 @@ private:
     bool m_emergency = false;
 };
 
-} // namespace Calamares
+using job_ptr = QSharedPointer< Job >;
+using JobList = QList< job_ptr >;
 
-#endif // CALAMARES_JOB_H
+}  // namespace Calamares
+
+#endif  // CALAMARES_JOB_H

@@ -2,7 +2,7 @@
  *
  *   Copyright 2014, Aurélien Gâteau <agateau@kde.org>
  *   Copyright 2016, Teo Mrnjavac <teo@kde.org>
- *   Copyright 2018, Adriaan de Groot <groot@kde.org>
+ *   Copyright 2018-2019 Adriaan de Groot <groot@kde.org>
  *
  *   Calamares is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -44,7 +44,7 @@ void
 standardMountPoints(QComboBox& combo)
 {
     combo.clear();
-    combo.addItem( combo.tr( "(no mount point)" ) );
+    combo.addItem( QObject::tr( "(no mount point)" ) );
     combo.addItems( standardMountPoints() );
 }
 

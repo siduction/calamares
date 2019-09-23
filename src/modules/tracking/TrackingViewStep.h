@@ -21,9 +21,9 @@
 
 #include "TrackingType.h"
 
+#include <PluginDllMacro.h>
 #include <utils/PluginFactory.h>
 #include <viewpages/ViewStep.h>
-#include <PluginDllMacro.h>
 
 #include <QObject>
 #include <QUrl>
@@ -42,9 +42,6 @@ public:
     QString prettyName() const override;
 
     QWidget* widget() override;
-
-    void next() override;
-    void back() override;
 
     bool isNextEnabled() const override;
     bool isBackEnabled() const override;
@@ -68,12 +65,13 @@ private:
     struct TrackingEnabled
     {
         bool settingEnabled;  // Enabled in config file
-        bool userEnabled;     // User checked "yes"
+        bool userEnabled;  // User checked "yes"
 
         TrackingEnabled()
             : settingEnabled( false )
             , userEnabled( false )
-        {}
+        {
+        }
 
         bool enabled() const { return settingEnabled && userEnabled; }
     };
@@ -81,15 +79,21 @@ private:
 
     inline TrackingEnabled& tracking( TrackingType t )
     {
-        if (t == TrackingType::UserTracking)
+        if ( t == TrackingType::UserTracking )
+        {
             return m_userTracking;
-        else if (t == TrackingType::MachineTracking)
+        }
+        else if ( t == TrackingType::MachineTracking )
+        {
             return m_machineTracking;
+        }
         else
+        {
             return m_installTracking;
+        }
     }
 };
 
 CALAMARES_PLUGIN_FACTORY_DECLARATION( TrackingViewStepFactory )
 
-#endif // TRACKINGVIEWSTEP_H
+#endif  // TRACKINGVIEWSTEP_H

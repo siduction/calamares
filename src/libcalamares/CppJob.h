@@ -24,7 +24,6 @@
 #include <QVariant>
 
 #include "DllMacro.h"
-#include "Typedefs.h"
 #include "Job.h"
 
 namespace Calamares
@@ -46,6 +45,6 @@ protected:
     QString m_instanceKey;
 };
 
-}
+}  // namespace Calamares
 
-#endif // CALAMARES_CPPJOB_H
+#endif  // CALAMARES_CPPJOB_H

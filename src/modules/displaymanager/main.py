@@ -8,7 +8,8 @@
 #   Copyright 2014, Kevin Kofler <kevin.kofler@chello.at>
 #   Copyright 2017, Alf Gaida <agaida@siduction.org>
 #   Copyright 2017, Bernhard Landauer <oberon@manjaro.org>
-#   Copyright 2017, Adriaan de Groot <groot@kde.org>
+#   Copyright 2017, 2019, Adriaan de Groot <groot@kde.org>
+#   Copyright 2019, Dominic Hayes <ferenosdev@outlook.com>
 #
 #   Calamares is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -62,6 +63,7 @@ class DesktopEnvironment:
 
 
 desktop_environments = [
+    DesktopEnvironment('/usr/bin/startplasma-x11', 'plasma'),  # KDE Plasma 5.17+
     DesktopEnvironment('/usr/bin/startkde', 'plasma'),  # KDE Plasma 5
     DesktopEnvironment('/usr/bin/startkde', 'kde-plasma'),  # KDE Plasma 4
     DesktopEnvironment(
@@ -116,14 +118,11 @@ class DisplayManager(metaclass=abc.ABCMeta):
         in the target system.
         """
         if self.executable is None:
-            return True
+            return False
 
         bin_path = "{!s}/usr/bin/{!s}".format(self.root_mount_point, self.executable)
         sbin_path = "{!s}/usr/sbin/{!s}".format(self.root_mount_point, self.executable)
-        return (
-            os.path.exists(bin_path)
-            or os.path.exists(sbin_path)
-            )
+        return os.path.exists(bin_path) or os.path.exists(sbin_path)
 
     # The four abstract methods below are called in the order listed here.
     # They must all be implemented by subclasses, but not all of them
@@ -250,10 +249,33 @@ class DMmdm(DisplayManager):
 class DMgdm(DisplayManager):
     name = "gdm"
     executable = "gdm"
+    config = None  # Set by have_dm()
+
+    def have_dm(self):
+        """
+        GDM exists with different executable names, so search
+        for one of them and use it.
+        """
+        for executable, config in (
+            ( "gdm", "etc/gdm/custom.conf" ),
+            ( "gdm3", "etc/gdm3/daemon.conf" )
+        ):
+            bin_path = "{!s}/usr/bin/{!s}".format(self.root_mount_point, executable)
+            sbin_path = "{!s}/usr/sbin/{!s}".format(self.root_mount_point, executable)
+            if os.path.exists(bin_path) or os.path.exists(sbin_path):
+                # Keep the found-executable name around for later
+                self.executable = executable
+                self.config = config
+                return True
+
+        return False
 
     def set_autologin(self, username, do_autologin, default_desktop_environment):
+        if self.config is None:
+            raise ValueError( "No config file for GDM has been set." )
+
         # Systems with GDM as Desktop Manager
-        gdm_conf_path = os.path.join(self.root_mount_point, "etc/gdm/custom.conf")
+        gdm_conf_path = os.path.join(self.root_mount_point, self.config)
 
         if os.path.exists(gdm_conf_path):
             with open(gdm_conf_path, 'r') as gdm_conf:
@@ -487,12 +509,21 @@ class DMlightdm(DisplayManager):
             self.root_mount_point, "etc/lightdm/lightdm.conf"
             )
         text = []
+        addseat = False
+        loopcount = 0
 
         if os.path.exists(lightdm_conf_path):
             with open(lightdm_conf_path, 'r') as lightdm_conf:
                 text = lightdm_conf.readlines()
+                # Check to make sure [SeatDefaults] or [Seat:*] is in the config,
+                # otherwise we'll risk malforming the config
+                addseat = '[SeatDefaults]' not in text and '[Seat:*]' not in text
 
             with open(lightdm_conf_path, 'w') as lightdm_conf:
+                if addseat:
+                    # Prepend Seat line to start of file rather than leaving it without one
+                    # This keeps the config from being malformed for LightDM
+                    text = ["[Seat:*]\n"] + text
                 for line in text:
                     if 'autologin-user=' in line:
                         if do_autologin:
@@ -504,14 +535,14 @@ class DMlightdm(DisplayManager):
         else:
             try:
                 # Create a new lightdm.conf file; this is documented to be
-                # read last, after aeverything in lightdm.conf.d/
+                # read last, after everything in lightdm.conf.d/
                 with open(lightdm_conf_path, 'w') as lightdm_conf:
                     if do_autologin:
                         lightdm_conf.write(
-                            "autologin-user={!s}\n".format(username))
+                            "[Seat:*]\nautologin-user={!s}\n".format(username))
                     else:
                         lightdm_conf.write(
-                            "#autologin-user=\n")
+                            "[Seat:*]\n#autologin-user=\n")
             except FileNotFoundError:
                 return (
                     _("Cannot write LightDM configuration file"),
@@ -768,11 +799,11 @@ def run():
                 displaymanagers.remove(dm)
 
     if not dm_impl:
-        return (
-            _("No display managers selected for the displaymanager module."),
-            _("The list is empty after checking for installed display managers.")
+        libcalamares.utils.warning(
+            "No display managers selected for the displaymanager module. "
+            "The list is empty after checking for installed display managers."
             )
-
+        return None
 
     # Pick up remaining settings
     if "defaultDesktopEnvironment" in libcalamares.job.configuration:

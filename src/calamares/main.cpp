@@ -21,14 +21,14 @@
 #include "CalamaresApplication.h"
 
 #include "CalamaresConfig.h"
-#include "kdsingleapplicationguard/kdsingleapplicationguard.h"
-#include "utils/CalamaresUtils.h"
+#include "utils/Dirs.h"
 #include "utils/Logger.h"
-#include "CalamaresConfig.h"
 
-#ifdef WITH_KCRASH
-#include <KF5/KCrash/KCrash>
+#include "3rdparty/kdsingleapplicationguard/kdsingleapplicationguard.h"
+
 #include <KF5/KCoreAddons/KAboutData>
+#ifdef WITH_KF5Crash
+#include <KF5/KCrash/KCrash>
 #endif
 
 #include <QCommandLineParser>
@@ -38,14 +38,13 @@
 static void
 handle_args( CalamaresApplication& a )
 {
-    QCommandLineOption debugOption( QStringList{ "d", "debug"},
+    QCommandLineOption debugOption( QStringList { "d", "debug" },
                                     "Also look in current directory for configuration. Implies -D8." );
-    QCommandLineOption debugLevelOption( QStringLiteral("D"),
-                                          "Verbose output for debugging purposes (0-8).", "level" );
-    QCommandLineOption configOption( QStringList{ "c", "config"},
-                                     "Configuration directory to use, for testing purposes.", "config" );
-    QCommandLineOption xdgOption( QStringList{"X", "xdg-config"},
-                                  "Use XDG_{CONFIG,DATA}_DIRS as well." );
+    QCommandLineOption debugLevelOption(
+        QStringLiteral( "D" ), "Verbose output for debugging purposes (0-8).", "level" );
+    QCommandLineOption configOption(
+        QStringList { "c", "config" }, "Configuration directory to use, for testing purposes.", "config" );
+    QCommandLineOption xdgOption( QStringList { "X", "xdg-config" }, "Use XDG_{CONFIG,DATA}_DIRS as well." );
 
     QCommandLineParser parser;
     parser.setApplicationDescription( "Distribution-independent installer framework" );
@@ -61,22 +60,32 @@ handle_args( CalamaresApplication& a )
 
     a.setDebug( parser.isSet( debugOption ) );
     if ( parser.isSet( debugOption ) )
+    {
         Logger::setupLogLevel( Logger::LOGVERBOSE );
+    }
     else if ( parser.isSet( debugLevelOption ) )
     {
         bool ok = true;
         int l = parser.value( debugLevelOption ).toInt( &ok );
         unsigned int dlevel = 0;
         if ( !ok || ( l < 0 ) )
+        {
             dlevel = Logger::LOGVERBOSE;
+        }
         else
-            dlevel = static_cast<unsigned int>( l );  // l >= 0
+        {
+            dlevel = static_cast< unsigned int >( l );  // l >= 0
+        }
         Logger::setupLogLevel( dlevel );
     }
     if ( parser.isSet( configOption ) )
+    {
         CalamaresUtils::setAppDataDir( QDir( parser.value( configOption ) ) );
+    }
     if ( parser.isSet( xdgOption ) )
+    {
         CalamaresUtils::setXdgDirs();
+    }
 }
 
 int
@@ -84,7 +93,6 @@ main( int argc, char* argv[] )
 {
     CalamaresApplication a( argc, argv );
 
-#ifdef WITH_KCRASH
     KAboutData aboutData( "calamares",
                           "Calamares",
                           a.applicationVersion(),
@@ -95,12 +103,14 @@ main( int argc, char* argv[] )
                           "https://calamares.io",
                           "https://github.com/calamares/calamares/issues" );
     KAboutData::setApplicationData( aboutData );
+    a.setApplicationDisplayName( QString() );  // To avoid putting an extra "Calamares/" into the log-file
+
+#ifdef WITH_KF5Crash
     KCrash::initialize();
     // KCrash::setCrashHandler();
     KCrash::setDrKonqiEnabled( true );
     KCrash::setFlags( KCrash::SaferDialog | KCrash::AlwaysDirectly );
     // TODO: umount anything in /tmp/calamares-... as an emergency save function
-    a.setApplicationDisplayName( QString() );
 #endif
 
     handle_args( a );
@@ -114,12 +124,17 @@ main( int argc, char* argv[] )
     }
     else
     {
+        // Here we have not yet set-up the logger system, so qDebug() is ok
         auto instancelist = guard.instances();
         qDebug() << "Calamares is already running, shutting down.";
         if ( instancelist.count() > 0 )
+        {
             qDebug() << "Other running Calamares instances:";
+        }
         for ( const auto& i : instancelist )
+        {
             qDebug() << "  " << i.isValid() << i.pid() << i.arguments();
+        }
     }
 
     return returnCode;

@@ -15,9 +15,10 @@ endif()
 include_directories( ${PROJECT_BINARY_DIR}/src/libcalamaresui )
 
 set( CHECKER_SOURCES
-    checker/CheckItemWidget.cpp
-    checker/CheckerWidget.cpp
-    checker/RequirementsChecker.cpp
+    checker/CheckerContainer.cpp
+    checker/GeneralRequirements.cpp
+    checker/ResultWidget.cpp
+    checker/ResultsListWidget.cpp
     ${PARTMAN_SRC}
 )
 
@@ -30,6 +31,8 @@ calamares_add_plugin( welcome
         WelcomePage.cpp
     UI
         WelcomePage.ui
+    RESOURCES
+        welcome.qrc
     LINK_PRIVATE_LIBRARIES
         calamaresui
         ${CHECKER_LINK_LIBRARIES}

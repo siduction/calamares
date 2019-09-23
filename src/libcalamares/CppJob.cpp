@@ -24,11 +24,11 @@ namespace Calamares
 
 CppJob::CppJob( QObject* parent )
     : Job( parent )
-{}
+{
+}
 
 
-CppJob::~CppJob()
-{}
+CppJob::~CppJob() {}
 
 
 void
@@ -41,7 +41,7 @@ CppJob::setModuleInstanceKey( const QString& instanceKey )
 void
 CppJob::setConfigurationMap( const QVariantMap& configurationMap )
 {
-    Q_UNUSED( configurationMap );
+    Q_UNUSED( configurationMap )
 }
 
-}
+}  // namespace Calamares

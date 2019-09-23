@@ -22,6 +22,8 @@
 
 #include "CalamaresConfig.h"
 
+#include <QObject>
+#include <QString>
 #include <QVariantMap>
 
 #ifdef WITH_PYTHON
@@ -34,8 +36,8 @@ namespace api
 class object;
 }
 class list;
-}
-}
+}  // namespace python
+}  // namespace boost
 #endif
 
 namespace Calamares
@@ -60,6 +62,7 @@ public:
 
     /// @brief dump keys and values to the debug log
     void debugDump() const;
+
     /** @brief write as JSON to the given filename
      *
      * No tidying, sanitization, or censoring is done -- for instance,
@@ -69,16 +72,39 @@ public:
      */
     bool save( const QString& filename );
 
+    /** @brief Adds the keys from the given JSON file
+     *
+     * No tidying, sanitization, or censoring is done.
+     * The JSON file is read and each key is added as a value to
+     * the global storage.
+     */
+    bool load( const QString& filename );
+
+    /** @brief write as YAML to the given filename
+     *
+     * See also save(), above.
+     */
+    bool saveYaml( const QString& filename );
+
+    /// @brief reads settings from the given filename
+    bool loadYaml( const QString& filename );
+
+    /** @brief Get internal mapping as a constant object
+     *
+     * Note that the VariantMap underneath may change, because
+     * it's not constant in itself. Connect to the changed()
+     * signal for notifications.
+     */
+    const QVariantMap& data() const { return m; }
+
 signals:
     void changed();
 
 private:
     QVariantMap m;
-
-    friend DebugWindow;
 };
 
-} // namespace Calamares
+}  // namespace Calamares
 
 #ifdef WITH_PYTHON
 namespace CalamaresPython
@@ -106,7 +132,7 @@ private:
     static Calamares::GlobalStorage* s_gs_instance;  // See globalStorageInstance()
 };
 
-} // namespace CalamaresPython
+}  // namespace CalamaresPython
 #endif
 
-#endif // CALAMARES_GLOBALSTORAGE_H
+#endif  // CALAMARES_GLOBALSTORAGE_H

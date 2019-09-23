@@ -1,7 +1,8 @@
 /* === This file is part of Calamares - <https://github.com/calamares> ===
  *
  *   Copyright 2014, Aurélien Gâteau <agateau@kde.org>
- *   Copyright 2018, Adriaan de Groot <groot@kde.org>
+ *   Copyright 2018-2019, Adriaan de Groot <groot@kde.org>
+ *   Copyright 2019, Collabora Ltd
  *
  *   Calamares is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -46,6 +47,19 @@ public:
 
     void onRevertClicked();
 
+    int selectedDeviceIndex();
+    void selectDeviceByIndex( int index );
+
+private slots:
+    /// @brief Update everything when the base device changes
+    void updateFromCurrentDevice();
+    /// @brief Update when the selected device for boot loader changes
+    void updateBootLoaderInstallPath();
+    /// @brief Explicitly selected boot loader path
+    void updateSelectedBootLoaderIndex();
+    /// @brief After boot loader model changes, try to preserve previously set value
+    void restoreSelectedBootLoader();
+
 private:
     QScopedPointer< Ui_PartitionPage > m_ui;
     PartitionCoreModule* m_core;
@@ -63,8 +77,6 @@ private:
 
     void updatePartitionToCreate( Device*, Partition* );
     void editExistingPartition( Device*, Partition* );
-    void updateBootLoaderInstallPath();
-    void updateFromCurrentDevice();
     void updateBootLoaderIndex();
 
     /**

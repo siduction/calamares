@@ -20,7 +20,7 @@
 #define CALAMARES_JOBQUEUE_H
 
 #include "DllMacro.h"
-#include "Typedefs.h"
+#include "Job.h"
 
 #include <QObject>
 
@@ -59,6 +59,6 @@ private:
     GlobalStorage* m_storage;
 };
 
-}
+}  // namespace Calamares
 
-#endif // CALAMARES_JOBQUEUE_H
+#endif  // CALAMARES_JOBQUEUE_H

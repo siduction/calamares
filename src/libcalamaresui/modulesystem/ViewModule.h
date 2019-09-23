@@ -20,8 +20,8 @@
 #ifndef CALAMARES_VIEWMODULE_H
 #define CALAMARES_VIEWMODULE_H
 
-#include "UiDllMacro.h"
 #include "Module.h"
+#include "UiDllMacro.h"
 
 class QPluginLoader;
 
@@ -39,11 +39,13 @@ public:
     void loadSelf() override;
     JobList jobs() const override;
 
+    RequirementsList checkRequirements() override;
+
 protected:
     void initFrom( const QVariantMap& moduleDescriptor ) override;
 
 private:
-    friend class Module; //so only the superclass can instantiate
+    friend class Module;  //so only the superclass can instantiate
     explicit ViewModule();
     virtual ~ViewModule() override;
 
@@ -51,6 +53,6 @@ private:
     ViewStep* m_viewStep = nullptr;
 };
 
-} // namespace Calamares
+}  // namespace Calamares
 
-#endif // CALAMARES_VIEWMODULE_H
+#endif  // CALAMARES_VIEWMODULE_H

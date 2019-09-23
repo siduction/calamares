@@ -1,6 +1,7 @@
 /* === This file is part of Calamares - <https://github.com/calamares> ===
  *
  *   Copyright 2014-2015, Teo Mrnjavac <teo@kde.org>
+ *   Copyright 2017, Adriaan de Groot <groot@kde.org>
  *
  *   Calamares is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -19,20 +20,13 @@
 #ifndef CALAMARES_MODULE_H
 #define CALAMARES_MODULE_H
 
+#include "Job.h"
+#include "Requirement.h"
 #include "UiDllMacro.h"
-
-#include <Typedefs.h>
 
 #include <QStringList>
 #include <QVariant>
 
-
-namespace Calamares
-{
-class Module;
-}
-
-void operator>>( const QVariantMap& moduleDescriptor, Calamares::Module* m );
 
 namespace Calamares
 {
@@ -52,7 +46,7 @@ public:
      * A job module is a single Calamares job.
      * A view module has a UI (one or more view pages) and zero-to-many jobs.
      */
-    enum Type
+    enum class Type
     {
         Job,
         View
@@ -63,12 +57,12 @@ public:
      * talks to Calamares.
      * Not all Type-Interface associations are valid.
      */
-    enum Interface
+    enum class Interface
     {
-        QtPluginInterface,
-        PythonInterface,
-        ProcessInterface,
-        PythonQtInterface
+        QtPlugin,  // Jobs or Views
+        Python,  // Jobs only
+        Process,  // Deprecated interface
+        PythonQt  // Views only, available as enum even if PythonQt isn't used
     };
 
     /**
@@ -140,10 +134,7 @@ public:
      * @brief isLoaded reports on the loaded status of a module.
      * @return true if the module's loading phase has finished, otherwise false.
      */
-    bool isLoaded() const
-    {
-        return m_loaded;
-    }
+    bool isLoaded() const { return m_loaded; }
 
     /**
      * @brief loadSelf initialized the module.
@@ -160,10 +151,7 @@ public:
      * are not run (in the common case where there is only
      * one exec block, this doesn't really matter).
      */
-    bool isEmergency() const
-    {
-        return m_emergency;
-    }
+    bool isEmergency() const { return m_emergency; }
 
     /**
      * @brief jobs returns any jobs exposed by this module.
@@ -178,6 +166,11 @@ public:
      */
     QVariantMap configurationMap();
 
+    /**
+     * @brief Check the requirements of this module.
+     */
+    virtual RequirementsList checkRequirements();
+
 protected:
     explicit Module();
     virtual void initFrom( const QVariantMap& moduleDescriptor );
@@ -188,16 +181,13 @@ protected:
     bool m_maybe_emergency = false;  // Based on the module.desc
 
 private:
-    void loadConfigurationFile( const QString& configFileName ); //throws YAML::Exception
+    void loadConfigurationFile( const QString& configFileName );  //throws YAML::Exception
 
     QString m_name;
     QString m_directory;
     QString m_instanceId;
-
-    friend void ::operator>>( const QVariantMap& moduleDescriptor,
-                              Calamares::Module* m );
 };
 
-}
+}  // namespace Calamares
 
-#endif // CALAMARES_MODULE_H
+#endif  // CALAMARES_MODULE_H

@@ -23,8 +23,8 @@
 #include "JobQueue.h"
 #include "GlobalStorage.h"
 
-#include "utils/CalamaresUtils.h"
 #include "utils/Logger.h"
+#include "utils/Variant.h"
 
 #include "NetInstallPage.h"
 
@@ -67,18 +67,6 @@ NetInstallViewStep::widget()
 {
     return m_widget;
 }
-
-
-void
-NetInstallViewStep::next()
-{
-    emit done();
-}
-
-
-void
-NetInstallViewStep::back()
-{}
 
 
 bool
@@ -160,14 +148,14 @@ NetInstallViewStep::onLeave()
         QMap<QString, QVariant> op;
         op.insert( "install", QVariant( installPackages ) );
         packageOperations.append( op );
-        cDebug() << "  .." << installPackages.length() << "critical packages.";
+        cDebug() << Logger::SubEntry << installPackages.length() << "critical packages.";
     }
     if ( !tryInstallPackages.empty() )
     {
         QMap<QString, QVariant> op;
         op.insert( "try_install", QVariant( tryInstallPackages ) );
         packageOperations.append( op );
-        cDebug() << "  .." << tryInstallPackages.length() << "non-critical packages.";
+        cDebug() << Logger::SubEntry << tryInstallPackages.length() << "non-critical packages.";
     }
 
     if ( !packageOperations.isEmpty() )

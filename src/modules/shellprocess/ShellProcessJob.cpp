@@ -18,18 +18,17 @@
 
 #include "ShellProcessJob.h"
 
-#include <QProcess>
 #include <QDateTime>
+#include <QProcess>
 #include <QThread>
 
 #include "CalamaresVersion.h"
-#include "JobQueue.h"
 #include "GlobalStorage.h"
+#include "JobQueue.h"
 
-#include "utils/CalamaresUtils.h"
-#include "utils/CalamaresUtilsSystem.h"
 #include "utils/CommandList.h"
 #include "utils/Logger.h"
+#include "utils/Variant.h"
 
 ShellProcessJob::ShellProcessJob( QObject* parent )
     : Calamares::CppJob( parent )
@@ -56,7 +55,7 @@ Calamares::JobResult
 ShellProcessJob::exec()
 {
 
-    if ( ! m_commands || m_commands->isEmpty() )
+    if ( !m_commands || m_commands->isEmpty() )
     {
         cWarning() << "No commands to execute" << moduleInstanceKey();
         return Calamares::JobResult::ok();
@@ -70,18 +69,25 @@ void
 ShellProcessJob::setConfigurationMap( const QVariantMap& configurationMap )
 {
     bool dontChroot = CalamaresUtils::getBool( configurationMap, "dontChroot", false );
-    int timeout = CalamaresUtils::getInteger( configurationMap, "timeout", 10 );
+    qint64 timeout = CalamaresUtils::getInteger( configurationMap, "timeout", 10 );
     if ( timeout < 1 )
+    {
         timeout = 10;
+    }
 
     if ( configurationMap.contains( "script" ) )
     {
-        m_commands = new CalamaresUtils::CommandList( configurationMap.value( "script" ), !dontChroot, timeout );
+        m_commands = new CalamaresUtils::CommandList(
+            configurationMap.value( "script" ), !dontChroot, std::chrono::seconds( timeout ) );
         if ( m_commands->isEmpty() )
+        {
             cDebug() << "ShellProcessJob: \"script\" contains no commands for" << moduleInstanceKey();
+        }
     }
     else
+    {
         cWarning() << "No script given for ShellProcessJob" << moduleInstanceKey();
+    }
 }
 
-CALAMARES_PLUGIN_FACTORY_DEFINITION( ShellProcessJobFactory, registerPlugin<ShellProcessJob>(); )
+CALAMARES_PLUGIN_FACTORY_DEFINITION( ShellProcessJobFactory, registerPlugin< ShellProcessJob >(); )

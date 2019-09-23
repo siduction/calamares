@@ -6,6 +6,7 @@
 #   Copyright 2014, Kevin Kofler <kevin.kofler@chello.at>
 #   Copyright 2016, Philip Müller <philm@manjaro.org>
 #   Copyright 2017, Alf Gaida <agaida@siduction.org>
+#   Copyright 2019, Adriaan de Groot <groot@kde.org>
 #
 #   Calamares is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -42,6 +43,12 @@ def run():
     :return:
     """
     root_mount_point = libcalamares.globalstorage.value("rootMountPoint")
+
+    if root_mount_point is None:
+        libcalamares.utils.warning("rootMountPoint is empty, {!s}".format(root_mount_point))
+        return (_("Configuration Error"),
+                _("No root mount point is given for <pre>{!s}</pre> to use." ).format("machineid"))
+
     enable_systemd = libcalamares.job.configuration["systemd"]
     enable_dbus = libcalamares.job.configuration["dbus"]
     enable_symlink = libcalamares.job.configuration["symlink"]

@@ -19,14 +19,15 @@
 
 #include "Module.h"
 
-#include "ProcessJobModule.h"
-#include "CppJobModule.h"
-#include "ViewModule.h"
-#include "utils/CalamaresUtils.h"
-#include "utils/YamlUtils.h"
-#include "utils/Logger.h"
-#include "Settings.h"
 #include "CalamaresConfig.h"
+#include "CppJobModule.h"
+#include "ProcessJobModule.h"
+#include "Settings.h"
+#include "ViewModule.h"
+
+#include "utils/Dirs.h"
+#include "utils/Logger.h"
+#include "utils/Yaml.h"
 
 #ifdef WITH_PYTHON
 #include "PythonJobModule.h"
@@ -35,8 +36,6 @@
 #ifdef WITH_PYTHONQT
 #include "PythonQtViewModule.h"
 #endif
-
-#include <yaml-cpp/yaml.h>
 
 #include <QDir>
 #include <QFile>
@@ -49,8 +48,7 @@ static const char EMERGENCY[] = "emergency";
 namespace Calamares
 {
 
-Module::~Module()
-{}
+Module::~Module() {}
 
 Module*
 Module::fromDescriptor( const QVariantMap& moduleDescriptor,
@@ -58,7 +56,7 @@ Module::fromDescriptor( const QVariantMap& moduleDescriptor,
                         const QString& configFileName,
                         const QString& moduleDirectory )
 {
-    std::unique_ptr<Module> m;
+    std::unique_ptr< Module > m;
 
     QString typeString = moduleDescriptor.value( "type" ).toString();
     QString intfString = moduleDescriptor.value( "interface" ).toString();
@@ -71,7 +69,9 @@ Module::fromDescriptor( const QVariantMap& moduleDescriptor,
     if ( ( typeString == "view" ) || ( typeString == "viewmodule" ) )
     {
         if ( intfString == "qtplugin" )
+        {
             m.reset( new ViewModule() );
+        }
         else if ( intfString == "pythonqt" )
         {
 #ifdef WITH_PYTHONQT
@@ -81,14 +81,20 @@ Module::fromDescriptor( const QVariantMap& moduleDescriptor,
 #endif
         }
         else
+        {
             cError() << "Bad interface" << intfString << "for module type" << typeString;
+        }
     }
     else if ( typeString == "job" )
     {
         if ( intfString == "qtplugin" )
+        {
             m.reset( new CppJobModule() );
+        }
         else if ( intfString == "process" )
+        {
             m.reset( new ProcessJobModule() );
+        }
         else if ( intfString == "python" )
         {
 #ifdef WITH_PYTHON
@@ -98,22 +104,27 @@ Module::fromDescriptor( const QVariantMap& moduleDescriptor,
 #endif
         }
         else
+        {
             cError() << "Bad interface" << intfString << "for module type" << typeString;
+        }
     }
     else
+    {
         cError() << "Bad module type" << typeString;
+    }
 
     if ( !m )
     {
-        cError() << "Bad module type (" << typeString
-                 << ") or interface string (" << intfString
-                 << ") for module " << instanceId;
+        cError() << "Bad module type (" << typeString << ") or interface string (" << intfString << ") for module "
+                 << instanceId;
         return nullptr;
     }
 
     QDir moduleDir( moduleDirectory );
     if ( moduleDir.exists() && moduleDir.isReadable() )
+    {
         m->m_directory = moduleDir.absolutePath();
+    }
     else
     {
         cError() << "Bad module directory" << moduleDirectory << "for" << instanceId;
@@ -142,22 +153,32 @@ moduleConfigurationCandidates( bool assumeBuildDir, const QString& moduleName, c
     QStringList paths;
 
     if ( CalamaresUtils::isAppDataDirOverridden() )
+    {
         paths << CalamaresUtils::appDataDir().absoluteFilePath( QString( "modules/%1" ).arg( configFileName ) );
+    }
     else
     {
         // If an absolute path is given, in debug mode, look for it
         // first. The case contains('/'), below, will add the absolute
         // path a second time, though.
         if ( assumeBuildDir && configFileName.startsWith( '/' ) )
+        {
             paths << configFileName;
+        }
         if ( assumeBuildDir )
-            paths << QDir().absoluteFilePath(QString( "src/modules/%1/%2" ).arg( moduleName ).arg( configFileName ) );
+        {
+            paths << QDir().absoluteFilePath( QString( "src/modules/%1/%2" ).arg( moduleName ).arg( configFileName ) );
+        }
         if ( assumeBuildDir && configFileName.contains( '/' ) )
+        {
             paths << QDir().absoluteFilePath( configFileName );
+        }
 
         if ( CalamaresUtils::haveExtraDirs() )
             for ( auto s : CalamaresUtils::extraConfigDirs() )
+            {
                 paths << ( s + QString( "modules/%1" ).arg( configFileName ) );
+            }
 
         paths << QString( "/etc/calamares/modules/%1" ).arg( configFileName );
         paths << CalamaresUtils::appDataDir().absoluteFilePath( QString( "modules/%1" ).arg( configFileName ) );
@@ -166,10 +187,11 @@ moduleConfigurationCandidates( bool assumeBuildDir, const QString& moduleName, c
     return paths;
 }
 
-void
-Module::loadConfigurationFile( const QString& configFileName ) //throws YAML::Exception
+void Module::loadConfigurationFile( const QString& configFileName )  //throws YAML::Exception
 {
-    foreach ( const QString& path, moduleConfigurationCandidates( Settings::instance()->debugMode(), m_name, configFileName ) )
+    QStringList configCandidates
+        = moduleConfigurationCandidates( Settings::instance()->debugMode(), m_name, configFileName );
+    for ( const QString& path : configCandidates )
     {
         QFile configFile( path );
         if ( configFile.exists() && configFile.open( QFile::ReadOnly | QFile::Text ) )
@@ -192,12 +214,12 @@ Module::loadConfigurationFile( const QString& configFileName ) //throws YAML::Ex
 
             cDebug() << "Loaded module configuration" << path;
             m_configurationMap = CalamaresUtils::yamlMapToVariant( doc ).toMap();
-            m_emergency = m_maybe_emergency
-                          && m_configurationMap.contains( EMERGENCY )
-                          && m_configurationMap[ EMERGENCY ].toBool();
+            m_emergency = m_maybe_emergency && m_configurationMap.contains( EMERGENCY )
+                && m_configurationMap[ EMERGENCY ].toBool();
             return;
         }
     }
+    cDebug() << "No config file for" << m_name << "found anywhere at" << Logger::DebugList( configCandidates );
 }
 
 
@@ -234,9 +256,9 @@ Module::typeString() const
 {
     switch ( type() )
     {
-    case Job:
+    case Type::Job:
         return "Job Module";
-    case View:
+    case Type::View:
         return "View Module";
     }
     return QString();
@@ -248,13 +270,13 @@ Module::interfaceString() const
 {
     switch ( interface() )
     {
-    case ProcessInterface:
+    case Interface::Process:
         return "External process";
-    case PythonInterface:
+    case Interface::Python:
         return "Python (Boost.Python)";
-    case PythonQtInterface:
+    case Interface::PythonQt:
         return "Python (experimental)";
-    case QtPluginInterface:
+    case Interface::QtPlugin:
         return "Qt Plugin";
     }
     return QString();
@@ -270,7 +292,8 @@ Module::configurationMap()
 
 Module::Module()
     : m_loaded( false )
-{}
+{
+}
 
 
 void
@@ -278,7 +301,15 @@ Module::initFrom( const QVariantMap& moduleDescriptor )
 {
     m_name = moduleDescriptor.value( "name" ).toString();
     if ( moduleDescriptor.contains( EMERGENCY ) )
+    {
         m_maybe_emergency = moduleDescriptor[ EMERGENCY ].toBool();
+    }
 }
 
-} //ns
+RequirementsList
+Module::checkRequirements()
+{
+    return RequirementsList();
+}
+
+}  // namespace Calamares

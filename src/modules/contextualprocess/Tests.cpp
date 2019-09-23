@@ -20,9 +20,7 @@
 #include "ContextualProcessJob.h"
 
 #include "utils/CommandList.h"
-#include "utils/YamlUtils.h"
-
-#include <yaml-cpp/yaml.h>
+#include "utils/Yaml.h"
 
 #include <QtTest/QtTest>
 
@@ -33,13 +31,9 @@ QTEST_GUILESS_MAIN( ContextualProcessTests )
 
 using CommandList = CalamaresUtils::CommandList;
 
-ContextualProcessTests::ContextualProcessTests()
-{
-}
+ContextualProcessTests::ContextualProcessTests() {}
 
-ContextualProcessTests::~ContextualProcessTests()
-{
-}
+ContextualProcessTests::~ContextualProcessTests() {}
 
 void
 ContextualProcessTests::initTestCase()
@@ -65,7 +59,6 @@ ContextualProcessTests::testProcessListSampleConfig()
     ContextualProcessJob job;
     job.setConfigurationMap( CalamaresUtils::yamlMapToVariant( doc ).toMap() );
 
-    QCOMPARE(job.count(), 1); // Only "firmwareType"
-    QCOMPARE(job.count("firmwareType"), 4);
+    QCOMPARE( job.count(), 1 );  // Only "firmwareType"
+    QCOMPARE( job.count( "firmwareType" ), 4 );
 }
-

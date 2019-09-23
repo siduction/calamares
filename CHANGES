@@ -3,11 +3,329 @@ contributors are listed. Note that Calamares does not have a historical
 changelog -- this log starts with version 3.2.0. The release notes on the
 website will have to do for older versions.
 
-# 3.2.3 (unreleased) #
+
+# 3.2.14 (unreleased) #
+
+This release contains contributions from (alphabetically by first name):
+ - Harald Sitter
+
+## Core ##
+
+## Modules ##
+
+ - *locale* module no longer recognizes the legacy GeoIP configuration.
+   This has been deprecated since Calamares 3.2.8 and is now removed.
+ - *packagechooser* module can now be custom-labeled in the overall
+   progress (left-hand column). #1228
+ - *displaymanager* module now recognizes KDE Plasma 5.17.
+
+
+# 3.2.13 (2019-08-30) #
+
+This release contains contributions from (alphabetically by first name):
+ - Arnaud Ferraris
+ - Arnaud Rebillout
+ - Bill Auger
+ - Kevin Kofler
+
+## Core ##
+
+- The Calamares standard coding style -- embodied in `ci/calamaresstyle`
+  has had a few updates and has now been consistently applied across
+  the core codebase (e.g. libcalamares, libcalamaresui, calamares, but
+  not the modules).
+- *KCoreAddons* is now a required dependency. This lets us drop a chunk
+  of code that was copied from KCoreAddons years ago, and use the
+  (maintained!) upstream version instead. It also gives us KMacroExpander
+  everywhere, which will simplify code for handling substitutions
+  in configuration files.
+- *Slideshows* now have a new property *activatedInCalamares* which
+  controls the keyboard shortcuts (and can control timers and other
+  properties of the slideshow, too).
+
+## Modules ##
+
+- The *packagechooser* module can load data from the config-file,
+  from AppData XML files referred by the config-file, and (new) also
+  from AppStream caches by referring to an application's AppStream id. #1212
+- The *partition* module now understands the units *KB*, *MB*, *GB* which
+  are powers-of-ten sizes, alongside the powers-of-two sizes that it already
+  used. (thanks to Arnaud)
+- The *welcome* module now supports a *Donate* button if *showDonateUrl*
+  is set to a non-empty URL. #1197
+- The *welcome* module can have URLs for the various buttons configured
+  directly in the module configuration (rather than in `branding.desc`).
+
+
+# 3.2.12 (2019-08-07) #
+
+This release contains contributions from (alphabetically by first name):
+ - apt-ghetto
+ - Bill Auger
+ - embar
+
+## Core ##
+
+ - Preliminary work to allow jobs to have a *weight* assigned to them
+   has been added. This will allow the progress bar to better reflect
+   progress by the amount of work done rather than purely by the
+   number of jobs. (Thanks to Bill Auger)
+ - Preliminary work has been added to post the installation log to a
+   pastebin for bug reporting. (Thanks to Bill Auger)
+ - Support for translated human-readable strings in Calamares
+   config files has been added. This is used only in the *packagechooser*
+   module (see below) but will expand to those modules that need
+   user-visible strings from the configuration file (existing
+   solutions need either gettext or Qt support).
+ - Esperanto is now available when Qt version 5.12.2 or later is used.
+
+## Modules ##
+
+ - *fstab* A new configuration key *efiMountOptions* has been added, to
+   allow setting filesystem options specifically for the EFI partition.
+   (Thanks to apt-ghetto)
+ - *packagechooser* is a new module for low-density package choices,
+   e.g. for selecting a default desktop environment, or adding some
+   proprietary drivers, or chosing browsers of office suites. It presents
+   **one** collection of items -- at most ten or so, because of the UI --
+   and the user can select zero or more of them. The behavior is
+   configurable, and package information can be set through the Calamares
+   configuration file or by reading AppData files for the packages. #426
+
+
+# 3.2.11 (2019-07-06) #
+
+This release contains contributions from (alphabetically by first name):
+ - No other contributors this time around.
+
+This is a security release with no functional changes (except for
+improved security) relative to 3.2.10. The Calamares team would like
+to acknowledge the help of the following people in reporting and
+understanding the issues (alphabetically by first name):
+ - Kevin Kofler
+ - Seth Arnold
+ - Simon Quigley
+ - Thomas Ward
+Both CVE's have been resolved.
+
+## Core ##
+
+No core changes.
+
+## Modules ##
+
+ - *initramfs* could create an initramfs with insecure permissions.
+   Since the keyfile is included in the initramfs, an attacker could
+   read the file from the initramfs. #1190 CVE-2019-13178
+ - *luksbootkeyfile* created a key file where a window of opportunity
+   existed where the key file could have too-lax file permissions.
+   #1191 CVE-2019-13179
+
+
+# 3.2.10 (2019-06-28) #
+
+This release contains contributions from (alphabetically by first name):
+ - No other contributors this time around.
+
+Distributions are **advised** to check the slideshow they use for the
+installation step; changes in loading and translation mechanisms may
+require changes in the slideshow.
+
+## Core ##
+
+ - With this release, option *WITH_PYTHONQT* changes default to **off**.
+   There does not seem to be any serious use of the PythonQt API and
+   the UI opportunities it offers, so begin the process of deprecating
+   and removing that. Sometime in the future, QML pages will fill the
+   gap for easily-prototyped-yet-slick UI elements.
+ - A crash when no *finished* page (or rather, no page at all) is
+   configured after the last *exec* section of the sequence has been
+   solved. The *finished* page can be left out (but then you don't get
+   the restart-now functionality). #1168
+ - The *slideshow* which is run during installation now has API versions.
+   API version 1 (the default) runs as before, where the slideshow is loaded
+   when the installation starts. API version 2 loads the slideshow on
+   Calamares startup, thus improving responsiveness. Documentation
+   in `src/branding/README.md`. #1152
+ - The example slideshow now uses API version 2.
+
+## Modules ##
+
+ - *initramfs* has been changed from a Python module to a C++ module.
+   Packaging will need to adjust now it installs a .so instead of a .py.
+   The module itself functions as before. It does have a new configuration
+   option, to change the version passed as to the `-k` option of
+   update-initramfs. #1180
+ - *partition* Now has its own setting for *requiredStorage*, duplicating
+   the same setting in the *welcome* module. This is useful for
+   configurations where no *welcome* module is used, but a minimum
+   size must be checked anyway. #1169
+
+
+# 3.2.9 (2019-06-03) #
+
+This release contains contributions from (alphabetically by first name):
+ - Kevin Kofler
+
+## Core ##
+
+No user- or deployer-visible changes. Bugfixing as usual, see the
+milestone for details.
+
+## Modules ##
+
+ - *branding* now supports os-release variables in the *strings* section,
+   which allows re-using (at runtime) information set in /etc/os-release .
+   This requires KDE Frameworks 5.58. #1150
+ - *branding* allows the use of FreeDesktop.org icon names for the
+   *productLogo* and *productIcon* keys. If a file is named there, then
+   the file is used, and otherwise the icon is looked up in the current
+   theme. #1160
+ - *packages* On Arch, with the `pacman` package manager, avoid a hang
+   during system update. #1154
+ - *welcome* allows a custom image path or icon name to be set for the
+   language-selection drop-down (instead of the international standard one).
+
+
+# 3.2.8 (2019-05-10) #
+
+This is a **source-incompatible** release of Calamares. Include files
+have been shuffled around, so third-party C++ modules will need
+adjustment to the changed names.
+
+This release contains contributions from (alphabetically by first name):
+ - Arnaud Ferraris
+ - Kevin Kofler
+
+## Core ##
+
+ - All user-visible texts referring to "MB" and "GB" now use the standard
+   "MiB" and "GiB" wording, which matches what we were actually calculating
+   with (i.e. 2^20 and 2^30 respectively). #1129
+ - The side-pane, which shows the list of steps that will be executed,
+   now tries to fit the text (name of each module) into the available space
+   by shrinking the font as needed. #1137
+ - *libcalamares* (accidentally) linked with Qt's GUI libraries when
+   PythonQt was found. This led to the odd situation where the non-GUI
+   Calamares library depends on a bunch of GUI libraries.
+ - *libcalamares* The `utils/` subdirectory has been hugely refactored,
+   with functionality split out into separate files. C++ modules will
+   need to have their `#include` names updated. Basically, users of
+   `utils/CalamaresUtils.h` will need to include the header file for
+   the functionality that is actually used.
+
+## Modules ##
+
+ - *finished* has a new mechanism for configuring the behavior of the
+   *restart now* button. The old-style boolean configuration is still
+   supported but generates a warning. #1138
+ - *locale* module GeoIP configuration has a new preferred format.
+   See `locale.conf` for details. The old configuration is still
+   supported but will be phased out before 3.3.0 -- in particular,
+   support for "legacy" format will be removed, since that was a
+   crutch for the disappearance of one GeoIP provider in 2018.
+ - *oemid* is a new module for configuring OEM phase-0 (image pre-mastering,
+   or pre-deployment) things. It has limited functionality at the moment,
+   writing only a single batch-identifier file. #943
+ - *welcome* can now do GeoIP lookups as well (but be careful with the
+   configuration, since you need a GeoIP that provides country information,
+   not just timezones). This will let Calamares select a starting language
+   that matches where it is -- which might not be useful at all. #934
+ - All Python modules now bail out gracefully on (at least some) bad
+   configurations, rather than raising an exception. The pre-release
+   scripts now test for exceptions to avoid shipping modules with
+   ImportError or SyntaxError results.
+
+
+# 3.2.7 (2019-04-27) #
+
+This is a **hotfix** release for regressions introduced in the
+Python modules. The *localecfg* module was unusable because of
+a missing `import`.
+
+
+# 3.2.6 (2019-04-25) #
+
+This release contains contributions from (alphabetically by first name):
+ - Arnaud Ferraris
+ - Dominic Hayes (feren)
+ - Raul Rodrigo Segura (raurodse)
+
+## Core ##
+
+ * Under-the-hood code cleanups in lots of parts of the core. Calamares now
+   builds without warnings when Clang 8 is used.
+ * A new *disable-cancel-during-exec* setting provides more fine-grained
+   control than *disable-cancel*, which hides the button entirely.
+   #1122 (Thanks to Dominic, FerenOS)
+ * A branding module can now also cause a stylesheet to be loaded, which
+   will be applied to the widgets inside Calamares. #961 (Thanks to Raul)
+
+## Modules ##
+
+ * All of the Python-based modules now have translations enabled. #991
+ * *Displaymanager* module has improved support for LightDM configuration.
+   #1123 (Thanks to Dominic, FerenOS)
+ * *License* module can now display local files inline, and scrolls to
+   allow longer lists of licenses and to support long license texts
+   displayed inline. #1124 #1125 #1052
+ * *Partition* module has additional checks for validity partition layouts.
+   #1127 (Thanks to Arnaud)
+ * *Welcome* module has improved usability: a standard icon
+   alongside the *Language* label, for improved recognition,
+   and improved language-list display and sorting. #1107
+
+
+# 3.2.5 (2019-04-15) #
+
+This release contains contributions from (alphabetically by first name):
+ - Arnaud Ferraris
+ - Dan Simmons
+ - Gabriel Craciunescu
+
+## Core ##
+
+ * View modules (in C++) can now perform their own requirements-checking
+   to see if installation makes sense. This expands upon the existing
+   requirements checks in the welcome module (RAM, disk space, ..).
+   The checks have been made asynchronous, so that responsiveness during
+   requirements-checking is improved and the user has better feedback.
+ * Support for building an AppImage of Calamares has been added to the
+   `ci/` directory. There are use-cases where a containerized build and
+   configuration make sense rather than having Calamares installed in the
+   host system. (Thanks to the AppImage team, Alexis)
+ * OEM mode (phase-1) now correctly refers to Calamares as a "Setup Program"
+   rather than an installer. #1100 (Thanks to Arnaud)
+
+## Modules ##
+
+ * *Bootloader* module: a serious bug introduced in 3.2.4 which prevents
+   succesful boot after installation on EFI machines, has been repaired.
+   (Thanks to Gabriel) #1104
+ * *Displaymanager* module: it is no longer a fatal error to not have any
+   display-managers. #1095
+ * *Partition* module: it is now possible to build without libparted. Since
+   KPMCore may not need this library anymore, it is a dependency that will
+   be dropped as soon as it is feasible. Add this to the CMake flags:
+   `-DCMAKE_DISABLE_FIND_PACKAGE_LIBPARTED=ON`
+ * *Partition* module: the location that is selected for the bootloader,
+   no longer changes when a new partition is created. #1098
+ * Python modules: several modules have had translations added. This is
+   usually only visible when the module runs as part of the *exec* step,
+   when the module's *pretty name* is displayed. In addition, some error
+   messages are now translated.
+ * *UnpackFS* module: improved progress reporting and tests. #565
+
+
+# 3.2.4 (2019-02-12) #
 
 This release contains contributions from (alphabetically by first name):
  - Alf Gaida
- - Caio Carvalho
+ - aliveafter1000
+ - Arnaud Ferraris
+ - Caio Jordão Carvalho
+ - Collabora LTD
+ - Gabriel Craciunescu
  - Kevin Kofler
  - Philip Mueller
  - Scott Harvey
@@ -22,29 +340,76 @@ This release contains contributions from (alphabetically by first name):
    Calamares configurations (in particular, distro's can **add**
    configuration files and give them priority, instead of **forking**
    configuration files).
+ * The *branding* file now contains settings that control the size
+   and resize behavior of Calamares. See the branding file for
+   more documentation. In particular, the setting *windowExpanding*
+   can be set to *normal*, *fullscreen* or *noexpand*.
+ * The `settings.conf` file can now configure whether the *Cancel* button
+   is shown (this isn't a branding thing, because it's quite fundamental
+   to the workflow of the installer).
 
 ## Modules ##
 
  * The *partition* module supports RAID devices, but only when Calamares
-   is compiled with the newest KPMCore release.
+   is compiled with the newest KPMCore release (3.3.0).
  * The calculation of required space -- including swap -- has been simplified,
    and Calamares no longer reserves 2GiB of space in calculations for internal
    use (this means that it no longer mysteriously drops swap when the disk
    size is close to the required installation size).
+ * The name of the type of default filesystem (e.g. ext4 or btrfs) is now handled
+   case- and localization-insensitively. This means that *btrfs* is now always
+   an acceptable spelling.
+ * The currently-selected disk device is remembered between manual partitioning
+   and the partitioning-overview pages. (Thanks to Arnaud)
+ * *partition* There is new support for partitioning layout presets.
+   See `partition.conf` for documentation and details.
  * The *keyboard* module now handles the (bogus) Austrian keymap for
-   the system console properly.
+   the system console properly. (Thanks to Kevin)
  * The *preservefiles* module now has a mechanism for setting the permissions
-   (and ownership) of preserved files.
+   (and ownership) of preserved files. (Thanks to Scott)
  * New module *fsresizer* can be used to resize filesystems. It is intended
    for use in OEM installs where an image of fixed size is created,
    and then sized to the actual SD card the user has used.
+ * The *mount* module now handles missing *extraMounts* and *extraMountsEfi*
+   keys gracefully (this is probably a misconfiguration, though, and gives a
+   warning).
+ * The *packages* module now supports pre- and post-script options
+   for all operations, not just during install (keep in mind that
+   these run as three separate shells, though).
+ * A new *rawfs* module supports straightforward copying of filesystems from
+   the installation media to the target stystem. This can be used, for instance,
+   for block-level-identical installations.
+
+
+# 3.2.3 (2019-01-09) #
+
+This release contains contributions from (alphabetically by first name):
+ - aliveafter1000
+
+## Core ##
+
+There are no core changes in this release.
+
+## Modules ##
+
+ * *partition* Fixed bug where, during detection of existing systems, the
+   existing system partitions may be mounted and then files deleted.
+   This is a **limited** version of the patch from aliveafter1000
+   that will be in 3.2.4, which tries harder to mount filesystems
+   read-only and unmodifiable.
+ * *locale* It was possible to set the installer and system language
+   (e.g. to German) while the global storage value for *locale*
+   remained set to English. Then no localization packages are installed
+   (see feature `${LOCALE}` in `packages.conf`). Reported downstream
+   in Netrunner.
+
 
 # 3.2.2 (2018-09-04) #
 
 This release contains contributions from (alphabetically by first name):
  - Andrius Štikonas
  - artoo@cromnix.org
- - Caio Carvalho
+ - Caio Jordão Carvalho
  - Harald Sitter
  - Philip Müller
  - Simon Quigley
@@ -144,7 +509,7 @@ This release contains contributions from (alphabetically by first name):
 This release contains contributions from (alphabetically by first name):
  - Alf Gaida
  - AlmAck
- - Caio Carvalho
+ - Caio Jordão Carvalho
  - Frede H
 
 ## Modules ##

@@ -2,6 +2,7 @@
  *
  *   Copyright 2014, Aurélien Gâteau <agateau@kde.org>
  *   Copyright 2015, Teo Mrnjavac <teo@kde.org>
+ *   Copyright 2019, Adriaan de Groot <groot@kde.org>
  *
  *   Calamares is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -22,8 +23,12 @@
 #include "core/PartitionInfo.h"
 #include "core/KPMHelpers.h"
 
+#include "utils/Logger.h"
+
 // KPMcore
 #include <kpmcore/core/device.h>
+
+#include <QComboBox>
 
 static QStandardItem*
 createBootLoaderItem( const QString& description, const QString& path, bool isPartition )
@@ -46,9 +51,15 @@ BootLoaderModel::~BootLoaderModel()
 void
 BootLoaderModel::init( const QList< Device* >& devices )
 {
+    cDebug() << "BLM::init with" << devices.count() << "devices" << rowCount() << "rows";
+    beginResetModel();
+    blockSignals( true );
+
     m_devices = devices;
-    clear();
-    createMbrItems();
+    updateInternal();
+
+    blockSignals( false );
+    endResetModel();
 }
 
 void
@@ -67,8 +78,25 @@ BootLoaderModel::createMbrItems()
 void
 BootLoaderModel::update()
 {
+    cDebug() << "BLM::update holds" << m_devices.count() << "devices" << rowCount() << "rows";
+    beginResetModel();
+    blockSignals( true );
+    updateInternal();
+    blockSignals( false );
+    endResetModel();
+}
+
+
+void
+BootLoaderModel::updateInternal()
+{
+    QMutexLocker lock(&m_lock);
     clear();
     createMbrItems();
+
+    // An empty model is possible if you don't havee permissions: don't crash though.
+    if ( rowCount() < 1 )
+        return;
 
     QString partitionText;
     Partition* partition = KPMHelpers::findPartitionByMountPoint( m_devices, "/boot" );
@@ -117,14 +145,60 @@ BootLoaderModel::update()
 QVariant
 BootLoaderModel::data( const QModelIndex& index, int role ) const
 {
+    QMutexLocker lock(&m_lock);
     if ( role == Qt::DisplayRole )
     {
-        if ( QStandardItemModel::data( index, BootLoaderModel::BootLoaderPathRole ).toString().isEmpty() )
-            return QStandardItemModel::data( index, Qt::DisplayRole ).toString();
+        QString displayRole = QStandardItemModel::data( index, Qt::DisplayRole ).toString();
+        QString pathRole = QStandardItemModel::data( index, BootLoaderModel::BootLoaderPathRole ).toString();
+        if ( pathRole.isEmpty() )
+            return displayRole;
 
-        return tr( "%1 (%2)" )
-                .arg( QStandardItemModel::data( index, Qt::DisplayRole ).toString() )
-                .arg( QStandardItemModel::data( index, BootLoaderModel::BootLoaderPathRole ).toString() );
+        return tr( "%1 (%2)" ).arg( displayRole, pathRole );
     }
     return QStandardItemModel::data( index, role );
 }
+
+namespace Calamares
+{
+int
+findBootloader( const QAbstractItemModel* model, const QString& path )
+{
+    for ( int i = 0; i < model->rowCount(); ++i)
+    {
+        const auto index = model->index( i, 0, QModelIndex() );
+        if ( !index.isValid() )
+            continue;
+        QVariant var = model->data( index, BootLoaderModel::BootLoaderPathRole );
+        if ( var.isValid() && var.toString() == path )
+            return i;
+    }
+
+    return -1;
+}
+
+void
+restoreSelectedBootLoader( QComboBox& combo, const QString& path )
+{
+    const auto* model = combo.model();
+    if ( model->rowCount() < 1 )
+    {
+        cDebug() << "No items in BootLoaderModel";
+        return;
+    }
+
+    int r = -1;
+    if ( path.isEmpty() )
+    {
+        combo.setCurrentIndex( 0 );
+    }
+    else if ( (r = findBootloader( model, path )) >= 0 )
+    {
+        combo.setCurrentIndex( r );
+    }
+    else
+    {
+        combo.setCurrentIndex( 0 );
+    }
+}
+
+}  // namespace

@@ -20,7 +20,9 @@
 #ifndef MODULELOADER_H
 #define MODULELOADER_H
 
-#include "Typedefs.h"
+#include "modulesystem/InstanceKey.h"
+
+#include "Requirement.h"
 
 #include <QObject>
 #include <QStringList>
@@ -30,6 +32,7 @@ namespace Calamares
 {
 
 class Module;
+struct RequirementEntry;  // from Requirement.h
 
 /**
  * @brief The ModuleManager class is a singleton which manages Calamares modules.
@@ -76,15 +79,26 @@ public:
     Module* moduleInstance( const QString& instanceKey );
 
     /**
-     * @brief loadModules initiates the asynchronous module loading operation.
+     * @brief loadModules does all of the module loading operation.
      * When this is done, the signal modulesLoaded is emitted.
+     * It is recommended to call this from a single-shot QTimer.
      */
     void loadModules();
+
+    /**
+     * @brief Starts asynchronous requirements checking for each module.
+     * When this is done, the signal modulesChecked is emitted.
+     */
+    void checkRequirements();
 
 signals:
     void initDone();
     void modulesLoaded();  /// All of the modules were loaded successfully
-    void modulesFailed( QStringList );   /// .. or not
+    void modulesFailed( QStringList );  /// .. or not
+    // Below, see RequirementsChecker documentation
+    void requirementsComplete( bool );
+    void requirementsResult( RequirementsList );
+    void requirementsProgress( const QString& );
 
 private slots:
     void doInit();
@@ -112,12 +126,12 @@ private:
 
     QMap< QString, QVariantMap > m_availableDescriptorsByModuleName;
     QMap< QString, QString > m_moduleDirectoriesByModuleName;
-    QMap< QString, Module* > m_loadedModulesByInstanceKey;
+    QMap< ModuleSystem::InstanceKey, Module* > m_loadedModulesByInstanceKey;
     const QStringList m_paths;
 
     static ModuleManager* s_instance;
 };
 
-}
+}  // namespace Calamares
 
-#endif // MODULELOADER_H
+#endif  // MODULELOADER_H
