@@ -38,10 +38,10 @@ Build-Depends: cmake,
                qtdeclarative5-dev,
                qttools5-dev,
                qttools5-dev-tools
-Standards-Version: 4.3.0
-Vcs-Git: https://git.siduction.org/extra/calamares
-Vcs-Browser: https://git.siduction.org/extra/calamares.git
+Standards-Version: 4.5.0
 Homepage: https://github.com/calamares/calamares
+Vcs-Browser: https://git.siduction.org/extra/calamares.git
+Vcs-Git: https://git.siduction.org/extra/calamares
 
 Package: calamares
 Architecture: linux-any
@@ -49,6 +49,7 @@ Depends: ${misc:Depends},
          ${shlibs:Depends},
 	 btrfs-progs,
          calamares-branding,
+	 os-prober,
          squashfs-tools,
 	 sudo
 Description: distribution-independent installer framework
